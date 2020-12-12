@@ -1,0 +1,18 @@
+#!/bin/bash
+# change this file to your needs
+
+echo "Adding some modules"
+
+# module add the_module_you_need_but_dont_deserve
+
+echo "#################"
+echo "    COMPILING    "
+echo "#################"
+
+# g++ -Wall -std=c++17 -O3 src/main.cpp src/file2 -o network
+
+echo "#################"
+echo "     RUNNING     "
+echo "#################"
+
+# ./network

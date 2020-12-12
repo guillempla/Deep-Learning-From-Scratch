@@ -1,0 +1,13 @@
+﻿
+How to run external evaluator: 
+java -jar fi-muni-pv021-automatic-evaluator-1.0-SNAPSHOT-jar-with-dependencies.jar [pathToGeneratedPredictions] [pathToExpectedPredictions] [classCount]
+
+example: 
+java -jar fi-muni-pv021-automatic-evaluator-1.0-SNAPSHOT-jar-with-dependencies.jar ../actualPredictionsExample ../data/mnist_test_labels.csv 10
+
+you can print all data from confusion matrix but it's not very clear and not needed: 
+
+java -jar fi-muni-pv021-automatic-evaluator-1.0-SNAPSHOT-jar-with-dependencies.jar ../actualPredictionsExample ../data/mnist_test_labels.csv 10 printVerbose
+
+
+
