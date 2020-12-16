@@ -25,6 +25,13 @@ class Loss_functions {
         */
         float mean_squared_error(const vector<float>& y_true, const vector<float>& y_pred) const;
 
+        /*
+        y_true: vector of desired values
+        y_pred: vector of values given by the model (w·x)
+        x:      vector of values of previous layers
+        */
+        float mean_squared_error_prime(const vector<float>& y_true, const vector<float>& y_pred, const vector<float>& x) const;
+
 }
 
 #endif
