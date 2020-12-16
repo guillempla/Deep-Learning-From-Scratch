@@ -11,6 +11,6 @@ float Loss_functions::mean_squared_error(const vector<float>& y_true, const vect
     float sum = 0.0;
     float p = y_pred.size();
     for (int k = 0; k < p; k++)
-        sum += pow(y_pred-y_true, 2);
+        sum += pow(y_pred[i]-y_true[i], 2);
     return 0.5*sum;
 }
