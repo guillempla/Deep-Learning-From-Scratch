@@ -1,4 +1,4 @@
-#include "activation_functions"
+#include "activation_functions.hh"
 
 //___________CONSTRUCTORS__________
 Activation_functions::Activation_functions(const float steepness) {
