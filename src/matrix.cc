@@ -1,7 +1,7 @@
 #include "matrix.hh"
 
 //___________CONSTRUCTORS__________
-Matrix::Matrix() {}
+Matrix::Matrix(int m, int n) {}
 
 
 //___________SETTERS__________
