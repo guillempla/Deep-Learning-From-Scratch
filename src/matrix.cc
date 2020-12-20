@@ -1,8 +1,22 @@
 #include "matrix.hh"
+using namespace std;
 
 //___________CONSTRUCTORS__________
-Matrix::Matrix(int m, int n) {}
+Matrix::Matrix(unsigned m, unsigned n) {
+    this->m = m;
+    this->n = n;
+    this->m_matrix.resize(m);
+    for (int i = 0; i < m; i++)
+        m_matrix[i].resize(n, 0);
+}
 
+Matrix::Matrix(unsigned m, unsigned n, double initial) {
+    this->m = m;
+    this->n = n;
+    this->m_matrix.resize(m);
+    for (int i = 0; i < m; i++)
+        m_matrix[i].resize(n, initial);
+}
 
 //___________SETTERS__________
 
@@ -28,4 +42,4 @@ Matrix Matrix::matmul(const Matrix& m1, const Matrix& m2) const {}
 Matrix Matrix::matdot(const Matrix& m1, const Matrix& m2) const {}
 
 
-static void Matrix::print_matrix(const Matrix& m) {}
+void Matrix::print_matrix() const {}

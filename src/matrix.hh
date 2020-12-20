@@ -9,12 +9,13 @@ using namespace std;
 
 class Matrix {
     private:
-        int m, n;
-        vector<vector<double>> m_matrix;
+        unsigned m, n;
+        vector<vector<double> > m_matrix;
 
     public:
         //___________CONSTRUCTORS__________
-        Matrix(int m, int n);
+        Matrix(unsigned m, unsigned n);
+        Matrix(unsigned m, unsigned n, double initial);
 
         //___________SETTERS__________
 
@@ -29,7 +30,7 @@ class Matrix {
         Matrix matmul(const Matrix& m1, const Matrix& m2) const;
         Matrix matdot(const Matrix& m1, const Matrix& m2) const;
 
-        static void print_matrix(const Matrix& m);
+        void print_matrix() const;
 
 
 
