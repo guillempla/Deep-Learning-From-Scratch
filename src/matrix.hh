@@ -10,7 +10,7 @@ using namespace std;
 class Matrix {
     private:
         int m, n;
-        float data;
+        double data;
 
     public:
         //___________CONSTRUCTORS__________
@@ -30,6 +30,6 @@ class Matrix {
 
 
 
-}
+};
 
 #endif
