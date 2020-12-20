@@ -9,7 +9,8 @@ using namespace std;
 
 class Matrix {
     private:
-        unsigned m, n;
+        unsigned m_rowSize;
+        unsigned m_colSize;
         vector<vector<double> > m_matrix;
 
     public:
@@ -20,17 +21,29 @@ class Matrix {
         //___________SETTERS__________
 
 
+        //___________OPERATIONS__________
+        // Matrix operations
+        Matrix operator+(Matrix &);
+        Matrix operator-(Matrix &);
+        Matrix operator*(Matrix &);
+
+        // Scalar Operations
+        Matrix operator+(double);
+        Matrix operator-(double);
+        Matrix operator*(double);
+        Matrix operator/(double);
+        double& operator()(const unsigned &, const unsigned &);
+
         //___________GETTERS__________
-        int get_rows() const;
-        int get_cols() const;
+        unsigned getRows() const;
+        unsigned getCols() const;
 
-        Matrix matsum(const Matrix& m1, const Matrix& m2) const;
-        Matrix matsub(const Matrix& m1, const Matrix& m2) const;
-        Matrix matdiv(const Matrix& m1, const Matrix& m2) const;
-        Matrix matmul(const Matrix& m1, const Matrix& m2) const;
-        Matrix matdot(const Matrix& m1, const Matrix& m2) const;
+        Matrix transpose();
 
-        void print_matrix() const;
+        void printMatrix() const;
+
+        // Matrix matdot(const Matrix& m1, const Matrix& m2) const;
+
 
 
 
