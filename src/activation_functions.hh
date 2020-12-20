@@ -9,30 +9,30 @@ using namespace std;
 
 class Activation_functions {
     private:
-        float steepness;
+        double steepness;
 
     public:
         //___________CONSTRUCTORS__________
         Activation_functions();
-        Activation_functions(const float steepness);
+        Activation_functions(double steepness);
 
         //___________SETTERS__________
-        void modify_steepness(const float steepness);
+        void modify_steepness(double steepness);
 
 
         //___________GETTERS__________
 
         // Return steepness private parameter
-        float steepness() const;
+        double get_steepness() const;
 
         // Activation functions
-        float sigmoid(const float z) const;
-        float relu(const float z) const;
+        double sigmoid(const double z) const;
+        double relu(const double z) const;
 
         // Dervatives of activation functions
-        float sigmoid_prime(const float z) const;
-        float relu_prime(const float z) const;
+        double sigmoid_prime(const double z) const;
+        double relu_prime(const double z) const;
 
-}
+};
 
 #endif
