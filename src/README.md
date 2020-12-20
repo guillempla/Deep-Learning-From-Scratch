@@ -7,7 +7,7 @@
 - [x] Loss functions
 - [ ] Data processing
   - [ ] Read csv
-  - [ ] Write csv
+  - [x] Write csv
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
