@@ -1,2 +1,13 @@
 # Source code
-What a great place to put your solution!
+
+## TODO:
+
+- [x] Makefile
+- [x] Activation functions
+- [x] Loss functions
+- [ ] Data processing
+- [ ] Matrix
+- [ ] Neuron
+- [ ] Layer
+- [ ] Model
+- [ ] Main
