@@ -10,7 +10,7 @@ using namespace std;
 class Matrix {
     private:
         int m, n;
-        vector<vector<double>> m_matrix(m,n);
+        vector<vector<double>> m_matrix;
 
     public:
         //___________CONSTRUCTORS__________
