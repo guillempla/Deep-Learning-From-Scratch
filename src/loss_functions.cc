@@ -11,7 +11,7 @@ double Loss_functions::mean_squared_error(const vector<double>& y_true, const ve
     double sum = 0.0;
     double p = y_pred.size();
     for (int k = 0; k < p; k++)
-        sum += pow(y_pred[i]-y_true[i], 2);
+        sum += pow(y_pred[k]-y_true[k], 2);
     return 0.5*sum;
 }
 
@@ -19,6 +19,6 @@ double Loss_functions::mean_squared_error_prime(const vector<double>& y_true, co
     double sum = 0.0;
     double p = y_pred.size();
     for (int k = 0; k < p; k++)
-        sum += (y_pred[i]-y_true[i])*x[i];
+        sum += (y_pred[k]-y_true[k])*x[k];
     return sum;
 }
