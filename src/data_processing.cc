@@ -10,7 +10,7 @@ Data_processing::Data_processing() {
 }
 
 Data_processing::Data_processing(const string& test_labels_path, const string& test_vectors_path, const string& train_labels_path, const string& train_vectors_path, const string& output_path) {
-    this->test_labels_path = test_labels_pathl;
+    this->test_labels_path = test_labels_path;
     this->test_vectors_path = test_vectors_path;
     this->train_labels_path = train_labels_path;
     this->train_vectors_path = train_vectors_path;
@@ -21,8 +21,32 @@ Data_processing::Data_processing(const string& test_labels_path, const string& t
 
 
 //___________GETTERS__________
-double Data_processing::read_csv() const {
+vector<int> Data_processing::read_test_labels() const {
+    vector<int> labels_vector;
 
+    // Create an input filestream
+    ifstream myFile(this->test_labels_path);
+
+    // Make sure the file is open
+    if (!myFile.is_open()) throw runtime_error("Could not open file");
+
+    // Read data, line by line
+    while(getline(myFile, value)) {
+        labels_vector.push_back(value);
+    }
+
+    // Close file
+    myFile.close();
+
+    return labels_vector;
+}
+
+Matrix Data_processing::read_test_vectors() const {
+    Matrix matrix;
+
+    ifstream myTestVectors(this->test_vectors_path);
+
+    return matrix;
 }
 
 double Data_processing::write_predictions(const vector<int>& predictions) const {

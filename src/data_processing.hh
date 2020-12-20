@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <sstream>
+#include <stdexcept> // std::runtime_erro
 
 #include "matrix.hh"
 
@@ -33,7 +34,9 @@ class Data_processing {
 
         //___________GETTERS__________
 
-        Matrix read_csv() const;
+        vector<int> read_test_labels() const;
+        Matrix read_test_vectors() const;
+
         Matrix write_csv(const vector<int>& predictions) const;
 
 };

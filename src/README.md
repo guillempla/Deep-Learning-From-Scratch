@@ -6,7 +6,8 @@
 - [x] Activation functions
 - [x] Loss functions
 - [ ] Data processing
-  - [ ] Read csv
+  - [x] Read labels
+  - [ ] Read vectors
   - [x] Write csv
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
