@@ -1,6 +1,10 @@
 #include "activation_functions.hh"
 
 //___________CONSTRUCTORS__________
+Activation_functions::Activation_functions() {
+    this->steepness = 1;
+}
+
 Activation_functions::Activation_functions(const float steepness) {
     this->steepness = steepness;
 }

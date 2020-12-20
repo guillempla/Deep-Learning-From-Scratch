@@ -13,6 +13,7 @@ class Activation_functions {
 
     public:
         //___________CONSTRUCTORS__________
+        Activation_functions();
         Activation_functions(const float steepness);
 
         //___________SETTERS__________
