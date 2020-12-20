@@ -8,6 +8,15 @@ Matrix::Matrix(int m, int n) {}
 
 
 //___________GETTERS__________
+int Matrix::get_rows() const {
+    return this->m;
+}
+
+int Matrix::get_cols() const {
+    return this->n;
+}
+
+
 Matrix Matrix::matsum(const Matrix& m1, const Matrix& m2) const {}
 
 Matrix Matrix::matsub(const Matrix& m1, const Matrix& m2) const {}

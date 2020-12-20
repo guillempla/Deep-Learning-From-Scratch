@@ -20,6 +20,9 @@ class Matrix {
 
 
         //___________GETTERS__________
+        int get_rows() const;
+        int get_cols() const;
+
         Matrix matsum(const Matrix& m1, const Matrix& m2) const;
         Matrix matsub(const Matrix& m1, const Matrix& m2) const;
         Matrix matdiv(const Matrix& m1, const Matrix& m2) const;
