@@ -4,25 +4,37 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <string>
+#include <stdio.h>
+#include <fstream>
+#include <sstream>
+
+#include "matrix.hh"
 
 using namespace std;
 
 class Data_processing {
     private:
-        string path;
+        string test_labels_path;
+        string test_vectors_path;
+        string train_labels_path;
+        string train_vectors_path;
+        string output_path;
 
     public:
         //___________CONSTRUCTORS__________
         Data_processing();
-        Data_processing(const string& path);
+        Data_processing(const string& test_labels_path, const string& test_vectors_path,
+                        const string& train_labels_path, const string& train_vectors_path,
+                        const string& output_path);
 
         //___________SETTERS__________
 
 
         //___________GETTERS__________
 
-        double read_csv(const string& file_name) const;
-        double write_csv(const string& file_name) const;
+        Matrix read_csv() const;
+        Matrix write_csv(const vector<int>& predictions) const;
 
 };
 
