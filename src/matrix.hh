@@ -38,7 +38,7 @@ class Matrix {
         unsigned getRows() const;
         unsigned getCols() const;
 
-        Matrix transpose();
+        Matrix transpose() const;
 
         void printMatrix() const;
 

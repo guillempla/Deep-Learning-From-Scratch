@@ -136,8 +136,8 @@ unsigned Matrix::getCols() const {
 }
 
 // Take any given matrices transpose and returns another matrix
-Matrix Matrix::transpose() {
-    Matrix Transpose(m_colSize,m_rowSize,0.0);
+Matrix Matrix::transpose() const {
+    Matrix Transpose(m_colSize, m_rowSize, 0.0);
     for (unsigned i = 0; i < m_colSize; i++)
     {
         for (unsigned j = 0; j < m_rowSize; j++) {
