@@ -9,8 +9,8 @@
 int main() {
     Data_processing data;
 
-    auto labels = data.read_test_labels();
+    auto vectors = data.read_train_vectors();
+    cout << "finished reading";
 
-    for (auto label: labels)
-        cout << label << "\n";
+    cout << vectors.getRows() << " " << vectors.getCols();
 }
