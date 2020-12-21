@@ -30,9 +30,33 @@ vector<int> Data_processing::read_test_labels() const {
     // Make sure the file is open
     if (!myFile.is_open()) throw runtime_error("Could not open file");
 
+    string value;
+
     // Read data, line by line
     while(getline(myFile, value)) {
-        labels_vector.push_back(value);
+        labels_vector.push_back(stoi(value));
+    }
+
+    // Close file
+    myFile.close();
+
+    return labels_vector;
+}
+
+vector<int> Data_processing::read_train_labels() const {
+    vector<int> labels_vector;
+
+    // Create an input filestream
+    ifstream myFile(this->train_labels_path);
+
+    // Make sure the file is open
+    if (!myFile.is_open()) throw runtime_error("Could not open file");
+
+    string value;
+
+    // Read data, line by line
+    while(getline(myFile, value)) {
+        labels_vector.push_back(stoi(value));
     }
 
     // Close file
@@ -42,23 +66,29 @@ vector<int> Data_processing::read_test_labels() const {
 }
 
 Matrix Data_processing::read_test_vectors() const {
-    Matrix matrix;
+    Matrix m(3,2);
 
     ifstream myTestVectors(this->test_vectors_path);
 
-    return matrix;
+    return m;
 }
 
-double Data_processing::write_predictions(const vector<int>& predictions) const {
+Matrix Data_processing::read_train_vectors() const {
+    Matrix m(3,2);
+
+    ifstream myTestVectors(this->train_vectors_path);
+
+    return m;
+}
+
+void Data_processing::write_predictions(const vector<int>& predictions) const {
     // Create an output filestream object
     ofstream myOutput(output_path);
 
     for (int i = 0; i < predictions.size(); i++) {
-        myOutput << toString(predictions[i]) << "\n";
+        myOutput << to_string(predictions[i]) << "\n";
     }
 
     // Close the file
     myOutput.close();
-
-    return 0;
 }

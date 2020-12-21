@@ -35,9 +35,11 @@ class Data_processing {
         //___________GETTERS__________
 
         vector<int> read_test_labels() const;
+        vector<int> read_train_labels() const
         Matrix read_test_vectors() const;
+        Matrix read_train_vectors() const;
 
-        Matrix write_csv(const vector<int>& predictions) const;
+        void write_predictions(const vector<int>& predictions) const;
 
 };
 
