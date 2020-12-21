@@ -1,7 +1,7 @@
 CC    := g++
 EXECS := data_processing activation_functions loss_functions matrix
 
-main: main.cc data_processing activation_functions.cc loss_functions.cc matrix.cc
+main: main.cc data_processing.cc activation_functions.cc loss_functions.cc matrix.cc
 	$(CC) -O2 $+ -o $@
 
 data_processing: data_processing.cc
