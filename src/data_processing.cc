@@ -17,6 +17,7 @@ Data_processing::Data_processing(const string& test_labels_path, const string& t
     this->output_path = output_path;
 }
 
+
 //___________SETTERS__________
 
 
@@ -68,17 +69,32 @@ vector<int> Data_processing::read_train_labels() const {
 Matrix Data_processing::read_test_vectors() const {
     Matrix m(3,2);
 
-    ifstream myTestVectors(this->test_vectors_path);
+    // Create an input filestream
+    ifstream myFile(this->test_vectors_path);
+
+    // Make sure the file is open
+    if (!myFile.is_open()) throw runtime_error("Could not open file");
+
+    string line;
+
+    // Read data, line by line
+    while(getline(myFile, line)) {
+
+    }
+
+    // Close file
+    myFile.close();
 
     return m;
 }
 
 Matrix Data_processing::read_train_vectors() const {
-    Matrix m(3,2);
+    unsigned num_rows = this->count_lines(this->train_vectors_path);
+    unsigned num_cols = this->count_cols(this->train_vectors_path);
 
-    ifstream myTestVectors(this->train_vectors_path);
+    Matrix m_matrix(num_rows, num_cols, 0);
 
-    return m;
+    return m_matrix;
 }
 
 void Data_processing::write_predictions(const vector<int>& predictions) const {
@@ -91,4 +107,34 @@ void Data_processing::write_predictions(const vector<int>& predictions) const {
 
     // Close the file
     myOutput.close();
+}
+
+
+//___________PRIVATE__________
+unsigned Data_processing::count_lines(const string& file_name) const {
+    unsigned number_of_lines = 0;
+    string line;
+    ifstream myfile(file_name);
+    if (!myfile.is_open()) throw runtime_error("Could not open file");
+
+    while (getline(myfile, line))
+        ++number_of_lines;
+
+    myfile.close();
+    return number_of_lines;
+}
+
+unsigned Data_processing::count_cols(const string& file_name) const {
+    string line;
+    ifstream myfile(file_name);
+    if (!myfile.is_open()) throw runtime_error("Could not open file");
+
+    getline(myfile, line);
+    unsigned number_of_cols = 0;
+    for (auto c: line)
+        if (c == ',')
+            number_of_cols++;
+
+    myfile.close();
+    return number_of_cols;
 }

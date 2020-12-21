@@ -22,6 +22,9 @@ class Data_processing {
         string train_vectors_path;
         string output_path;
 
+        unsigned count_lines(const string& file_name) const;
+        unsigned count_cols(const string& file_name) const;
+
     public:
         //___________CONSTRUCTORS__________
         Data_processing();
@@ -35,7 +38,7 @@ class Data_processing {
         //___________GETTERS__________
 
         vector<int> read_test_labels() const;
-        vector<int> read_train_labels() const
+        vector<int> read_train_labels() const;
         Matrix read_test_vectors() const;
         Matrix read_train_vectors() const;
 
