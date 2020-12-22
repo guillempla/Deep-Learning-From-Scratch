@@ -33,6 +33,7 @@
 
 # Large data
 *.csv
+*.txt
 
 # Main exe
 main
