@@ -5,9 +5,9 @@
 - [x] Makefile
 - [x] Activation functions
 - [x] Loss functions
-- [ ] Data processing
+- [x] Data processing
   - [x] Read labels
-  - [ ] Read vectors
+  - [x] Read vectors
   - [x] Write csv
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
