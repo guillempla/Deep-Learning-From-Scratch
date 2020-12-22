@@ -23,78 +23,19 @@ Data_processing::Data_processing(const string& test_labels_path, const string& t
 
 //___________GETTERS__________
 vector<int> Data_processing::read_test_labels() const {
-    vector<int> labels_vector;
-
-    // Create an input filestream
-    ifstream myFile(this->test_labels_path);
-
-    // Make sure the file is open
-    if (!myFile.is_open()) throw runtime_error("Could not open file");
-
-    string value;
-
-    // Read data, line by line
-    while(getline(myFile, value)) {
-        labels_vector.push_back(stoi(value));
-    }
-
-    // Close file
-    myFile.close();
-
-    return labels_vector;
+    return this->read_labels(this->test_labels_path);
 }
 
 vector<int> Data_processing::read_train_labels() const {
-    vector<int> labels_vector;
-
-    // Create an input filestream
-    ifstream myFile(this->train_labels_path);
-
-    // Make sure the file is open
-    if (!myFile.is_open()) throw runtime_error("Could not open file");
-
-    string value;
-
-    // Read data, line by line
-    while(getline(myFile, value)) {
-        labels_vector.push_back(stoi(value));
-    }
-
-    // Close file
-    myFile.close();
-
-    return labels_vector;
+    return this->read_labels(this->train_labels_path);
 }
 
 Matrix Data_processing::read_test_vectors() const {
-    Matrix m(3,2);
-
-    // Create an input filestream
-    ifstream myFile(this->test_vectors_path);
-
-    // Make sure the file is open
-    if (!myFile.is_open()) throw runtime_error("Could not open file");
-
-    string line;
-
-    // Read data, line by line
-    while(getline(myFile, line)) {
-
-    }
-
-    // Close file
-    myFile.close();
-
-    return m;
+    return this->read_vectors(this->test_vectors_path);
 }
 
 Matrix Data_processing::read_train_vectors() const {
-    unsigned num_rows = this->count_lines(this->train_vectors_path);
-    unsigned num_cols = this->count_cols(this->train_vectors_path);
-
-    Matrix m_matrix(num_rows, num_cols, 0);
-
-    return m_matrix;
+    return this->read_vectors(this->train_vectors_path);
 }
 
 void Data_processing::write_predictions(const vector<int>& predictions) const {
@@ -137,4 +78,58 @@ unsigned Data_processing::count_cols(const string& file_name) const {
 
     myfile.close();
     return number_of_cols;
+}
+
+vector<int> Data_processing::read_labels(const string& file_name) const {
+    vector<int> labels_vector;
+
+    // Create an input filestream
+    ifstream myFile(file_name);
+
+    // Make sure the file is open
+    if (!myFile.is_open()) throw runtime_error("Could not open file");
+
+    string value;
+
+    // Read data, line by line
+    while (getline(myFile, value)) {
+        labels_vector.push_back(stoi(value));
+    }
+
+    // Close file
+    myFile.close();
+
+    return labels_vector;
+}
+
+Matrix Data_processing::read_vectors(const string& file_name) const {
+    unsigned num_rows = this->count_lines(file_name);
+    unsigned num_cols = this->count_cols(file_name);
+
+    Matrix matrix(num_rows+1, num_cols+1, 0);
+
+    // Create an input filestream
+    ifstream myFile(file_name);
+
+    // Make sure the file is open
+    if (!myFile.is_open()) throw runtime_error("Could not open file");
+
+    int i = 0;
+    string line;
+    while (getline(myFile, line)) {
+        int j = 0;
+        double value;
+        stringstream ss(line);
+        while (ss >> value) {
+            matrix(i,j) = value;
+
+            // If the next token is a comma, ignore it and move on
+            if(ss.peek() == ',') ss.ignore();
+
+            j++;
+        }
+        i++;
+    }
+
+    return matrix;
 }

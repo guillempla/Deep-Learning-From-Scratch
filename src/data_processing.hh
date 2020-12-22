@@ -25,6 +25,9 @@ class Data_processing {
         unsigned count_lines(const string& file_name) const;
         unsigned count_cols(const string& file_name) const;
 
+        vector<int> read_labels(const string& file_name) const;
+        Matrix read_vectors(const string& file_name) const;
+
     public:
         //___________CONSTRUCTORS__________
         Data_processing();
