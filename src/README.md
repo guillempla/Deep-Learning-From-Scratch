@@ -16,7 +16,6 @@
   - [ ] Random init
   - [ ] Softmax
   - [ ] OpenMP implementation
-- [ ] Neuron
 - [ ] Layer
 - [ ] Model
 - [ ] Main
