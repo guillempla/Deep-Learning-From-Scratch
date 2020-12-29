@@ -23,6 +23,10 @@ void Layer::set_weights(const Matrix& weights) {
     this->weights = weights;
 }
 
+void Layer::set_weights_prime(const Matrix& weights_prime) {
+    this->weights_prime = weights_prime;
+}
+
 
 
 //___________GETTERS__________
@@ -36,6 +40,10 @@ Matrix Layer::get_bias() const {
 
 Matrix Layer::get_weights() const {
     return this->weights;
+}
+
+void Layer::get_weights_prime() const {
+    return this->weights_prime;
 }
 
 
