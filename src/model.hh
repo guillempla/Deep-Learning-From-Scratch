@@ -9,17 +9,17 @@ using namespace std;
 
 class Model {
     private:
+        vector<Layer> layers;
 
     public:
         //___________CONSTRUCTORS__________
-        Model();
+        Model (const vector<unsigned>& arquitecture);
 
         //___________SETTERS__________
+        void feedForward(const vector<double>& inputs);
+        void backPropagate(const vector<double>& predictions);
 
 
-        //___________GETTERS__________
-
-        
 
 };
 
