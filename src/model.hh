@@ -9,15 +9,24 @@ using namespace std;
 
 class Model {
     private:
+        Matrix X;
+        Matrix Y;
         vector<Layer> layers;
+        float learning_rate;
+        unsigned num_iter;
+
+        initialize_parameters(const vector<unsigned> layer_dims);
 
     public:
         //___________CONSTRUCTORS__________
-        Model (const vector<unsigned>& arquitecture);
+        /*
+        arquitecture: position i constains size of layer i
+        */
+        Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter);
 
         //___________SETTERS__________
-        void feedForward(const vector<double>& inputs);
-        void backPropagate(const vector<double>& predictions);
+        void feed_forward(const vector<double>& inputs);
+        void back_propagate(const vector<double>& predictions);
 
 
 
