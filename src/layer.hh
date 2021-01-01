@@ -34,12 +34,16 @@ class Layer {
         void set_weights(const Matrix& weights);
         void set_weights_prime(const Matrix& weights_prime);
 
+        void linear_activation_forward(const Matrix& );
+
 
         //___________GETTERS__________
         int get_type() const;
         Matrix get_bias() const;
         Matrix get_weights() const;
         Matrix get_weights_prime() const;
+        Matrix get_activation() const;
+        Matrix get_activation_cache() const;
 
 
 
