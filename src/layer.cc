@@ -8,6 +8,9 @@ Layer::Layer(int type, unsigned layer_size, unsigned next_size) {
 
     this->bias = Matrix(this->layer_size, (unsigned)(1), 0.01);
     this->weights = Matrix(this->layer_size, this->next_size, 0.01);
+
+    this->Z = Matrix(this->layer_size,  (unsigned)(1));
+    this->activation = Matrix(this->layer_size,  (unsigned)(1));
 }
 
 //___________SETTERS__________

@@ -18,7 +18,7 @@
   - [ ] Softmax
   - [ ] OpenMP implementation
 - [ ] Layer
-  - [ ] Initialize parameters (Z, activation)
+  - [x] Initialize parameters
   - [x] Feed Forward
   - [ ] Back Forward
 - [ ] Model
