@@ -11,11 +11,11 @@ Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_di
 
 
 //___________SETTERS__________
-void Model::feed_forward(const vector<double>& inputs) {
+void Model::feed_forward() {
 
 }
 
-void Model::back_propagate(const vector<double>& predictions) {
+void Model::back_propagate() {
 
 }
 

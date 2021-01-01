@@ -13,13 +13,16 @@
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
   - [x] Print
+  - [ ] Check np.dot()
   - [ ] Random init
   - [ ] Softmax
   - [ ] OpenMP implementation
 - [ ] Layer
+  - [x] Initialize parameters
   - [ ] Feed Forward
   - [ ] Back Forward
 - [ ] Model
+  - [x] Initialize parameters
   - [ ] Feed Forward
   - [ ] Back Forward
 - [ ] Main
