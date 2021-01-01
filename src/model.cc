@@ -12,10 +12,11 @@ Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_di
 
 //___________SETTERS__________
 void Model::feed_forward() {
-    // Matrix A_prev = &X;
-    // for (auto& layer: this->layers) {
-    //     layer.linear_activation_forward();
-    // }
+    Matrix *A_prev = &X;
+    for (auto& layer: this->layers) {
+        layer.linear_activation_forward(*A_prev);
+        A_prev = layer.get_activation();
+    }
 }
 
 void Model::back_propagate() {

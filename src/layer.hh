@@ -46,7 +46,7 @@ class Layer {
         Matrix get_bias() const;
         Matrix get_weights() const;
         Matrix get_weights_prime() const;
-        Matrix get_activation() const;
+        Matrix* get_activation();
 
 
 

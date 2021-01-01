@@ -70,6 +70,6 @@ Matrix Layer::get_weights_prime() const {
     return this->weights_prime;
 }
 
-Matrix Layer::get_activation() const {
-    return this->activation;
+Matrix* Layer::get_activation() {
+    return &(this->activation);
 }

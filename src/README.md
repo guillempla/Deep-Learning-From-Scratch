@@ -2,7 +2,6 @@
 
 ## TODO:
 
-- [x] Makefile
 - [x] Activation functions
 - [x] Loss functions
 - [x] Data processing
@@ -23,7 +22,9 @@
   - [ ] Back Forward
 - [ ] Model
   - [x] Initialize parameters
-  - [ ] Feed Forward
+  - [x] Feed Forward
   - [ ] Back Forward
 - [ ] Main
 - [ ] RUN
+  - [ ] Add modules
+  - [x] Makefile
