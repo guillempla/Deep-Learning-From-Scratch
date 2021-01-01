@@ -4,6 +4,8 @@
 using namespace std;
 
 //___________CONSTRUCTORS__________
+Matrix::Matrix() {}
+
 Matrix::Matrix(unsigned m, unsigned n) {
     m_rowSize = m;
     m_colSize = n;

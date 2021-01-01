@@ -15,6 +15,7 @@ class Matrix {
 
     public:
         //___________CONSTRUCTORS__________
+        Matrix();
         Matrix(unsigned m, unsigned n);
         Matrix(unsigned m, unsigned n, double initial);
 
