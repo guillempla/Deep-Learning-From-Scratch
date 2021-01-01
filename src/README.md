@@ -17,5 +17,9 @@
   - [ ] Softmax
   - [ ] OpenMP implementation
 - [ ] Layer
+  - [ ] Feed Forward
+  - [ ] Back Forward
 - [ ] Model
+  - [ ] Feed Forward
+  - [ ] Back Forward
 - [ ] Main
