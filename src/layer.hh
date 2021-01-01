@@ -5,6 +5,7 @@
 #include <vector>
 #include <math.h>
 #include "matrix.hh"
+#include "activation_functions.hh"
 
 using namespace std;
 
@@ -17,8 +18,8 @@ class Layer {
         Matrix bias;    // matrix of (next_size,1)
         Matrix weights; // matrix of (next_size,actual_size)
 
+        Matrix Z;
         Matrix activation;
-        Matrix activation_cache;
 
         Matrix weights_prime;   // matrix of weights derivatives
 
@@ -34,7 +35,10 @@ class Layer {
         void set_weights(const Matrix& weights);
         void set_weights_prime(const Matrix& weights_prime);
 
-        void linear_activation_forward(const Matrix& );
+        /*
+        A_prev: activations of previous layer
+        */
+        void linear_activation_forward(Matrix& A_prev);
 
 
         //___________GETTERS__________
@@ -43,7 +47,6 @@ class Layer {
         Matrix get_weights() const;
         Matrix get_weights_prime() const;
         Matrix get_activation() const;
-        Matrix get_activation_cache() const;
 
 
 

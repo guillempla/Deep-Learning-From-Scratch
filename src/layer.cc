@@ -35,6 +35,19 @@ void Layer::set_weights_prime(const Matrix& weights_prime) {
     this->weights_prime = weights_prime;
 }
 
+void Layer::linear_activation_forward(Matrix& A_prev) {
+    this->Z = this->weights*A_prev + this->bias;
+
+    Activation_functions a(1);
+
+    for (int i = 0; i < Z.getRows(); i++) {
+        if (type == 0 || type == 1)
+            this->activation(i,1) = a.relu(this->Z(i,1));
+        else
+            this->activation(i,1) = a.sigmoid(this->Z(i,1));
+    }
+}
+
 
 
 //___________GETTERS__________
@@ -56,8 +69,4 @@ Matrix Layer::get_weights_prime() const {
 
 Matrix Layer::get_activation() const {
     return this->activation;
-}
-
-Matrix Layer::get_activation_cache() const {
-    return this->activation_cache;
 }
