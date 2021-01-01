@@ -1,18 +1,26 @@
 #include "layer.hh"
 
 //___________CONSTRUCTORS__________
-Layer::Layer(int type, int layer_size, int next_size) {
+Layer::Layer(int type, unsigned layer_size, unsigned next_size) {
     this->type;
     this->layer_size;
     this->next_size;
 
-    this->initialize_bias();
-    this->initialize_weights();
+    this->bias = Matrix(this->layer_size, (unsigned)(1), 0.01);
+    this->weights = Matrix(this->layer_size, this->next_size, 0.01);
 }
 
 //___________SETTERS__________
 void Layer::set_type(int type) {
     this->type = type;
+}
+
+void Layer::set_layer_size(unsigned layer_size) {
+    this->layer_size = layer_size;
+}
+
+void Layer::set_next_size(unsigned next_size) {
+    this->next_size = next_size;
 }
 
 void Layer::set_bias(const Matrix& bias) {
@@ -42,16 +50,6 @@ Matrix Layer::get_weights() const {
     return this->weights;
 }
 
-void Layer::get_weights_prime() const {
+Matrix Layer::get_weights_prime() const {
     return this->weights_prime;
-}
-
-
-//___________PRIVATE__________
-void Layer::initialize_bias() {
-
-}
-
-void Layer::initialize_weights() {
-
 }
