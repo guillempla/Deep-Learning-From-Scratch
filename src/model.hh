@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include "matrix.hh"
+#include "layer.hh"
 
 using namespace std;
 
@@ -15,7 +17,7 @@ class Model {
         float learning_rate;
         unsigned num_iter;
 
-        initialize_parameters(const vector<unsigned> layer_dims);
+        void initialize_parameters(const vector<unsigned> layer_dims);
 
     public:
         //___________CONSTRUCTORS__________
