@@ -31,11 +31,11 @@ void Model::back_propagate() {
 void Model::initialize_parameters(const vector<unsigned> layers_dims) {
     this->layers.reserve(layers_dims.size()-1);
     int type = 0;
-    for (int i = 0; i < this->layers.size(); i++) {
-        if (i == this->layers.size()-1)
+    for (int i = 1; i < layers_dims.size(); i++) {
+        if (i == layers_dims.size()-1)
             type = 2;
-        this->layers[i] = Layer(type, layers_dims[i], layers_dims[i+1]);
-        if (i == 0)
+        this->layers[i-1] = Layer(type, layers_dims[i], layers_dims[i-1]);
+        if (i == 1)
             type = 1;
     }
 }

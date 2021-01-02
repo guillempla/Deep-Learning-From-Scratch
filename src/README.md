@@ -18,6 +18,7 @@
   - [ ] OpenMP implementation
 - [ ] Layer
   - [x] Initialize parameters
+    - [ ] Don't save input X
   - [x] Feed Forward
   - [ ] Back Forward
 - [ ] Model
