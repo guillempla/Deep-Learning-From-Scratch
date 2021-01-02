@@ -12,7 +12,6 @@
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
   - [x] Print
-  - [ ] Check np.dot()
   - [ ] Random init
   - [ ] Softmax
   - [ ] OpenMP implementation
@@ -25,7 +24,11 @@
   - [x] Initialize parameters
   - [x] Feed Forward
   - [ ] Back Forward
+  - [ ] Update parameters
 - [ ] Main
+  - [ ] Read data
+  - [ ] Train model
+  - [ ] Write predictions
 - [ ] RUN
   - [ ] Add modules
   - [x] Makefile

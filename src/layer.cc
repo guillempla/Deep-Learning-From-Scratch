@@ -38,8 +38,8 @@ void Layer::set_weights_prime(const Matrix& weights_prime) {
     this->weights_prime = weights_prime;
 }
 
-void Layer::linear_activation_forward(Matrix& A_prev) {
-    this->linear_forward(A_prev);
+void Layer::feed_forward(Matrix& A_prev) {
+    this->forward(A_prev);
 
     Activation_functions a(1);
 
@@ -76,7 +76,7 @@ Matrix* Layer::get_activation() {
 
 
 //___________PRIVATE__________
-void Layer::linear_forward(Matrix& A_prev) {
+void Layer::forward(Matrix& A_prev) {
     // this->Z = this->weights.dot(A_prev) + this->bias;
     for (int i = 0; i < this->weights.getRows(); i++) {
         for (int j = 0; j < this->weights.getCols(); j++) {

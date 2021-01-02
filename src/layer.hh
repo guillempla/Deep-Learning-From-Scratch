@@ -21,9 +21,13 @@ class Layer {
         Matrix Z;
         Matrix activation;
 
-        Matrix weights_prime;   // matrix of weights derivatives
+        Matrix weights_prime;       // matrix of weights derivatives
+        Matrix bias_prime;          // matrix of bias derivatives
 
-        void linear_forward();
+        Matrix Z_prime;             // matrix of Z derivatives
+        Matrix activation_prime;    // matrix of activation derivatives
+
+        void forward(Matrix& A_prev);
 
     public:
         //___________CONSTRUCTORS__________
@@ -40,8 +44,8 @@ class Layer {
         /*
         A_prev: activations of previous layer
         */
-        void linear_activation_forward(Matrix& A_prev);
-
+        void feed_forward(Matrix& A_prev);
+        void back_propagate();
 
         //___________GETTERS__________
         int get_type() const;
