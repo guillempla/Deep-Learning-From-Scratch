@@ -24,6 +24,7 @@ class Loss_functions {
         y_pred: vector of values given by the model (w·x)
         */
         double mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) const;
+        double cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) const;
 
         /*
         y_true: vector of desired values
@@ -31,6 +32,7 @@ class Loss_functions {
         x:      vector of values of previous layers
         */
         double mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) const;
+        vector<double> cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) const;
 
 };
 
