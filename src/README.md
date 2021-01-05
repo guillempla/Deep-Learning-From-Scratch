@@ -14,7 +14,7 @@
   - [x] Print
   - [ ] Random init
   - [ ] Softmax
-  - [ ] OpenMP implementation
+  - [x] OpenMP implementation
 - [ ] Layer
   - [x] Initialize parameters
     - [ ] Don't save input X

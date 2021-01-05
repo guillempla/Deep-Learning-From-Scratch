@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <omp.h>
 #include <math.h>
 
 using namespace std;
@@ -43,8 +44,22 @@ class Matrix {
 
         void printMatrix() const;
 
-        // Matrix matdot(const Matrix& m1, const Matrix& m2) const;
+        // Given two unidimensional Matrices returns dot product
+        double dot(Matrix& m) const;
 
+        //___________ACTIVATION__________
+        void sigmoid();
+        void relu();
+
+        void sigmoid_prime();
+        void relu_prime();
+
+        //___________LOSS__________
+        void mean_squared_error();
+        void cross_entropy();
+
+        void mean_squared_error_prime();
+        void cross_entropy_prime();
 
 
 
