@@ -3,7 +3,7 @@
 //___________CONSTRUCTORS__________
 Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter) {
     this->X = X;
-    this->Y = Y;
+    this->Y = Y.transpose();
     this->learning_rate;
     this->num_iter;
     this->initialize_parameters(layers_dims);
@@ -20,7 +20,12 @@ void Model::feed_forward() {
 }
 
 void Model::back_propagate() {
-    Matrix *
+    Matrix *A_prev = this->layers[layers.size()-1].get_activation();
+    Matrix dA_prev = Y - *A_prev;
+    for (int i = layers.size()-1; i >= 0; i--) {
+        auto& layer = this->layers[i];
+        dA_prev = layer.back_propagate(dA_prev);
+    }
 }
 
 
