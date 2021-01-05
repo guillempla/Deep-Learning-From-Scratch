@@ -9,7 +9,7 @@ Layer::Layer(int type, unsigned layer_size, unsigned prev_size) {
     this->bias = Matrix(this->layer_size, (unsigned)(1), 0.01);
     this->weights = Matrix(this->layer_size, this->prev_size, 0.01);
 
-    this->Z = Matrix(this->layer_size,  (unsigned)(1));
+    this->potential = Matrix(this->layer_size,  (unsigned)(1));
     this->activation = Matrix(this->layer_size,  (unsigned)(1));
 }
 
@@ -42,13 +42,10 @@ void Layer::feed_forward(Matrix& A_prev) {
     this->forward(A_prev);
 
     Activation_functions a(1);
+}
 
-    for (int i = 0; i < Z.getRows(); i++) {
-        if (type == 0 || type == 1)
-            this->activation(i,1) = a.relu(this->Z(i,1));
-        else
-            this->activation(i,1) = a.sigmoid(this->Z(i,1));
-    }
+Matrix Layer::back_propagate(Matrix& dA_prev) {
+
 }
 
 
@@ -77,10 +74,9 @@ Matrix* Layer::get_activation() {
 
 //___________PRIVATE__________
 void Layer::forward(Matrix& A_prev) {
-    // this->Z = this->weights.dot(A_prev) + this->bias;
     for (int i = 0; i < this->weights.getRows(); i++) {
         for (int j = 0; j < this->weights.getCols(); j++) {
-            this->Z(i,1) += this->weights(i,j)*A_prev(i,j) + this->bias(i,1);
+            this->potential(i,0) += this->weights(i,j)*A_prev(i,j) + this->bias(i,0);
         }
     }
 }

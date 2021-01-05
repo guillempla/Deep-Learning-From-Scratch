@@ -11,20 +11,20 @@ using namespace std;
 
 class Layer {
     private:
-        int type;       // 0: input layer; 1: hidden layer, 2: output layer
+        int type;                   // 0: input layer; 1: hidden layer, 2: output layer
         unsigned layer_size;
         unsigned prev_size;
 
-        Matrix bias;    // matrix of (layer_size,1)
-        Matrix weights; // matrix of (layer_size,prev_size)
+        Matrix bias;                // matrix of (layer_size,1)
+        Matrix weights;             // matrix of (layer_size,prev_size)
 
-        Matrix Z;
-        Matrix activation;
+        Matrix potential;           // matrix of inner potential
+        Matrix activation;          // matrix of activation
 
         Matrix weights_prime;       // matrix of weights derivatives
         Matrix bias_prime;          // matrix of bias derivatives
 
-        Matrix Z_prime;             // matrix of Z derivatives
+        Matrix potential_prime;     // matrix of potential derivatives
         Matrix activation_prime;    // matrix of activation derivatives
 
         void forward(Matrix& A_prev);
@@ -45,7 +45,7 @@ class Layer {
         A_prev: activations of previous layer
         */
         void feed_forward(Matrix& A_prev);
-        void back_propagate();
+        Matrix back_propagate(Matrix& dA_prev);
 
         //___________GETTERS__________
         int get_type() const;
