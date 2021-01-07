@@ -29,7 +29,7 @@ Matrix::Matrix(unsigned m, unsigned n, double initial) {
 
 //___________OPERATIONS__________
 // Addition of Two Matrices
-Matrix Matrix::operator+(Matrix &B){
+Matrix Matrix::operator+(Matrix& B){
     Matrix sum(m_colSize, m_rowSize, 0.0);
     unsigned i,j;
     #pragma omp parallel for num_threads(16)
@@ -42,7 +42,7 @@ Matrix Matrix::operator+(Matrix &B){
 }
 
 // Subtraction of Two Matrices
-Matrix Matrix::operator-(Matrix & B){
+Matrix Matrix::operator-(Matrix& B){
     Matrix diff(m_colSize, m_rowSize, 0.0);
     unsigned i,j;
     #pragma omp parallel for num_threads(16)
@@ -56,7 +56,7 @@ Matrix Matrix::operator-(Matrix & B){
 }
 
 // Multiplication of Two Matrices
-Matrix Matrix::operator*(Matrix & B){
+Matrix Matrix::operator*(Matrix& B){
     Matrix multip(m_rowSize, B.getCols(),0.0);
     if (m_colSize == B.getRows()) {
         unsigned i,j,k;
@@ -149,11 +149,10 @@ unsigned Matrix::getCols() const {
 // Take any given matrices transpose and returns another matrix
 Matrix Matrix::transpose() const {
     Matrix Transpose(m_colSize, m_rowSize, 0.0);
-    for (unsigned i = 0; i < m_colSize; i++)
-    {
-        for (unsigned j = 0; j < m_rowSize; j++) {
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_colSize; i++) {
+        for (unsigned j = 0; j < m_rowSize; j++)
             Transpose(i,j) = this->m_matrix[j][i];
-        }
     }
     return Transpose;
 }
@@ -182,7 +181,7 @@ double Matrix::dot(Matrix& m) const {
             res += this->m_matrix[0][i]*m(0,i);
     }
     else
-        cout << "DOT PRODUCT ERROR: Vectors must be unidimensional" << endl;
+        throw std::invalid_argument("ERROR: Dot product vectors must be unidimensional");
     return res;
 }
 
