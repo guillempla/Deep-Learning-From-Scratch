@@ -137,6 +137,14 @@ double& Matrix::operator()(const unsigned &rowNo, const unsigned & colNo) {
     return this->m_matrix[rowNo][colNo];
 }
 
+// Returns value of given location when asked in the form A(x)
+double& Matrix::operator()(const unsigned & colNo) {
+    if (this->m_rowSize == 1)
+        return this->m_matrix[0][colNo];
+    else
+        throw std::invalid_argument("ERROR: Matrix m(x) must be unidimensional");
+}
+
 //___________GETTERS__________
 unsigned Matrix::getRows() const {
     return this->m_rowSize;

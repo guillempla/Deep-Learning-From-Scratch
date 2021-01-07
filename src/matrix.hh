@@ -34,6 +34,7 @@ class Matrix {
         Matrix operator-(double);
         Matrix operator*(double);
         Matrix operator/(double);
+        double& operator()(const unsigned &);
         double& operator()(const unsigned &, const unsigned &);
 
         //___________GETTERS__________
