@@ -11,8 +11,9 @@
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
+  - [ ] Activation and Loss parallel functions
   - [x] Print
-  - [ ] Random init
+  - [ ] Random initialization
   - [ ] Softmax
   - [x] OpenMP implementation
 - [ ] Layer
