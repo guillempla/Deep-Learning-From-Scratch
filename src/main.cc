@@ -7,10 +7,9 @@
 #include "matrix.hh"
 
 int main() {
-    Data_processing data;
+    Matrix m1(3000,3000,4.5);
+    Matrix m2(3000,3000,9.0);
 
-    auto vectors = data.read_train_vectors();
-    cout << "finished reading";
-
-    cout << vectors.getRows() << " " << vectors.getCols();
+    auto m = m1*m2;
+    // m.printMatrix();
 }
