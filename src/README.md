@@ -11,7 +11,7 @@
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
-  - [ ] Activation and Loss parallel functions
+  - [x] Activation and Loss parallel functions
   - [x] Print
   - [ ] Random initialization
   - [ ] Softmax
