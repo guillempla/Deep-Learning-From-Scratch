@@ -7,7 +7,7 @@ Loss::Loss() {}
 
 
 //___________GETTERS__________
-double Loss::mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) const {
+double Loss::mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) {
     double sum = 0.0;
     double p = y_pred.size();
     for (int k = 0; k < p; k++)
@@ -15,7 +15,7 @@ double Loss::mean_squared_error(const vector<double>& y_true, const vector<doubl
     return 0.5*sum;
 }
 
-double Loss::cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) const {
+double Loss::cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) {
     double sum = 0.0;
     for (int k = 0; k < y_pred.size(); k++) {
         sum += y_true[k]*log(y_pred[k])+(1-y_true[k])*log(1-y_pred[k]);
@@ -23,7 +23,7 @@ double Loss::cross_entropy(const vector<double>& y_true, const vector<double>& y
     return sum/y_pred.size();
 }
 
-double Loss::mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) const {
+double Loss::mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) {
     double sum = 0.0;
     double p = y_pred.size();
     for (int k = 0; k < p; k++)
@@ -31,7 +31,7 @@ double Loss::mean_squared_error_prime(const vector<double>& y_true, const vector
     return sum;
 }
 
-vector<double> Loss::cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) const {
+vector<double> Loss::cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) {
     vector<double> dAL(y_pred.size());
     for (int k = 0; k < y_pred.size(); k++) {
         double d1 = y_true[k]/y_pred[k];
