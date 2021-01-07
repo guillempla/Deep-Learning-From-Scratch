@@ -1,13 +1,13 @@
-#include "loss_functions.hh"
+#include "loss.hh"
 
 //___________CONSTRUCTORS__________
-Loss_functions::Loss_functions() {}
+Loss::Loss() {}
 
 //___________SETTERS__________
 
 
 //___________GETTERS__________
-double Loss_functions::mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) const {
+double Loss::mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) const {
     double sum = 0.0;
     double p = y_pred.size();
     for (int k = 0; k < p; k++)
@@ -15,7 +15,7 @@ double Loss_functions::mean_squared_error(const vector<double>& y_true, const ve
     return 0.5*sum;
 }
 
-double Loss_functions::cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) const {
+double Loss::cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) const {
     double sum = 0.0;
     for (int k = 0; k < y_pred.size(); k++) {
         sum += y_true[k]*log(y_pred[k])+(1-y_true[k])*log(1-y_pred[k]);
@@ -23,7 +23,7 @@ double Loss_functions::cross_entropy(const vector<double>& y_true, const vector<
     return sum/y_pred.size();
 }
 
-double Loss_functions::mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) const {
+double Loss::mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) const {
     double sum = 0.0;
     double p = y_pred.size();
     for (int k = 0; k < p; k++)
@@ -31,7 +31,7 @@ double Loss_functions::mean_squared_error_prime(const vector<double>& y_true, co
     return sum;
 }
 
-vector<double> Loss_functions::cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) const {
+vector<double> Loss::cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) const {
     vector<double> dAL(y_pred.size());
     for (int k = 0; k < y_pred.size(); k++) {
         double d1 = y_true[k]/y_pred[k];

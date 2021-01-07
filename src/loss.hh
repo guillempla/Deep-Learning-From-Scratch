@@ -1,5 +1,5 @@
-#ifndef LOSS_FUNCTIONS_HH
-#define LOSS_FUNCTIONS_HH
+#ifndef LOSS_HH
+#define LOSS_HH
 
 #include <iostream>
 #include <vector>
@@ -7,12 +7,12 @@
 
 using namespace std;
 
-class Loss_functions {
+class Loss {
     private:
 
     public:
         //___________CONSTRUCTORS__________
-        Loss_functions();
+        Loss();
 
         //___________SETTERS__________
 
@@ -23,16 +23,16 @@ class Loss_functions {
         y_true: vector of desired values
         y_pred: vector of values given by the model (w·x)
         */
-        double mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) const;
-        double cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) const;
+        static double mean_squared_error(const vector<double>& y_true, const vector<double>& y_pred) const;
+        static double cross_entropy(const vector<double>& y_true, const vector<double>& y_pred) const;
 
         /*
         y_true: vector of desired values
         y_pred: vector of values given by the model (w·x)
         x:      vector of values of previous layers
         */
-        double mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) const;
-        vector<double> cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) const;
+        static double mean_squared_error_prime(const vector<double>& y_true, const vector<double>& y_pred, const vector<double>& x) const;
+        static vector<double> cross_entropy_prime(const vector<double>& y_true, const vector<double>& y_pred) const;
 
 };
 
