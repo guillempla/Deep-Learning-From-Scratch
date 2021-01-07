@@ -139,7 +139,7 @@ double& Matrix::operator()(const unsigned &rowNo, const unsigned & colNo) {
 
 // Returns value of given location when asked in the form A(x)
 double& Matrix::operator()(const unsigned & colNo) {
-    if (this->m_rowSize == 1)
+    if (this->m_rowSize == 1 && this->m_colSize > colNo)
         return this->m_matrix[0][colNo];
     else
         throw std::invalid_argument("ERROR: Matrix m(x) must be unidimensional");
