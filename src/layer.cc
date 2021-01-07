@@ -40,8 +40,6 @@ void Layer::set_weights_prime(const Matrix& weights_prime) {
 
 void Layer::feed_forward(Matrix& A_prev) {
     this->forward(A_prev);
-
-    Activation_functions a(1);
 }
 
 Matrix Layer::back_propagate(Matrix& dA_prev) {

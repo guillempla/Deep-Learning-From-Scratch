@@ -5,7 +5,6 @@
 #include <vector>
 #include <math.h>
 #include "matrix.hh"
-#include "activation_functions.hh"
 
 using namespace std;
 

@@ -1,13 +1,13 @@
 CC    := g++
-EXECS := data_processing activation_functions loss_functions matrix layer model
+EXECS := data_processing activation loss_functions matrix layer model
 
-main: main.cc data_processing.cc activation_functions.cc loss_functions.cc matrix.cc layer.cc model.cc
+main: main.cc data_processing.cc activation.cc loss_functions.cc matrix.cc layer.cc model.cc
 	$(CC) -O2 $+ -o $@
 
 data_processing: data_processing.cc
 	$(CC) $+ -o $@
 
-activation_functions: activation_functions.cc
+activation: activation.cc
 	$(CC) $+ -o $@
 
 loss_functions: loss_functions.cc
@@ -18,7 +18,7 @@ matrix: matrix.cc
 
 layer: layer.cc
 	$(CC) $+ -o $@
-	
+
 model: model.cc
 	$(CC) $+ -o $@
 

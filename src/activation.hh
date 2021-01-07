@@ -1,5 +1,5 @@
-#ifndef ACTIVATION_FUNCTIONS_HH
-#define ACTIVATION_FUNCTIONS_HH
+#ifndef ACTIVATION_HH
+#define ACTIVATION_HH
 
 #include <iostream>
 #include <vector>
@@ -7,14 +7,14 @@
 
 using namespace std;
 
-class Activation_functions {
+class Activation {
     private:
         double steepness;
 
     public:
         //___________CONSTRUCTORS__________
-        Activation_functions();
-        Activation_functions(double steepness);
+        Activation();
+        Activation(double steepness);
 
         //___________SETTERS__________
         void modify_steepness(double steepness);
@@ -26,12 +26,12 @@ class Activation_functions {
         double get_steepness() const;
 
         // Activation functions
-        double sigmoid(const double z) const;
-        double relu(const double z) const;
+        static double sigmoid(const double z);
+        static double relu(const double z);
 
-        // Dervatives of activation functions
-        double sigmoid_prime(const double z) const;
-        double relu_prime(const double z) const;
+        // Derivatives of activation functions
+        static double sigmoid_prime(const double z);
+        static double relu_prime(const double z);
 
 };
 
