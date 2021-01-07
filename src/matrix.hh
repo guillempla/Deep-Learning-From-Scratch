@@ -5,6 +5,7 @@
 #include <vector>
 #include <omp.h>
 #include <math.h>
+#include "activation.hh"
 
 using namespace std;
 
@@ -34,7 +35,10 @@ class Matrix {
         Matrix operator-(double);
         Matrix operator*(double);
         Matrix operator/(double);
+
+        // Returns value of given location when asked in the form A(x,y)
         double& operator()(const unsigned &);
+        // Returns value of given location when asked in the form A(x)
         double& operator()(const unsigned &, const unsigned &);
 
         //___________GETTERS__________
@@ -42,8 +46,6 @@ class Matrix {
         unsigned getCols() const;
 
         Matrix transpose() const;
-
-        void printMatrix() const;
 
         // Given two unidimensional Matrices returns dot product
         double dot(Matrix& m) const;
@@ -61,6 +63,10 @@ class Matrix {
 
         void mean_squared_error_prime();
         void cross_entropy_prime();
+
+        //___________PRINT__________
+        // Prints the matrix beautifully
+        void printMatrix() const;
 
 
 

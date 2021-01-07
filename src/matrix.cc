@@ -194,6 +194,35 @@ double Matrix::dot(Matrix& m) const {
 }
 
 
+//___________ACTIVATION__________
+void Matrix::sigmoid() {
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            this->m_matrix[i][j] = Activation::sigmoid(m_matrix[i][j]);
+}
+
+void Matrix::relu() {
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            this->m_matrix[i][j] = Activation::relu(m_matrix[i][j]);
+}
+
+
+void Matrix::sigmoid_prime() {
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            this->m_matrix[i][j] = Activation::sigmoid_prime(m_matrix[i][j]);
+}
+
+void Matrix::relu_prime() {
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            this->m_matrix[i][j] = Activation::relu_prime(m_matrix[i][j]);
+}
 // Prints the matrix beautifully
 void Matrix::printMatrix() const {
     cout << "Matrix: " << endl;
