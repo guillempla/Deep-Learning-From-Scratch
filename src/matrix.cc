@@ -11,7 +11,7 @@ Matrix::Matrix(unsigned m, unsigned n) {
     m_colSize = n;
     this->m_matrix.resize(m);
     #pragma omp parallel for num_threads(16)
-    for (int i = 0; i < m; i++)
+    for (unsigned i = 0; i < m; i++)
         m_matrix[i].resize(n, 0);
 }
 
@@ -20,11 +20,13 @@ Matrix::Matrix(unsigned m, unsigned n, double initial) {
     m_colSize = n;
     this->m_matrix.resize(m);
     #pragma omp parallel for num_threads(16)
-    for (int i = 0; i < m; i++)
+    for (unsigned i = 0; i < m; i++)
         m_matrix[i].resize(n, initial);
 }
 
+
 //___________SETTERS__________
+
 
 
 //___________OPERATIONS__________
@@ -165,27 +167,26 @@ Matrix Matrix::transpose() const {
     return Transpose;
 }
 
-
 double Matrix::dot(Matrix& m) const {
     double res = 0.0;
     if (this->m_rowSize == m.getRows() && this->m_colSize == 1 && m.getCols() == 1) {
         #pragma omp parallel for num_threads(16)
-        for (int i = 0; i < m.getRows(); i++)
+        for (unsigned i = 0; i < m.getRows(); i++)
             res += this->m_matrix[i][0]*m(i,0);
     }
     else if (this->m_rowSize != m.getRows() && this->m_colSize == 1 && m.getCols() != 1) {
         #pragma omp parallel for num_threads(16)
-        for (int i = 0; i < m.getRows(); i++)
+        for (unsigned i = 0; i < m.getRows(); i++)
             res += this->m_matrix[i][0]*m(0,i);
     }
     else if (this->m_rowSize != m.getRows() && this->m_colSize != 1 && m.getCols() == 1) {
         #pragma omp parallel for num_threads(16)
-        for (int i = 0; i < m.getRows(); i++)
+        for (unsigned i = 0; i < m.getRows(); i++)
             res += this->m_matrix[0][i]*m(i,0);
     }
     else if (this->m_colSize == m.getCols() && this->m_rowSize == 1 && m.getRows() == 1) {
         #pragma omp parallel for num_threads(16)
-        for (int i = 0; i < m.getRows(); i++)
+        for (unsigned i = 0; i < m.getRows(); i++)
             res += this->m_matrix[0][i]*m(0,i);
     }
     else
