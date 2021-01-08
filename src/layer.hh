@@ -44,7 +44,7 @@ class Layer {
         /*
         A_prev: activations of previous layer
         */
-        void feed_forward(Matrix& A_prev);
+        Matrix feed_forward(Matrix& A_prev);
         Matrix back_propagate(Matrix& dA_prev);
 
         //___________GETTERS__________

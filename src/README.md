@@ -22,12 +22,12 @@
 - [ ] Layer
   - [x] Initialize parameters
   - [ ] Feed Forward
-    - [ ] Check this!
+    - [ ] Check this! Do I need to return a pointer?
   - [ ] Back Forward
 - [ ] Model
   - [x] Initialize parameters
   - [ ] Feed Forward
-    - [ ] Check this!
+    - [ ] Check this! Do I want a pointer?
   - [ ] Back Forward
   - [ ] Train
   - [ ] Update parameters
