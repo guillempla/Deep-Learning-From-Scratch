@@ -32,28 +32,36 @@ Matrix::Matrix(unsigned m, unsigned n, double initial) {
 //___________OPERATIONS__________
 // Addition of Two Matrices
 Matrix Matrix::operator+(Matrix& B){
-    Matrix sum(m_colSize, m_rowSize, 0.0);
-    unsigned i,j;
-    #pragma omp parallel for num_threads(16)
-    for (i = 0; i < m_rowSize; i++) {
-        for (j = 0; j < m_colSize; j++) {
-            sum(i,j) = this->m_matrix[i][j] + B(i,j);
+    Matrix sum(m_rowSize, m_colSize, 0.0);
+
+    if (m_rowSize == B.getRows() && m_colSize == B.getCols()) {
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++)
+            for (unsigned j = 0; j < m_colSize; j++)
+                sum(i,j) = this->m_matrix[i][j] + B(i,j);
+    }
+    else if (m_rowSize == B.getCols() && B.getRows() == 1) {
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++) {
+            double b = B(i);
+            for (unsigned j = 0; j < m_colSize; j++)
+                sum(i,j) = this->m_matrix[i][j] + b;
         }
     }
+    else
+        throw invalid_argument("ERROR: Wrong matrix dimension!");
     return sum;
 }
 
 // Subtraction of Two Matrices
 Matrix Matrix::operator-(Matrix& B){
-    Matrix diff(m_colSize, m_rowSize, 0.0);
-    unsigned i,j;
+    Matrix diff(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
-    for (i = 0; i < m_rowSize; i++) {
-        for (j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
             diff(i,j) = this->m_matrix[i][j] - B(i,j);
         }
     }
-
     return diff;
 }
 
@@ -61,34 +69,30 @@ Matrix Matrix::operator-(Matrix& B){
 Matrix Matrix::operator*(Matrix& B){
     Matrix multip(m_rowSize, B.getCols(),0.0);
     if (m_colSize == B.getRows()) {
-        unsigned i,j,k;
         double temp = 0.0;
         #pragma omp parallel for num_threads(16)
-        for (i = 0; i < m_rowSize; i++) {
-            for (j = 0; j < B.getCols(); j++) {
+        for (unsigned i = 0; i < m_rowSize; i++) {
+            for (unsigned j = 0; j < B.getCols(); j++) {
                 temp = 0.0;
-                for (k = 0; k < m_colSize; k++) {
+                for (unsigned k = 0; k < m_colSize; k++) {
                     temp += m_matrix[i][k] * B(k,j);
                 }
                 multip(i,j) = temp;
-                //cout << multip(i,j) << " ";
             }
-            //cout << endl;
         }
         return multip;
     }
     else {
-        throw std::invalid_argument("ERROR: Wrong matrix dimension!");
+        throw invalid_argument("ERROR: Wrong matrix dimension!");
     }
 }
 
 // Scalar Addition
 Matrix Matrix::operator+(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
-    unsigned i,j;
     #pragma omp parallel for num_threads(16)
-    for (i = 0; i < m_rowSize; i++) {
-        for (j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
             result(i,j) = this->m_matrix[i][j] + scalar;
         }
     }
@@ -98,10 +102,9 @@ Matrix Matrix::operator+(double scalar){
 // Scalar Subraction
 Matrix Matrix::operator-(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
-    unsigned i,j;
     #pragma omp parallel for num_threads(16)
-    for (i = 0; i < m_rowSize; i++) {
-        for (j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
             result(i,j) = this->m_matrix[i][j] - scalar;
         }
     }
@@ -111,10 +114,9 @@ Matrix Matrix::operator-(double scalar){
 // Scalar Multiplication
 Matrix Matrix::operator*(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
-    unsigned i,j;
     #pragma omp parallel for num_threads(16)
-    for (i = 0; i < m_rowSize; i++) {
-        for (j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
             result(i,j) = this->m_matrix[i][j] * scalar;
         }
     }
@@ -124,10 +126,9 @@ Matrix Matrix::operator*(double scalar){
 // Scalar Division
 Matrix Matrix::operator/(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
-    unsigned i,j;
     #pragma omp parallel for num_threads(16)
-    for (i = 0; i < m_rowSize; i++) {
-        for (j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
             result(i,j) = this->m_matrix[i][j] / scalar;
         }
     }
@@ -144,7 +145,7 @@ double& Matrix::operator()(const unsigned & colNo) {
     if (this->m_rowSize == 1 && this->m_colSize > colNo)
         return this->m_matrix[0][colNo];
     else
-        throw std::invalid_argument("ERROR: Matrix m(x) must be unidimensional");
+        throw invalid_argument("ERROR: Matrix m(x) must be unidimensional");
 }
 
 //___________GETTERS__________
@@ -190,7 +191,7 @@ double Matrix::dot(Matrix& m) const {
             res += this->m_matrix[0][i]*m(0,i);
     }
     else
-        throw std::invalid_argument("ERROR: Dot product vectors must be unidimensional");
+        throw invalid_argument("ERROR: Dot product vectors must be unidimensional");
     return res;
 }
 

@@ -15,6 +15,7 @@
   - [x] Matrices operators (+,- ,*,/)
   - [x] Activation and Loss parallel functions
   - [x] Print
+  - [x] Broadcast sum
   - [ ] Random initialization
   - [ ] Softmax
   - [x] OpenMP implementation
