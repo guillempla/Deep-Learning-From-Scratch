@@ -13,6 +13,7 @@ class Model {
     private:
         Matrix X;
         Matrix Y;
+        unsigned num_examples;
         vector<Layer> layers;
         float learning_rate;
         unsigned num_iter;
@@ -22,7 +23,7 @@ class Model {
     public:
         //___________CONSTRUCTORS__________
         /*
-        arquitecture: position i constains size of layer i
+        layer_dims: position i constains size of layer i
         */
         Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter);
 
