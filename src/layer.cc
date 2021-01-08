@@ -1,20 +1,27 @@
 #include "layer.hh"
 
 //___________CONSTRUCTORS__________
-Layer::Layer(int type, unsigned layer_size, unsigned prev_size) {
+Layer::Layer(bool type, unsigned num_examples, unsigned layer_size, unsigned prev_size) {
     this->type;
     this->layer_size;
     this->prev_size;
+    this->num_examples;
 
-    this->bias = Matrix(this->layer_size, (unsigned)(1), 0.01);
-    this->weights = Matrix(this->layer_size, this->prev_size, 0.01);
+    this->bias = Matrix(layer_size, (unsigned)(1), 0.01);
+    this->weights = Matrix(layer_size, prev_size, 0.01);
 
-    this->potential = Matrix(this->layer_size,  (unsigned)(1));
-    this->activation = Matrix(this->layer_size,  (unsigned)(1));
+    this->bias_prime = Matrix(layer_size, (unsigned)(1), 0.0);
+    this->weights_prime = Matrix(layer_size, prev_size, 0.0);
+
+    this->potential = Matrix(layer_size,  num_examples);
+    this->activation = Matrix(layer_size,  num_examples);
+
+    this->potential_prime = Matrix(layer_size,  num_examples);
+    this->activation_prime = Matrix(layer_size,  num_examples);
 }
 
 //___________SETTERS__________
-void Layer::set_type(int type) {
+void Layer::set_type(bool type) {
     this->type = type;
 }
 
@@ -49,7 +56,7 @@ Matrix Layer::back_propagate(Matrix& dA_prev) {
 
 
 //___________GETTERS__________
-int Layer::get_type() const {
+bool Layer::get_type() const {
     return this->type;
 }
 

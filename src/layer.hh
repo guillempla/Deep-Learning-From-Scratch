@@ -10,18 +10,19 @@ using namespace std;
 
 class Layer {
     private:
-        int type;                   // 0: input layer; 1: hidden layer, 2: output layer
+        bool type;                  // false: hidden layer; true: output layer
         unsigned layer_size;
         unsigned prev_size;
+        unsigned num_examples;
 
         Matrix bias;                // matrix of (layer_size,1)
         Matrix weights;             // matrix of (layer_size,prev_size)
 
-        Matrix potential;           // matrix of inner potential
-        Matrix activation;          // matrix of activation
+        Matrix potential;           // matrix of inner potential (prev_size,num_examples)
+        Matrix activation;          // matrix of activation (prev_size,num_examples)
 
-        Matrix weights_prime;       // matrix of weights derivatives
         Matrix bias_prime;          // matrix of bias derivatives
+        Matrix weights_prime;       // matrix of weights derivatives
 
         Matrix potential_prime;     // matrix of potential derivatives
         Matrix activation_prime;    // matrix of activation derivatives
@@ -30,10 +31,10 @@ class Layer {
 
     public:
         //___________CONSTRUCTORS__________
-        Layer(int type, unsigned layer_size, unsigned prev_size);
+        Layer(bool type, unsigned num_examples, unsigned layer_size, unsigned prev_size);
 
         //___________SETTERS__________
-        void set_type(int type);
+        void set_type(bool type);
         void set_layer_size(unsigned layer_size);
         void set_prev_size(unsigned prev_size);
         void set_bias(const Matrix& bias);
@@ -47,7 +48,7 @@ class Layer {
         Matrix back_propagate(Matrix& dA_prev);
 
         //___________GETTERS__________
-        int get_type() const;
+        bool get_type() const;
         Matrix get_bias() const;
         Matrix get_weights() const;
         Matrix get_weights_prime() const;
