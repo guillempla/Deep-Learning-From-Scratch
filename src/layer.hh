@@ -18,8 +18,8 @@ class Layer {
         Matrix bias;                // matrix of (layer_size,1)
         Matrix weights;             // matrix of (layer_size,prev_size)
 
-        Matrix potential;           // matrix of inner potential (prev_size,num_examples)
-        Matrix activation;          // matrix of activation (prev_size,num_examples)
+        Matrix potential;           // matrix of inner potential (layer_size,num_examples)
+        Matrix activation;          // matrix of activation (layer_size,num_examples)
 
         Matrix bias_prime;          // matrix of bias derivatives
         Matrix weights_prime;       // matrix of weights derivatives
