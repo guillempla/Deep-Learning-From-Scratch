@@ -235,14 +235,14 @@ Matrix Matrix::relu_prime() const {
 
 
 //___________LOSS__________
-Matrix Matrix::mean_squared_error() {
+Matrix Matrix::mean_squared_error() const {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
     // this->m_matrix[i][j] = Loss::mean_squared_error(m_matrix[i][j]);
 }
 
-Matrix Matrix::cross_entropy() {
+Matrix Matrix::cross_entropy() const {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
@@ -250,14 +250,14 @@ Matrix Matrix::cross_entropy() {
 }
 
 
-Matrix Matrix::mean_squared_error_prime() {
+Matrix Matrix::mean_squared_error_prime() const {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
     // this->m_matrix[i][j] = Loss::mean_squared_error_prime(m_matrix[i][j]);
 }
 
-Matrix Matrix::cross_entropy_prime() {
+Matrix Matrix::cross_entropy_prime() const {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
