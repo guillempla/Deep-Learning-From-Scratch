@@ -25,7 +25,7 @@ class Data_processing {
         unsigned count_lines(const string& file_name) const;
         unsigned count_cols(const string& file_name) const;
 
-        vector<int> read_labels(const string& file_name) const;
+        Matrix read_labels(const string& file_name) const;
         Matrix read_vectors(const string& file_name) const;
 
     public:
@@ -40,12 +40,12 @@ class Data_processing {
 
         //___________GETTERS__________
 
-        vector<int> read_test_labels() const;
-        vector<int> read_train_labels() const;
+        Matrix read_test_labels() const;
+        Matrix read_train_labels() const;
         Matrix read_test_vectors() const;
         Matrix read_train_vectors() const;
 
-        void write_predictions(const vector<int>& predictions) const;
+        void write_predictions(Matrix& predictions) const;
 
 };
 

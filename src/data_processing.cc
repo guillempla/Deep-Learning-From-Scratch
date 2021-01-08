@@ -22,11 +22,11 @@ Data_processing::Data_processing(const string& test_labels_path, const string& t
 
 
 //___________GETTERS__________
-vector<int> Data_processing::read_test_labels() const {
+Matrix Data_processing::read_test_labels() const {
     return this->read_labels(this->test_labels_path);
 }
 
-vector<int> Data_processing::read_train_labels() const {
+Matrix Data_processing::read_train_labels() const {
     return this->read_labels(this->train_labels_path);
 }
 
@@ -38,13 +38,12 @@ Matrix Data_processing::read_train_vectors() const {
     return this->read_vectors(this->train_vectors_path);
 }
 
-void Data_processing::write_predictions(const vector<int>& predictions) const {
+void Data_processing::write_predictions(Matrix& predictions) const {
     // Create an output filestream object
     ofstream myOutput(output_path);
 
-    for (int i = 0; i < predictions.size(); i++) {
-        myOutput << to_string(predictions[i]) << "\n";
-    }
+    for (int i = 0; i < predictions.getCols(); i++)
+        myOutput << to_string(predictions(i)) << "\n";
 
     // Close the file
     myOutput.close();
@@ -80,8 +79,9 @@ unsigned Data_processing::count_cols(const string& file_name) const {
     return number_of_cols;
 }
 
-vector<int> Data_processing::read_labels(const string& file_name) const {
-    vector<int> labels_vector;
+Matrix Data_processing::read_labels(const string& file_name) const {
+    unsigned num_cols = this->count_cols(file_name);
+    Matrix labels_vector(1, num_cols);
 
     // Create an input filestream
     ifstream myFile(file_name);
@@ -91,9 +91,11 @@ vector<int> Data_processing::read_labels(const string& file_name) const {
 
     string value;
 
+    unsigned i = 0;
     // Read data, line by line
     while (getline(myFile, value)) {
-        labels_vector.push_back(stoi(value));
+        labels_vector(i)= stoi(value);
+        i++;
     }
 
     // Close file
