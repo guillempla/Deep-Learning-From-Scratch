@@ -3,10 +3,12 @@
 ## TODO:
 
 - [x] Activation functions
-- [x] Loss functions
-- [x] Data processing
-  - [x] Read labels
-  - [x] Read vectors
+- [ ] Loss functions
+- [ ] Data processing
+  - [ ] Read labels
+    - [ ] Check this!
+  - [ ] Read vectors
+    - [ ] Read vectors as vectors
   - [x] Write csv
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
@@ -18,13 +20,15 @@
   - [x] OpenMP implementation
 - [ ] Layer
   - [x] Initialize parameters
-    - [ ] Don't save input X
-  - [x] Feed Forward
+  - [ ] Feed Forward
+    - [ ] Check this!
   - [ ] Back Forward
 - [ ] Model
   - [x] Initialize parameters
-  - [x] Feed Forward
+  - [ ] Feed Forward
+    - [ ] Check this!
   - [ ] Back Forward
+  - [ ] Train
   - [ ] Update parameters
 - [ ] Main
   - [ ] Read data
