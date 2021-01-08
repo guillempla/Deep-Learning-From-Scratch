@@ -196,45 +196,53 @@ double Matrix::dot(Matrix& m) const {
 
 
 //___________ACTIVATION__________
-void Matrix::sigmoid() {
+Matrix Matrix::sigmoid() const {
+    Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
         for (unsigned j = 0; j < m_colSize; j++)
-            this->m_matrix[i][j] = Activation::sigmoid(m_matrix[i][j]);
+            activation(i,j) = Activation::sigmoid(m_matrix[i][j]);
+    return activation;
 }
 
-void Matrix::relu() {
+Matrix Matrix::relu() const {
+    Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
         for (unsigned j = 0; j < m_colSize; j++)
-            this->m_matrix[i][j] = Activation::relu(m_matrix[i][j]);
+            activation(i,j) = Activation::relu(m_matrix[i][j]);
+    return activation;
 }
 
 
-void Matrix::sigmoid_prime() {
+Matrix Matrix::sigmoid_prime() const {
+    Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
         for (unsigned j = 0; j < m_colSize; j++)
-            this->m_matrix[i][j] = Activation::sigmoid_prime(m_matrix[i][j]);
+            activation(i,j) = Activation::sigmoid_prime(m_matrix[i][j]);
+    return activation;
 }
 
-void Matrix::relu_prime() {
-    // #pragma omp parallel for num_threads(16)
-    // for (unsigned i = 0; i < m_rowSize; i++)
-    // for (unsigned j = 0; j < m_colSize; j++)
-    // this->m_matrix[i][j] = Activation::relu_prime(m_matrix[i][j]);
+Matrix Matrix::relu_prime() const {
+    Matrix activation(m_rowSize, m_colSize, 0.0);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            activation(i,j) = Activation::relu_prime(m_matrix[i][j]);
+    return activation;
 }
 
 
 //___________LOSS__________
-void Matrix::mean_squared_error() {
+Matrix Matrix::mean_squared_error() {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
     // this->m_matrix[i][j] = Loss::mean_squared_error(m_matrix[i][j]);
 }
 
-void Matrix::cross_entropy() {
+Matrix Matrix::cross_entropy() {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
@@ -242,14 +250,14 @@ void Matrix::cross_entropy() {
 }
 
 
-void Matrix::mean_squared_error_prime() {
+Matrix Matrix::mean_squared_error_prime() {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)
     // this->m_matrix[i][j] = Loss::mean_squared_error_prime(m_matrix[i][j]);
 }
 
-void Matrix::cross_entropy_prime() {
+Matrix Matrix::cross_entropy_prime() {
     // #pragma omp parallel for num_threads(16)
     // for (unsigned i = 0; i < m_rowSize; i++)
     // for (unsigned j = 0; j < m_colSize; j++)

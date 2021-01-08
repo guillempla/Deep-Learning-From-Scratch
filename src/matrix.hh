@@ -51,18 +51,18 @@ class Matrix {
         double dot(Matrix& m) const;
 
         //___________ACTIVATION__________
-        void sigmoid();
-        void relu();
+        Matrix sigmoid() const;
+        Matrix relu() const;
 
-        void sigmoid_prime();
-        void relu_prime();
+        Matrix sigmoid_prime() const;
+        Matrix relu_prime() const;
 
         //___________LOSS__________
-        void mean_squared_error();
-        void cross_entropy();
+        Matrix mean_squared_error() const;
+        Matrix cross_entropy() const;
 
-        void mean_squared_error_prime();
-        void cross_entropy_prime();
+        Matrix mean_squared_error_prime() const;
+        Matrix cross_entropy_prime() const;
 
         //___________PRINT__________
         // Prints the matrix beautifully
