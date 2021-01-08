@@ -3,10 +3,10 @@
 //___________CONSTRUCTORS__________
 Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter) {
     this->X = X;
-    this->Y = Y.transpose();
+    this->Y = Y;
     this->learning_rate;
     this->num_iter;
-    this->initialize_parameters(layers_dims);
+    this->initialize_parameters(layers_dims, X.getCols());
 }
 
 
@@ -33,14 +33,11 @@ void Model::back_propagate() {
 //___________GETTERS__________
 
 //___________PRIVATE__________
-void Model::initialize_parameters(const vector<unsigned> layers_dims) {
+void Model::initialize_parameters(const vector<unsigned> layers_dims, unsigned num_examples) {
     this->layers.reserve(layers_dims.size()-1);
-    int type = 0;
+    bool type = false;
     for (int i = 1; i < layers_dims.size(); i++) {
-        if (i == layers_dims.size()-1)
-            type = 2;
-        this->layers[i-1] = Layer(type, layers_dims[i], layers_dims[i-1]);
-        if (i == 1)
-            type = 1;
+        type = (i == layers_dims.size()-1);
+        this->layers[i-1] = Layer(type, num_examples, layers_dims[i], layers_dims[i-1]);
     }
 }

@@ -13,12 +13,11 @@ class Model {
     private:
         Matrix X;
         Matrix Y;
-        unsigned num_examples;
         vector<Layer> layers;
         float learning_rate;
         unsigned num_iter;
 
-        void initialize_parameters(const vector<unsigned> layer_dims);
+        void initialize_parameters(const vector<unsigned> layer_dims, unsigned num_examples);
 
     public:
         //___________CONSTRUCTORS__________
