@@ -8,19 +8,19 @@ Loss::Loss() {}
 
 //___________GETTERS__________
 double Loss::mean_squared_error(Matrix& y_true, Matrix& y_pred) {
-    double sum = 0.0;
-    double p = y_pred.size();
-    for (int k = 0; k < p; k++)
-        sum += pow(y_pred[k]-y_true[k], 2);
-    return 0.5*sum;
+    // double sum = 0.0;
+    // double p = y_pred.size();
+    // for (int k = 0; k < p; k++)
+    //     sum += pow(y_pred[k]-y_true[k], 2);
+    // return 0.5*sum;
 }
 
 double Loss::cross_entropy(Matrix& y_true, Matrix& y_pred) {
-    double sum = 0.0;
-    for (int k = 0; k < y_pred.size(); k++) {
-        sum += y_true[k]*log(y_pred[k])+(1-y_true[k])*log(1-y_pred[k]);
-    }
-    return sum/y_pred.size();
+    // double sum = 0.0;
+    // for (int k = 0; k < y_pred.size(); k++) {
+    //     sum += y_true[k]*log(y_pred[k])+(1-y_true[k])*log(1-y_pred[k]);
+    // }
+    // return sum/y_pred.size();
 }
 
 double Loss::mean_squared_error_prime(Matrix& y_true, Matrix& y_pred, Matrix& x) {
