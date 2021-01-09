@@ -27,7 +27,7 @@ class Model {
         Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter);
 
         //___________SETTERS__________
-        void feed_forward();
+        Matrix* feed_forward();
         void back_propagate();
 
 

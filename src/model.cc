@@ -11,20 +11,21 @@ Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_di
 
 
 //___________SETTERS__________
-void Model::feed_forward() {
+Matrix* Model::feed_forward() {
     Matrix *A_prev = &X;
     for (auto& layer: this->layers) {
         A_prev = layer.feed_forward(*A_prev);
     }
+    return A_prev;
 }
 
 void Model::back_propagate() {
-    Matrix *A_prev = this->layers[layers.size()-1].get_activation();
-    Matrix dA_prev = Y - *A_prev;
-    for (int i = layers.size()-1; i >= 0; i--) {
-        auto& layer = this->layers[i];
-        dA_prev = layer.back_propagate(dA_prev);
-    }
+    // Matrix *A_prev = this->layers[layers.size()-1].get_activation();
+    // Matrix dA_prev = Y - *A_prev;
+    // for (int i = layers.size()-1; i >= 0; i--) {
+    //     auto& layer = this->layers[i];
+    //     dA_prev = layer.back_propagate(dA_prev);
+    // }
 }
 
 
