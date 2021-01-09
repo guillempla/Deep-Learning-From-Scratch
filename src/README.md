@@ -21,13 +21,11 @@
   - [x] OpenMP implementation
 - [ ] Layer
   - [x] Initialize parameters
-  - [ ] Feed Forward
-    - [ ] Check this! Do I need to return a pointer?
+  - [x] Feed Forward
   - [ ] Back Forward
 - [ ] Model
   - [x] Initialize parameters
-  - [ ] Feed Forward
-    - [ ] Check this! Do I want a pointer?
+  - [x] Feed Forward
   - [ ] Back Forward
   - [ ] Train
   - [ ] Update parameters

@@ -45,12 +45,28 @@ void Layer::set_weights_prime(const Matrix& weights_prime) {
     this->weights_prime = weights_prime;
 }
 
-void Layer::feed_forward(Matrix& A_prev) {
-    this->forward(A_prev);
+Matrix* Layer::feed_forward(Matrix& A_prev) {
+    this->potential = this->weights*A_prev + this->bias;
+    if (type)
+        this->activation = this->potential.sigmoid();
+    else
+        this->activation = this->potential.relu();
+    return &(this->activation);
 }
 
-Matrix Layer::back_propagate(Matrix& dA_prev) {
-
+Matrix* Layer::back_propagate(Matrix& dA_prev) {
+    // A_prev, W, b = cache
+    // m = A_prev.shape[1]
+    //
+    // dW = np.dot(dZ, A_prev.T)/m
+    // db = np.sum(dZ, axis=1, keepdims=True)/m
+    // dA_prev = np.dot(W.T, dZ)
+    // this->activation_prime = ;
+    if (type)
+        this->potential_prime = this->potential.sigmoid_prime();
+    else
+        this->potential_prime = this->potential.relu_prime();
+    return &(this->activation_prime);
 }
 
 
@@ -79,9 +95,5 @@ Matrix* Layer::get_activation() {
 
 //___________PRIVATE__________
 void Layer::forward(Matrix& A_prev) {
-    for (int i = 0; i < this->weights.getRows(); i++) {
-        for (int j = 0; j < this->weights.getCols(); j++) {
-            this->potential(i,0) += this->weights(i,j)*A_prev(i,j) + this->bias(i,0);
-        }
-    }
+
 }

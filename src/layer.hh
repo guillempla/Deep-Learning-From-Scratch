@@ -44,8 +44,8 @@ class Layer {
         /*
         A_prev: activations of previous layer
         */
-        Matrix feed_forward(Matrix& A_prev);
-        Matrix back_propagate(Matrix& dA_prev);
+        Matrix* feed_forward(Matrix& A_prev);
+        Matrix* back_propagate(Matrix& dA_prev);
 
         //___________GETTERS__________
         bool get_type() const;
