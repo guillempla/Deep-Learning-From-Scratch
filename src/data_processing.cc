@@ -109,7 +109,7 @@ Matrix Data_processing::read_vectors(const string& file_name) const {
     unsigned num_cols = this->count_lines(file_name);
 
     Matrix matrix(num_rows, num_cols);
-    cout << "Rows: " << matrix.getRows() << " Cols: " << matrix.getCols() << endl;
+
     // Create an input filestream
     ifstream myFile(file_name);
 
