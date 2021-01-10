@@ -100,15 +100,33 @@ Matrix Matrix::operator*(Matrix& B){
     }
 }
 
+// Division of two matrices
+Matrix Matrix::operator/(Matrix& B){
+    Matrix result(m_rowSize,m_colSize,0.0);
+    if (m_rowSize == B.getRows() && m_colSize == B.getCols()) {
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++)
+            for (unsigned j = 0; j < m_colSize; j++)
+                result(i,j) = this->m_matrix[i][j] / B(i,j);
+    }
+    else if (m_colSize == B.getCols() && B.getRows() == 1) {
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++)
+            for (unsigned j = 0; j < m_colSize; j++)
+                result(i,j) = this->m_matrix[i][j] / B(j);
+    }
+    else
+        throw invalid_argument("ERROR /: Wrong matrix dimension!");
+    return result;
+}
+
 // Scalar Addition
 Matrix Matrix::operator+(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
-    for (unsigned i = 0; i < m_rowSize; i++) {
-        for (unsigned j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
             result(i,j) = this->m_matrix[i][j] + scalar;
-        }
-    }
     return result;
 }
 
@@ -116,11 +134,9 @@ Matrix Matrix::operator+(double scalar){
 Matrix Matrix::operator-(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
-    for (unsigned i = 0; i < m_rowSize; i++) {
-        for (unsigned j = 0; j < m_colSize; j++) {
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
             result(i,j) = this->m_matrix[i][j] - scalar;
-        }
-    }
     return result;
 }
 
@@ -128,11 +144,9 @@ Matrix Matrix::operator-(double scalar){
 Matrix Matrix::operator*(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
-    for (unsigned i = 0; i < m_rowSize; i++) {
-        for (unsigned j = 0; j < m_colSize; j++) {
-            result(i,j) = this->m_matrix[i][j] * scalar;
-        }
-    }
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            result(i,j) = m_matrix[i][j] * scalar;
     return result;
 }
 
@@ -140,11 +154,9 @@ Matrix Matrix::operator*(double scalar){
 Matrix Matrix::operator/(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
-    for (unsigned i = 0; i < m_rowSize; i++) {
-        for (unsigned j = 0; j < m_colSize; j++) {
-            result(i,j) = this->m_matrix[i][j] / scalar;
-        }
-    }
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            result(i,j) = m_matrix[i][j] / scalar;
     return result;
 }
 
@@ -222,16 +234,32 @@ double Matrix::sum() const {
         throw invalid_argument("ERROR SUM: Matrix m must be unidimensional");
 }
 
-Matrix Matrix::expMatrix() const {
-    if (m_rowSize == 1) {
-        Matrix res(1, m_colSize);
+Matrix Matrix::sum(int axis) const {
+    if (axis == 1) {
+        Matrix sum(1, m_colSize);
         #pragma omp parallel for num_threads(16)
         for (unsigned i = 0; i < m_colSize; i++)
-            res(i) = exp(m_matrix[0][i]);
-        return res;
+            for (unsigned j = 0; j < m_rowSize; j++)
+                sum(i) += m_matrix[j][i];
+        return sum;
     }
-    else
-        throw invalid_argument("ERROR EXP: Matrix m must be unidimensional");
+    else {
+        Matrix sum(m_rowSize, 1);
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++)
+            for (unsigned j = 0; j < m_colSize; j++)
+                sum(i) += m_matrix[i][j];
+        return sum;
+    }
+}
+
+Matrix Matrix::expMatrix() const {
+    Matrix res(m_rowSize, m_colSize);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            res(i,j) = exp(m_matrix[i][j]);
+    return res;
 }
 
 
@@ -255,14 +283,11 @@ Matrix Matrix::relu() const {
 }
 
 Matrix Matrix::softmax() const {
-    if (m_rowSize == 1) {
-        Matrix res(1, m_colSize);
-        Matrix numerator = this->expMatrix();
-        double sum = numerator.sum();
-        return numerator/sum;
-    }
-    else
-        throw invalid_argument("ERROR SOFTMAX: Matrix m must be unidimensional");
+    Matrix numerator = this->expMatrix();
+    numerator.printMatrix();
+    Matrix sum = numerator.sum(1);
+    sum.printMatrix();
+    return numerator/sum;
 }
 
 

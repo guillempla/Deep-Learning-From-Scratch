@@ -28,6 +28,7 @@ class Matrix {
         Matrix operator+(Matrix &);
         Matrix operator-(Matrix &);
         Matrix operator*(Matrix &);
+        Matrix operator/(Matrix &);
 
         // Scalar Operations
         Matrix operator+(double);
@@ -51,6 +52,8 @@ class Matrix {
 
         // Given one unidimensional Matrix returns the sum of its elements
         double sum() const;
+
+        Matrix sum(int axis) const;
 
         // Given one unidimensional Matrix applies exp() to all elements
         Matrix expMatrix() const;
