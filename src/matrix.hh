@@ -49,19 +49,26 @@ class Matrix {
         // Given two unidimensional Matrices returns dot product
         double dot(Matrix& m) const;
 
+        // Given one unidimensional Matrix returns the sum of its elements
+        double sum() const;
+
+        // Given one unidimensional Matrix applies exp() to all elements
+        Matrix expMatrix() const;
+
         //___________ACTIVATION__________
         Matrix sigmoid() const;
         Matrix relu() const;
+        Matrix softmax() const;
 
         Matrix sigmoid_prime() const;
         Matrix relu_prime() const;
 
         //___________LOSS__________
-        Matrix mean_squared_error() const;
-        Matrix cross_entropy() const;
-
-        Matrix mean_squared_error_prime() const;
-        Matrix cross_entropy_prime() const;
+        // Matrix mean_squared_error() const;
+        // Matrix cross_entropy() const;
+        //
+        // Matrix mean_squared_error_prime() const;
+        // Matrix cross_entropy_prime() const;
 
         //___________PRINT__________
         // Prints the matrix beautifully

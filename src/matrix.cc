@@ -62,7 +62,7 @@ Matrix Matrix::operator+(Matrix& B){
         }
     }
     else
-        throw invalid_argument("ERROR: Wrong matrix dimension!");
+        throw invalid_argument("ERROR +: Wrong matrix dimension!");
     return sum;
 }
 
@@ -96,7 +96,7 @@ Matrix Matrix::operator*(Matrix& B){
         return multip;
     }
     else {
-        throw invalid_argument("ERROR: Wrong matrix dimension!");
+        throw invalid_argument("ERROR *: Wrong matrix dimension!");
     }
 }
 
@@ -158,7 +158,7 @@ double& Matrix::operator()(const unsigned & colNo) {
     if (this->m_rowSize == 1 && this->m_colSize > colNo)
         return this->m_matrix[0][colNo];
     else
-        throw invalid_argument("ERROR: Matrix m(x) must be unidimensional");
+        throw invalid_argument("ERROR (): Matrix m(x) must be unidimensional");
 }
 
 //___________GETTERS__________
@@ -204,8 +204,32 @@ double Matrix::dot(Matrix& m) const {
             res += this->m_matrix[0][i]*m(0,i);
     }
     else
-        throw invalid_argument("ERROR: Dot product vectors must be unidimensional");
+        throw invalid_argument("ERROR DOT: Dot product vectors must be unidimensional");
     return res;
+}
+
+double Matrix::sum() const {
+    if (m_rowSize == 1) {
+        double sum = 0.0;
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_colSize; i++)
+            sum += m_matrix[0][i];
+        return sum;
+    }
+    else
+        throw invalid_argument("ERROR SUM: Matrix m must be unidimensional");
+}
+
+Matrix Matrix::expMatrix() const {
+    if (m_rowSize == 1) {
+        Matrix res(1, m_colSize);
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_colSize; i++)
+            res(i) = exp(m_matrix[0][i]);
+        return res;
+    }
+    else
+        throw invalid_argument("ERROR EXP: Matrix m must be unidimensional");
 }
 
 
@@ -226,6 +250,17 @@ Matrix Matrix::relu() const {
         for (unsigned j = 0; j < m_colSize; j++)
             activation(i,j) = Activation::relu(m_matrix[i][j]);
     return activation;
+}
+
+Matrix Matrix::softmax() const {
+    if (m_rowSize == 1) {
+        Matrix res(1, m_colSize);
+        Matrix numerator = this->expMatrix();
+        double sum = numerator.sum();
+        return numerator/sum;
+    }
+    else
+        throw invalid_argument("ERROR SOFTMAX: Matrix m must be unidimensional");
 }
 
 
@@ -249,34 +284,34 @@ Matrix Matrix::relu_prime() const {
 
 
 //___________LOSS__________
-Matrix Matrix::mean_squared_error() const {
-    // #pragma omp parallel for num_threads(16)
-    // for (unsigned i = 0; i < m_rowSize; i++)
-    // for (unsigned j = 0; j < m_colSize; j++)
-    // this->m_matrix[i][j] = Loss::mean_squared_error(m_matrix[i][j]);
-}
-
-Matrix Matrix::cross_entropy() const {
-    // #pragma omp parallel for num_threads(16)
-    // for (unsigned i = 0; i < m_rowSize; i++)
-    // for (unsigned j = 0; j < m_colSize; j++)
-    // this->m_matrix[i][j] = Loss::cross_entropy(m_matrix[i][j]);
-}
-
-
-Matrix Matrix::mean_squared_error_prime() const {
-    // #pragma omp parallel for num_threads(16)
-    // for (unsigned i = 0; i < m_rowSize; i++)
-    // for (unsigned j = 0; j < m_colSize; j++)
-    // this->m_matrix[i][j] = Loss::mean_squared_error_prime(m_matrix[i][j]);
-}
-
-Matrix Matrix::cross_entropy_prime() const {
-    // #pragma omp parallel for num_threads(16)
-    // for (unsigned i = 0; i < m_rowSize; i++)
-    // for (unsigned j = 0; j < m_colSize; j++)
-    // this->m_matrix[i][j] = Loss::cross_entropy_prime(m_matrix[i][j]);
-}
+// Matrix Matrix::mean_squared_error() const {
+//     // #pragma omp parallel for num_threads(16)
+//     // for (unsigned i = 0; i < m_rowSize; i++)
+//     // for (unsigned j = 0; j < m_colSize; j++)
+//     // this->m_matrix[i][j] = Loss::mean_squared_error(m_matrix[i][j]);
+// }
+//
+// Matrix Matrix::cross_entropy() const {
+//     // #pragma omp parallel for num_threads(16)
+//     // for (unsigned i = 0; i < m_rowSize; i++)
+//     // for (unsigned j = 0; j < m_colSize; j++)
+//     // this->m_matrix[i][j] = Loss::cross_entropy(m_matrix[i][j]);
+// }
+//
+//
+// Matrix Matrix::mean_squared_error_prime() const {
+//     // #pragma omp parallel for num_threads(16)
+//     // for (unsigned i = 0; i < m_rowSize; i++)
+//     // for (unsigned j = 0; j < m_colSize; j++)
+//     // this->m_matrix[i][j] = Loss::mean_squared_error_prime(m_matrix[i][j]);
+// }
+//
+// Matrix Matrix::cross_entropy_prime() const {
+//     // #pragma omp parallel for num_threads(16)
+//     // for (unsigned i = 0; i < m_rowSize; i++)
+//     // for (unsigned j = 0; j < m_colSize; j++)
+//     // this->m_matrix[i][j] = Loss::cross_entropy_prime(m_matrix[i][j]);
+// }
 
 
 

@@ -14,8 +14,11 @@
   - [x] Activation and Loss parallel functions
   - [x] Print
   - [x] Broadcast sum
-  - [x] Random initialization
-  - [ ] Softmax
+  - [ ] Random initialization
+    - [ ] Uniform random initialization
+    - [ ] Normal random initialization
+    - [ ] Other initialization models
+  - [x] Softmax
   - [x] OpenMP implementation
 - [ ] Layer
   - [x] Initialize parameters
