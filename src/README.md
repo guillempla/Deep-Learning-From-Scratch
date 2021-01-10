@@ -3,6 +3,8 @@
 ## TODO:
 
 - [x] Activation functions
+  - [x] Sigmoid
+  - [x] Relu
 - [ ] Loss functions
   - [x] Mean square
   - [ ] Cross entropy
@@ -18,7 +20,7 @@
   - [x] Broadcast sum
   - [ ] Random initialization
     - [x] Uniform random initialization
-    - [ ] Normal random initialization
+    - [ ] Glorot (Normal distribution with $mean=0$ and $variance=\frac{2}{numInputs+numNeurons}$)
     - [ ] Other initialization models
   - [x] Softmax
   - [x] OpenMP implementation
@@ -29,7 +31,7 @@
 - [ ] Model
   - [x] Initialize parameters
   - [x] Feed Forward
-  - [ ] Back Forward
+  - [x] Back Forward
   - [ ] Calculate error
   - [ ] Update parameters
   - [ ] Predict
