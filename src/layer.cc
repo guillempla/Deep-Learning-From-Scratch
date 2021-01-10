@@ -7,8 +7,10 @@ Layer::Layer(bool type, unsigned num_examples, unsigned layer_size, unsigned pre
     this->prev_size;
     this->num_examples;
 
+    unsigned seed = 1;
+
     this->bias = Matrix(1, layer_size, 0.0);
-    this->weights = Matrix(layer_size, prev_size, 0.01);
+    this->weights = Matrix(layer_size, prev_size, false, seed);
 
     this->bias_prime = Matrix(1, layer_size, 0.0);
     this->weights_prime = Matrix(layer_size, prev_size, 0.0);
