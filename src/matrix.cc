@@ -155,8 +155,10 @@ double& Matrix::operator()(const unsigned &rowNo, const unsigned & colNo) {
 
 // Returns value of given location when asked in the form A(x)
 double& Matrix::operator()(const unsigned & colNo) {
-    if (this->m_rowSize == 1 && this->m_colSize > colNo)
-        return this->m_matrix[0][colNo];
+    if (m_rowSize == 1 && m_colSize > colNo)
+        return m_matrix[0][colNo];
+    else if (m_colSize == 1 && m_rowSize > colNo)
+        return m_matrix[colNo][0];
     else
         throw invalid_argument("ERROR (): Matrix m(x) must be unidimensional");
 }
