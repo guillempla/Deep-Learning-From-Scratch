@@ -4,11 +4,9 @@
 
 - [x] Activation functions
 - [ ] Loss functions
-- [ ] Data processing
-  - [ ] Read labels
-    - [ ] Check this!
-  - [ ] Read vectors
-    - [ ] Read vectors as vectors
+- [x] Data processing
+  - [x] Read labels
+  - [x] Read vectors
   - [x] Write csv
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)

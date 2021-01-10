@@ -43,7 +43,7 @@ void Data_processing::write_predictions(Matrix& predictions) const {
     ofstream myOutput(output_path);
 
     for (int i = 0; i < predictions.getCols(); i++)
-        myOutput << to_string(predictions(i)) << "\n";
+        myOutput << to_string((int)(predictions(i))) << "\n";
 
     // Close the file
     myOutput.close();
@@ -123,7 +123,6 @@ Matrix Data_processing::read_vectors(const string& file_name) const {
         double value;
         stringstream ss(line);
         while (ss >> value) {
-            // cout << "i: " << i << " j: " << j << " value: " << value << endl;
             matrix(j,i) = value;
 
             // If the next token is a comma, ignore it and move on
