@@ -15,19 +15,17 @@ class Layer {
         unsigned prev_size;
         unsigned num_examples;
 
-        Matrix bias;                // matrix of (layer_size,1)
-        Matrix weights;             // matrix of (layer_size,prev_size)
+        Matrix b;                   // matrix of bias (1,layer_size)
+        Matrix W;                   // matrix of weights (layer_size,prev_size)
 
-        Matrix potential;           // matrix of inner potential (layer_size,num_examples)
-        Matrix activation;          // matrix of activation (layer_size,num_examples)
+        Matrix Z;                   // matrix of inner potential (layer_size,num_examples)
+        Matrix A;                   // matrix of activation (layer_size,num_examples)
 
-        Matrix bias_prime;          // matrix of bias derivatives
-        Matrix weights_prime;       // matrix of weights derivatives
+        Matrix db;                  // matrix of bias derivatives (1,layer_size)
+        Matrix dW;                  // matrix of weights derivatives (layer_size,prev_size)
 
-        Matrix potential_prime;     // matrix of potential derivatives
-        Matrix activation_prime;    // matrix of activation derivatives
-
-        void forward(Matrix& A_prev);
+        Matrix dZ;                  // matrix of potential derivatives (layer_size,num_examples)
+        Matrix dA;                  // matrix of activation derivatives (layer_size,num_examples)
 
     public:
         //___________CONSTRUCTORS__________
@@ -37,15 +35,15 @@ class Layer {
         void set_type(bool type);
         void set_layer_size(unsigned layer_size);
         void set_prev_size(unsigned prev_size);
-        void set_bias(const Matrix& bias);
-        void set_weights(const Matrix& weights);
-        void set_weights_prime(const Matrix& weights_prime);
+        void set_bias(const Matrix& b);
+        void set_weights(const Matrix& W);
+        void set_weights_prime(const Matrix& dW);
 
         /*
         A_prev: activations of previous layer
         */
         Matrix* feed_forward(Matrix& A_prev);
-        Matrix* back_propagate(Matrix& dA_prev);
+        Matrix* back_propagate(Matrix& A_prev, Matrix& dA_prev);
 
         //___________GETTERS__________
         bool get_type() const;
