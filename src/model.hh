@@ -6,6 +6,7 @@
 #include <math.h>
 #include "matrix.hh"
 #include "layer.hh"
+#include "loss.hh"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ class Model {
         float learning_rate;
         unsigned num_iter;
 
-        void initialize_parameters(const vector<unsigned> layer_dims, unsigned num_examples);
+        void initialize_layers(const vector<unsigned> layer_dims, unsigned num_examples);
 
     public:
         //___________CONSTRUCTORS__________
@@ -27,7 +28,7 @@ class Model {
         Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter);
 
         //___________SETTERS__________
-        Matrix* feed_forward();
+        void feed_forward();
         void back_propagate();
 
 
