@@ -76,11 +76,11 @@ unsigned Data_processing::count_cols(const string& file_name) const {
             number_of_cols++;
 
     myfile.close();
-    return number_of_cols;
+    return number_of_cols+1;
 }
 
 Matrix Data_processing::read_labels(const string& file_name) const {
-    unsigned num_cols = this->count_cols(file_name);
+    unsigned num_cols = this->count_lines(file_name);
     Matrix labels_vector(1, num_cols);
 
     // Create an input filestream
@@ -94,7 +94,7 @@ Matrix Data_processing::read_labels(const string& file_name) const {
     unsigned i = 0;
     // Read data, line by line
     while (getline(myFile, value)) {
-        labels_vector(i)= stoi(value);
+        labels_vector(i) = stoi(value);
         i++;
     }
 
@@ -105,29 +105,29 @@ Matrix Data_processing::read_labels(const string& file_name) const {
 }
 
 Matrix Data_processing::read_vectors(const string& file_name) const {
-    unsigned num_rows = this->count_lines(file_name);
-    unsigned num_cols = this->count_cols(file_name);
+    unsigned num_rows = this->count_cols(file_name);
+    unsigned num_cols = this->count_lines(file_name);
 
-    Matrix matrix(num_rows+1, num_cols+1, 0);
-
+    Matrix matrix(num_rows, num_cols);
+    cout << "Rows: " << matrix.getRows() << " Cols: " << matrix.getCols() << endl;
     // Create an input filestream
     ifstream myFile(file_name);
 
     // Make sure the file is open
     if (!myFile.is_open()) throw runtime_error("Could not open file");
 
-    int i = 0;
+    unsigned i = 0;
     string line;
     while (getline(myFile, line)) {
-        int j = 0;
+        unsigned j = 0;
         double value;
         stringstream ss(line);
         while (ss >> value) {
-            matrix(i,j) = value;
+            // cout << "i: " << i << " j: " << j << " value: " << value << endl;
+            matrix(j,i) = value;
 
             // If the next token is a comma, ignore it and move on
-            if(ss.peek() == ',') ss.ignore();
-
+            if (ss.peek() == ',') ss.ignore();
             j++;
         }
         i++;
