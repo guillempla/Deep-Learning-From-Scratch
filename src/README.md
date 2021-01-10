@@ -15,7 +15,7 @@
   - [x] Print
   - [x] Broadcast sum
   - [ ] Random initialization
-    - [ ] Uniform random initialization
+    - [x] Uniform random initialization
     - [ ] Normal random initialization
     - [ ] Other initialization models
   - [x] Softmax
