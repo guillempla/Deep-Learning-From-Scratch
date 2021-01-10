@@ -4,6 +4,8 @@
 
 - [x] Activation functions
 - [ ] Loss functions
+  - [x] Mean square
+  - [ ] Cross entropy
 - [x] Data processing
   - [x] Read labels
   - [x] Read vectors
@@ -28,10 +30,11 @@
   - [x] Initialize parameters
   - [x] Feed Forward
   - [ ] Back Forward
-  - [ ] Train
+  - [ ] Calculate error
   - [ ] Update parameters
+  - [ ] Predict
 - [ ] Main
-  - [ ] Read data
+  - [x] Read data
   - [ ] Train model
   - [ ] Write predictions
 - [ ] RUN

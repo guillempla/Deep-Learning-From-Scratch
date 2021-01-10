@@ -175,6 +175,7 @@ double& Matrix::operator()(const unsigned & colNo) {
         throw invalid_argument("ERROR (): Matrix m(x) must be unidimensional");
 }
 
+
 //___________GETTERS__________
 unsigned Matrix::getRows() const {
     return this->m_rowSize;
@@ -262,6 +263,15 @@ Matrix Matrix::expMatrix() const {
     return res;
 }
 
+Matrix Matrix::pow2Matrix() const {
+    Matrix res(m_rowSize, m_colSize);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            res(i,j) = m_matrix[i][j]*m_matrix[i][j];
+    return res;
+}
+
 
 //___________ACTIVATION__________
 Matrix Matrix::sigmoid() const {
@@ -310,46 +320,13 @@ Matrix Matrix::relu_prime() const {
 }
 
 
-//___________LOSS__________
-// Matrix Matrix::mean_squared_error() const {
-//     // #pragma omp parallel for num_threads(16)
-//     // for (unsigned i = 0; i < m_rowSize; i++)
-//     // for (unsigned j = 0; j < m_colSize; j++)
-//     // this->m_matrix[i][j] = Loss::mean_squared_error(m_matrix[i][j]);
-// }
-//
-// Matrix Matrix::cross_entropy() const {
-//     // #pragma omp parallel for num_threads(16)
-//     // for (unsigned i = 0; i < m_rowSize; i++)
-//     // for (unsigned j = 0; j < m_colSize; j++)
-//     // this->m_matrix[i][j] = Loss::cross_entropy(m_matrix[i][j]);
-// }
-//
-//
-// Matrix Matrix::mean_squared_error_prime() const {
-//     // #pragma omp parallel for num_threads(16)
-//     // for (unsigned i = 0; i < m_rowSize; i++)
-//     // for (unsigned j = 0; j < m_colSize; j++)
-//     // this->m_matrix[i][j] = Loss::mean_squared_error_prime(m_matrix[i][j]);
-// }
-//
-// Matrix Matrix::cross_entropy_prime() const {
-//     // #pragma omp parallel for num_threads(16)
-//     // for (unsigned i = 0; i < m_rowSize; i++)
-//     // for (unsigned j = 0; j < m_colSize; j++)
-//     // this->m_matrix[i][j] = Loss::cross_entropy_prime(m_matrix[i][j]);
-// }
-
-
-
 //___________PRINT__________
 // Prints the matrix beautifully
 void Matrix::printMatrix() const {
     cout << "Matrix: " << endl;
     for (unsigned i = 0; i < m_rowSize; i++) {
-        for (unsigned j = 0; j < m_colSize; j++) {
+        for (unsigned j = 0; j < m_colSize; j++)
             cout << "[" << m_matrix[i][j] << "] ";
-        }
         cout << endl;
     }
 }

@@ -7,36 +7,28 @@ Loss::Loss() {}
 
 
 //___________GETTERS__________
-double Loss::mean_squared_error(Matrix& y_true, Matrix& y_pred) {
-    // double sum = 0.0;
-    // double p = y_pred.size();
-    // for (int k = 0; k < p; k++)
-    //     sum += pow(y_pred[k]-y_true[k], 2);
-    // return 0.5*sum;
+double Loss::mean_square(Matrix& y_true, Matrix& y_pred) {
+    return (((y_true-y_pred).pow2Matrix()).sum())/(y_pred.getCols());
 }
 
-double Loss::cross_entropy(Matrix& y_true, Matrix& y_pred) {
-    // double sum = 0.0;
-    // for (int k = 0; k < y_pred.size(); k++) {
-    //     sum += y_true[k]*log(y_pred[k])+(1-y_true[k])*log(1-y_pred[k]);
-    // }
-    // return sum/y_pred.size();
+Matrix Loss::mean_square_prime(Matrix& y_true, Matrix& y_pred) {
+    return (y_true - y_pred)*2;
 }
-
-double Loss::mean_squared_error_prime(Matrix& y_true, Matrix& y_pred, Matrix& x) {
-    // double sum = 0.0;
-    // double p = y_pred.size();
-    // for (int k = 0; k < p; k++)
-    //     sum += (y_pred[k]-y_true[k])*x[k];
-    // return sum;
-}
-
-vector<double> Loss::cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
-    // vector<double> dAL(y_pred.size());
-    // for (int k = 0; k < y_pred.size(); k++) {
-    //     double d1 = y_true[k]/y_pred[k];
-    //     double d2 = (1-y_true[k])/(1-y_pred[k]);
-    //     dAL[k] = - (d1-d2);
-    // }
-    // return dAL;
-}
+//
+// double Loss::cross_entropy(Matrix& y_true, Matrix& y_pred) {
+//     // double sum = 0.0;
+//     // for (int k = 0; k < y_pred.size(); k++) {
+//     //     sum += y_true[k]*log(y_pred[k])+(1-y_true[k])*log(1-y_pred[k]);
+//     // }
+//     // return sum/y_pred.size();
+// }
+//
+// Matrix Loss::cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
+//     // vector<double> dAL(y_pred.size());
+//     // for (int k = 0; k < y_pred.size(); k++) {
+//     //     double d1 = y_true[k]/y_pred[k];
+//     //     double d2 = (1-y_true[k])/(1-y_pred[k]);
+//     //     dAL[k] = - (d1-d2);
+//     // }
+//     // return dAL;
+// }

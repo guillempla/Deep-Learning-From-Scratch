@@ -45,6 +45,7 @@ class Matrix {
         unsigned getRows() const;
         unsigned getCols() const;
 
+        // Given a Matrix returns its transpose
         Matrix transpose() const;
 
         // Given two unidimensional Matrices returns dot product
@@ -53,10 +54,14 @@ class Matrix {
         // Given one unidimensional Matrix returns the sum of its elements
         double sum() const;
 
+        // Given a Matrix returns an unidimensional Matrix containing the sums of axis
         Matrix sum(int axis) const;
 
         // Given one unidimensional Matrix applies exp() to all elements
         Matrix expMatrix() const;
+
+        // Given a Matrix returns a Matrix with all its elements multiplied by itself
+        Matrix pow2Matrix() const;
 
         //___________ACTIVATION__________
         Matrix sigmoid() const;
@@ -65,13 +70,6 @@ class Matrix {
 
         Matrix sigmoid_prime() const;
         Matrix relu_prime() const;
-
-        //___________LOSS__________
-        // Matrix mean_squared_error() const;
-        // Matrix cross_entropy() const;
-        //
-        // Matrix mean_squared_error_prime() const;
-        // Matrix cross_entropy_prime() const;
 
         //___________PRINT__________
         // Prints the matrix beautifully

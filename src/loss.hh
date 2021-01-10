@@ -22,18 +22,18 @@ class Loss {
 
         /*
         y_true: vector of desired values
-        y_pred: vector of values given by the model (w·x)
+        y_pred: vector of values given by the model
         */
-        static double mean_squared_error(Matrix& y_true, Matrix& y_pred);
-        static double cross_entropy(Matrix& y_true, Matrix& y_pred);
+        static double mean_square(Matrix& y_true, Matrix& y_pred);
+        // static double cross_entropy(Matrix& y_true, Matrix& y_pred);
 
         /*
         y_true: vector of desired values
-        y_pred: vector of values given by the model (w·x)
+        y_pred: vector of values given by the model
         x:      vector of values of previous layers
         */
-        static double mean_squared_error_prime(Matrix& y_true, Matrix& y_pred, Matrix& x);
-        static vector<double> cross_entropy_prime(Matrix& y_true, Matrix& y_pred);
+        static Matrix mean_square_prime(Matrix& y_true, Matrix& y_pred);
+        // static Matrix cross_entropy_prime(Matrix& y_true, Matrix& y_pred);
 
 };
 
