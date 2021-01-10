@@ -14,7 +14,7 @@
   - [x] Activation and Loss parallel functions
   - [x] Print
   - [x] Broadcast sum
-  - [ ] Random initialization
+  - [x] Random initialization
   - [ ] Softmax
   - [x] OpenMP implementation
 - [ ] Layer

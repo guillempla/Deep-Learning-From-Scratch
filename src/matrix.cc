@@ -15,6 +15,22 @@ Matrix::Matrix(unsigned m, unsigned n) {
         m_matrix[i].resize(n, 0);
 }
 
+Matrix::Matrix(unsigned m, unsigned n, bool randn, unsigned seed) {
+    m_rowSize = m;
+    m_colSize = n;
+    this->m_matrix.resize(m);
+
+    srand(seed);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m; i++) {
+        m_matrix[i].resize(n, 0);
+        for (unsigned j = 0; j < n; j++) {
+            if (!randn)
+                m_matrix[i][j] = (double)(rand()%100)/100;
+        }
+    }
+}
+
 Matrix::Matrix(unsigned m, unsigned n, double initial) {
     m_rowSize = m;
     m_colSize = n;
@@ -23,9 +39,6 @@ Matrix::Matrix(unsigned m, unsigned n, double initial) {
     for (unsigned i = 0; i < m; i++)
         m_matrix[i].resize(n, initial);
 }
-
-
-//___________SETTERS__________
 
 
 

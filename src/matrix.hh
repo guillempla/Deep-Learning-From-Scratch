@@ -5,6 +5,7 @@
 #include <vector>
 #include <omp.h>
 #include <math.h>
+#include <stdlib.h> // Random numbers
 #include "activation.hh"
 
 using namespace std;
@@ -19,10 +20,8 @@ class Matrix {
         //___________CONSTRUCTORS__________
         Matrix();
         Matrix(unsigned m, unsigned n);
+        Matrix(unsigned m, unsigned n, bool randn, unsigned seed);
         Matrix(unsigned m, unsigned n, double initial);
-
-        //___________SETTERS__________
-
 
         //___________OPERATIONS__________
         // Matrix operations
