@@ -12,7 +12,7 @@ Matrix::Matrix(unsigned m, unsigned n) {
     this->m_matrix.resize(m);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m; i++)
-        m_matrix[i].resize(n, 0);
+        m_matrix[i].resize(n, 0.0);
 }
 
 Matrix::Matrix(unsigned m, unsigned n, bool randn, unsigned seed) {
