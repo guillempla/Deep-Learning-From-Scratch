@@ -64,12 +64,12 @@ class Matrix {
         Matrix pow2Matrix() const;
 
         //___________ACTIVATION__________
-        Matrix sigmoid() const;
-        Matrix relu() const;
-        Matrix softmax() const;
+        Matrix sigmoid();
+        Matrix relu();
+        Matrix softmax();
 
-        Matrix sigmoid_prime() const;
-        Matrix relu_prime() const;
+        Matrix sigmoid_prime();
+        Matrix relu_prime();
 
         //___________PRINT__________
         // Prints the matrix beautifully

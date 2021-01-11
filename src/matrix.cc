@@ -236,7 +236,7 @@ double Matrix::sum() const {
 }
 
 Matrix Matrix::sum(int axis) const {
-    if (axis == 1) {
+    if (axis == 0) {
         Matrix sum(1, m_colSize);
         #pragma omp parallel for num_threads(16)
         for (unsigned i = 0; i < m_colSize; i++)
@@ -274,7 +274,7 @@ Matrix Matrix::pow2Matrix() const {
 
 
 //___________ACTIVATION__________
-Matrix Matrix::sigmoid() const {
+Matrix Matrix::sigmoid() {
     Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
@@ -283,7 +283,7 @@ Matrix Matrix::sigmoid() const {
     return activation;
 }
 
-Matrix Matrix::relu() const {
+Matrix Matrix::relu() {
     Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
@@ -292,7 +292,7 @@ Matrix Matrix::relu() const {
     return activation;
 }
 
-Matrix Matrix::softmax() const {
+Matrix Matrix::softmax() {
     Matrix numerator = this->expMatrix();
     numerator.printMatrix();
     Matrix sum = numerator.sum(1);
@@ -301,7 +301,7 @@ Matrix Matrix::softmax() const {
 }
 
 
-Matrix Matrix::sigmoid_prime() const {
+Matrix Matrix::sigmoid_prime() {
     Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
@@ -310,7 +310,7 @@ Matrix Matrix::sigmoid_prime() const {
     return activation;
 }
 
-Matrix Matrix::relu_prime() const {
+Matrix Matrix::relu_prime() {
     Matrix activation(m_rowSize, m_colSize, 0.0);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
