@@ -37,7 +37,8 @@ class Layer {
         void set_prev_size(unsigned prev_size);
         void set_bias(const Matrix& b);
         void set_weights(const Matrix& W);
-        void set_weights_prime(const Matrix& dW);
+        void set_weights_gradient(const Matrix& dW);
+        void set_activation_gradient(const Matrix& dA);
 
         /*
         A_prev: activations of previous layer
@@ -49,8 +50,9 @@ class Layer {
         bool get_type() const;
         Matrix get_bias() const;
         Matrix get_weights() const;
-        Matrix get_weights_prime() const;
+        Matrix get_weights_gradient() const;
         Matrix* get_activation();
+        Matrix* get_activation_gradient();
 
 
 
