@@ -24,17 +24,21 @@
     - [ ] Other initialization models
   - [x] Softmax
   - [x] OpenMP implementation
-- [ ] Layer
+- [x] Layer
   - [x] Initialize parameters
   - [x] Feed Forward
-  - [ ] Back Forward
+  - [x] Back Forward
 - [ ] Model
   - [x] Initialize parameters
   - [x] Feed Forward
   - [x] Back Forward
-  - [ ] Calculate error
-  - [ ] Update parameters
-  - [ ] Predict
+  - [ ] Train
+    - [ ] Calculate error
+    - [ ] Update parameters
+    - [ ] Predict
+  - [ ] Epoch
+  - [ ] Bach
+  - [ ] Early stop
 - [ ] Main
   - [x] Read data
   - [ ] Train model
