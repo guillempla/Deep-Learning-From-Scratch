@@ -19,6 +19,7 @@ class Model {
         unsigned num_iter;
 
         void initialize_layers(const vector<unsigned> layer_dims, unsigned num_examples);
+        Matrix* get_previous_activation(int i);
 
     public:
         //___________CONSTRUCTORS__________
