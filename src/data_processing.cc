@@ -81,7 +81,7 @@ unsigned Data_processing::count_cols(const string& file_name) const {
 
 Matrix Data_processing::read_labels(const string& file_name) const {
     unsigned num_cols = this->count_lines(file_name);
-    Matrix labels_vector(1, num_cols);
+    Matrix labels_vector(NUM_LABELS, num_cols);
 
     // Create an input filestream
     ifstream myFile(file_name);
@@ -91,11 +91,11 @@ Matrix Data_processing::read_labels(const string& file_name) const {
 
     string value;
 
-    unsigned i = 0;
+    unsigned j = 0;
     // Read data, line by line
     while (getline(myFile, value)) {
-        labels_vector(i) = stoi(value);
-        i++;
+        labels_vector(stoi(value),j) = 1;
+        j++;
     }
 
     // Close file

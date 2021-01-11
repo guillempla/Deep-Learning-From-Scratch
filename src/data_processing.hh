@@ -12,6 +12,8 @@
 
 #include "matrix.hh"
 
+#define NUM_LABELS 10
+
 using namespace std;
 
 class Data_processing {
@@ -39,7 +41,6 @@ class Data_processing {
 
 
         //___________GETTERS__________
-
         Matrix read_test_labels() const;
         Matrix read_train_labels() const;
         Matrix read_test_vectors() const;
