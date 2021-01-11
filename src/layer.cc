@@ -77,15 +77,19 @@ Matrix* Layer::feed_forward(Matrix& A_prev) {
 
 Matrix Layer::back_propagate(Matrix& A_prev) {
     cout << "    Layer::Initialized back_propagate" << endl;
+    cout << "    Layer::Layer_size: " << layer_size << " Prev_size: " << prev_size << endl;
     if (type == "output") {
         cout << "    Layer::Type Output" << endl;
-        Matrix g_prime = Z.sigmoid_prime();
-        dZ = dA*g_prime;
+        Matrix aux = (A*-1.0)+1.0;
+        Matrix g_prime = A.mulElementWise(aux);
+        dZ = dA.mulElementWise(g_prime);
     }
     else {
         cout << "    Layer::Type Hidden" << endl;
-        Matrix g_prime = Z.relu_prime();
-        dZ = dA*g_prime;
+        Matrix g_prime = A.relu_prime();
+        cout << "    Layer::g_prime dimensions(" << g_prime.getRows() << "," << g_prime.getCols() << ")" << endl;
+        cout << "    Layer::dA dimensions(" << dA.getRows() << "," << dA.getCols() << ")" << endl;
+        dZ = dA.mulElementWise(g_prime);
     }
     cout << "    Layer::Calculated dZ" << endl;
 
@@ -97,7 +101,7 @@ Matrix Layer::back_propagate(Matrix& A_prev) {
     db = (dZ.sum(1)/m).transpose();
     cout << "    Layer::Calculated db" << endl;
     Matrix dA_prev = W.transpose()*dZ;
-    cout << "    Layer::Calculated dA_prev" << endl;
+    cout << "    Layer::dA_prev dimensions(" << dA_prev.getRows() << "," << dA_prev.getCols() << ")" << endl;
     return dA_prev;
 }
 

@@ -20,13 +20,20 @@ void Model::feed_forward() {
 }
 
 void Model::back_propagate() {
+    cout << "Model::back_propagate" << endl;
     Matrix* A = layers[layers.size()-1].get_activation();
+    cout << "Model::get_activation" << endl;
+    cout << "Model::Y dimensions(" << Y.getRows() << "," << Y.getCols() << ")" << endl;
+    cout << "Model::A dimensions(" << A->getRows() << "," << A->getCols() << ")" << endl;
     Matrix dA = Loss::mean_square_prime(Y, *A);
+    cout << "Model::dA calculated" << endl;
     for (int i = layers.size()-1; i >= 0; i--) {
         auto& layer = this->layers[i];
         layer.set_activation_gradient(dA);
+        cout << "Model::set_activation_gradient" << endl;
         Matrix* A_prev = get_previous_activation(i);
-        Matrix dA = layer.back_propagate(*A_prev);
+        cout << "Model::get_previous_activation" << endl;
+        dA = layer.back_propagate(*A_prev);
     }
 }
 
