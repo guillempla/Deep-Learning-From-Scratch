@@ -11,12 +11,12 @@ void test() {
     // Matrix m1(3,3,0.5);
     Matrix m2(5,7,false,1);
     Matrix m3(1,5, false, 1);
+    m3.printMatrix();
     // m3(0,0) = -1;
     // m3(1,0) = 1;
     // m3(2,0) = 3;
     // m3(3) = 5;
     // Matrix m5(5,7, 0.5);
-    // Matrix m4(1, 5, 0.5);
     // m4(1) = 1.5;
     // m4(2) = 20.5;
     // m4(3) = 40.5;
@@ -36,11 +36,20 @@ void real_main() {
 
     cout << "Finished read data" << endl;
 
-    vector<unsigned> layers_dims{ X.getRows(), 2, 7, 2 };
+    vector<unsigned> layers_dims{ X.getRows(), 2, 7, 10 };
 
     Model m(X, Y, layers_dims, 30, 1000);
 
     m.feed_forward();
+
+    cout << endl;
+    cout << "-------------------------------------------------" << endl;
+    cout << "-------------------------------------------------" << endl;
+    cout << "-------------------------------------------------" << endl;
+    cout << "-------------------------------------------------" << endl;
+    cout << endl;
+
+    m.back_propagate();
 
     // d.write_predictions(predictions);
 }
