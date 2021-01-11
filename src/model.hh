@@ -15,7 +15,7 @@ class Model {
         Matrix X;
         Matrix Y;
         vector<Layer> layers;
-        float learning_rate;
+        double learning_rate;
         unsigned num_iter;
 
         void initialize_layers(const vector<unsigned> layer_dims, unsigned num_examples);
@@ -26,11 +26,13 @@ class Model {
         /*
         layer_dims: position i constains size of layer i
         */
-        Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, float learning_rate, unsigned num_iter);
+        Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, double learning_rate, unsigned num_iter);
 
         //___________SETTERS__________
+        void train();
         void feed_forward();
         void back_propagate();
+        void update_parameters();
 
 
 
