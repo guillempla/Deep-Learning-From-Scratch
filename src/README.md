@@ -16,6 +16,7 @@
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
   - [x] Activation and Loss parallel functions
+    - [ ] Sigmoid prime
   - [x] Print
   - [x] Broadcast sum
   - [ ] Random initialization
