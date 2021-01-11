@@ -189,11 +189,19 @@ unsigned Matrix::getCols() const {
 Matrix Matrix::transpose() const {
     Matrix Transpose(m_colSize, m_rowSize, 0.0);
     #pragma omp parallel for num_threads(16)
-    for (unsigned i = 0; i < m_colSize; i++) {
+    for (unsigned i = 0; i < m_colSize; i++)
         for (unsigned j = 0; j < m_rowSize; j++)
             Transpose(i,j) = this->m_matrix[j][i];
-    }
     return Transpose;
+}
+
+Matrix Matrix::mulElementWise(Matrix& m) const {
+    Matrix result(m_rowSize, m_colSize, 0.0);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            result(i,j) = m_matrix[i][j] * m(i,j);
+    return result;
 }
 
 double Matrix::dot(Matrix& m) const {
@@ -301,14 +309,9 @@ Matrix Matrix::softmax() {
 }
 
 
-Matrix Matrix::sigmoid_prime() {
-    Matrix activation(m_rowSize, m_colSize, 0.0);
-    #pragma omp parallel for num_threads(16)
-    for (unsigned i = 0; i < m_rowSize; i++)
-        for (unsigned j = 0; j < m_colSize; j++)
-            activation(i,j) = Activation::sigmoid_prime(m_matrix[i][j]);
-    return activation;
-}
+// Matrix Matrix::sigmoid_prime() {
+//     return this->mulElementWise();
+// }
 
 Matrix Matrix::relu_prime() {
     Matrix activation(m_rowSize, m_colSize, 0.0);

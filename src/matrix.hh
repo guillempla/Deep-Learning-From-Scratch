@@ -48,6 +48,9 @@ class Matrix {
         // Given a Matrix returns its transpose
         Matrix transpose() const;
 
+        // Given two Matrices returns an elementwise multiplication of both
+        Matrix mulElementWise(Matrix& m) const;
+
         // Given two unidimensional Matrices returns dot product
         double dot(Matrix& m) const;
 
@@ -68,7 +71,7 @@ class Matrix {
         Matrix relu();
         Matrix softmax();
 
-        Matrix sigmoid_prime();
+        // Matrix sigmoid_prime();
         Matrix relu_prime();
 
         //___________PRINT__________
