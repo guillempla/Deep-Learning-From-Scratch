@@ -6,7 +6,7 @@ Data_processing::Data_processing() {
     this->test_vectors_path = "../data/fashion_mnist_test_vectors.csv";
     this->train_labels_path = "../data/fashion_mnist_train_labels.csv";
     this->train_vectors_path = "../data/fashion_mnist_train_vectors.csv";
-    this->output_path = "../predictions";
+    this->output_path = "../actualPredictions";
 }
 
 Data_processing::Data_processing(const string& test_labels_path, const string& test_vectors_path, const string& train_labels_path, const string& train_vectors_path, const string& output_path) {
