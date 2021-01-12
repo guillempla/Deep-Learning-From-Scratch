@@ -29,20 +29,20 @@ void test() {
 void real_main() {
     cout << "Started main" << endl;
     Data_processing d;
-    Matrix test_labels = d.read_test_labels();
-    Matrix test_vectors = d.read_test_vectors();
-    Matrix Y = d.read_train_labels();
-    Matrix X = d.read_train_vectors();
+    Matrix y_test = d.read_test_labels();
+    Matrix x_test = d.read_test_vectors();
+    Matrix y_train = d.read_train_labels();
+    Matrix x_train = d.read_train_vectors();
 
     cout << "Finished read data" << endl;
 
-    vector<unsigned> layers_dims{ X.getRows(), 2, 7, 10 };
+    vector<unsigned> layers_dims{ x_train.getRows(), 64, 10 };
 
-    Model m(X, Y, layers_dims, 0.0075, 10);
+    Model m(x_train, y_train, layers_dims, 0.0075, 10);
 
     Matrix costs = m.train();
 
-    Matrix predictions = m.predict(test_vectors);
+    Matrix predictions = m.predict(x_test);
 
     d.write_predictions(predictions);
 }
