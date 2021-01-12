@@ -38,29 +38,11 @@ void real_main() {
 
     vector<unsigned> layers_dims{ X.getRows(), 2, 7, 10 };
 
-    Model m(X, Y, layers_dims, 0.0075, 10);
+    Model m(X, Y, layers_dims, 0.0075, 75);
 
-    m.train();
-    // m.feed_forward();
-    //
-    // cout << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << endl;
-    //
-    // m.back_propagate();
-    //
-    // cout << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << "-------------------------------------------------" << endl;
-    // cout << endl;
-    //
-    // m.update_parameters();
-    // d.write_predictions(predictions);
+    auto AL = m.train();
+
+    d.write_predictions(*AL);
 }
 
 int main() {
