@@ -29,10 +29,12 @@ class Model {
         Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, double learning_rate, unsigned num_iter);
 
         //___________SETTERS__________
-        void train();
+        Matrix* train();
+        void predict();
         void feed_forward();
         void back_propagate();
         void update_parameters();
+        void compute_cost();
 
 
 
