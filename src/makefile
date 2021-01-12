@@ -1,8 +1,11 @@
-CC    := g++
-EXECS := data_processing activation loss matrix layer model
+CC				:= g++
+EXECS 			:= network data_processing activation loss matrix layer model
+CFLAGS 			:= -ffp-contract=fast -funsafe-math-optimizations -march=native -msse2 -mfpmath=sse -ftree-vectorize -std=c++17
+OPTIMIZATION	:= -Ofast
 
-main: main.cc data_processing.cc activation.cc loss.cc matrix.cc layer.cc model.cc
-	$(CC) -O2 $+ -o $@
+
+network: main.cc data_processing.cc activation.cc loss.cc matrix.cc layer.cc model.cc
+	$(CC) $(CFLAGS) $(OPTIMIZATION) $+ -o $@
 
 data_processing: data_processing.cc
 	$(CC) $+ -o $@
@@ -25,4 +28,4 @@ model: model.cc
 
 
 clean:
-	rm -fv $(EXECS) *.txt *.in
+	rm -fv $(EXECS)
