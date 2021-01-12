@@ -60,6 +60,20 @@ void Layer::set_activation_gradient(Matrix& dA) {
     this->dA = dA;
 }
 
+Matrix Layer::predict(Matrix& A_prev) {
+    // cout << "    Layer::predict" << endl;
+    // cout << "    Layer::Type: " << this->type << endl;
+    // cout << "    Layer::A_prev dimensions(" << A_prev.getRows() << "," << A_prev.getCols() << ")" << endl;
+    // cout << "    Layer::W dimensions(" << W.getRows() << "," << W.getCols() << ")" << endl;
+    // cout << "    Layer::b dimensions(" << b.getRows() << "," << b.getCols() << ")" << endl;
+    Matrix Zaux = W*A_prev + b;
+    // cout << "    Layer::Zaux dimensions(" << Zaux.getRows() << "," << Zaux.getCols() << ")" << endl;
+    if (this->type == "output")
+        return Zaux.sigmoid();
+    else
+        return Zaux.relu();
+}
+
 Matrix* Layer::feed_forward(Matrix& A_prev) {
     // cout << "    Layer::feed_forward" << endl;
     // cout << "    Layer::Type: " << this->type << endl;

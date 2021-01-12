@@ -12,23 +12,28 @@ Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_di
 
 
 //___________SETTERS__________
-Matrix* Model::train() {
+Matrix Model::train() {
+    Matrix costs(1, num_iter);
     for (unsigned i = 0; i < num_iter; i++) {
         feed_forward();
-        compute_cost();
+        costs(i) = compute_cost();
         back_propagate();
         update_parameters();
     }
-    return layers[layers.size()-1].get_activation();
+    return costs;
 }
 
-void Model::predict() {
-
+Matrix Model::predict(Matrix& input) {
+    // // cout << "Model::predict" << endl;
+    Matrix A_prev = input;
+    for (auto& layer: this->layers)
+        A_prev = layer.predict(A_prev);
+    return A_prev;
 }
 
 void Model::feed_forward() {
     // cout << "Model::feed_forward" << endl;
-    Matrix *A_prev = &X;
+    Matrix* A_prev = &X;
     for (auto& layer: this->layers)
         A_prev = layer.feed_forward(*A_prev);
 }
@@ -58,9 +63,9 @@ void Model::update_parameters() {
     // cout << "Model::finished updating parameters" << endl;
 }
 
-void Model::compute_cost() {
+double Model::compute_cost() {
     Matrix* AL = layers[layers.size()-1].get_activation();
-    // cout << "Cost: " << Loss::mean_square(Y, *AL) << endl;
+    return Loss::mean_square(Y, *AL);
 }
 
 

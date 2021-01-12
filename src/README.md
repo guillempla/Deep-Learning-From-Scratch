@@ -8,7 +8,7 @@
 - [ ] Loss functions
   - [x] Mean square
   - [ ] Cross entropy
-- [ ] Data processing
+- [x] Data processing
   - [x] Read labels
   - [x] Read vectors
   - [x] Write predictions
@@ -36,14 +36,14 @@
   - [x] Train
     - [x] Calculate error
     - [x] Update parameters
-    - [ ] Predict
+    - [x] Predict
   - [ ] Epoch
   - [ ] Bach
   - [ ] Early stop
-- [ ] Main
+- [x] Main
   - [x] Read data
   - [x] Train model
-  - [ ] Predict
+  - [x] Predict
   - [x] Write predictions
 - [ ] RUN
   - [ ] Add modules

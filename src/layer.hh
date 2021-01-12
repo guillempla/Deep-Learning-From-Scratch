@@ -42,6 +42,7 @@ class Layer {
         void set_activation_gradient(Matrix& dA);
 
         // A_prev: activations of previous layer
+        Matrix predict(Matrix& A_prev);
         Matrix* feed_forward(Matrix& A_prev);
         Matrix back_propagate(Matrix& A_prev);
         void update_parameters(double learning_rate);
