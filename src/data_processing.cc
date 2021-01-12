@@ -42,6 +42,8 @@ void Data_processing::write_predictions(Matrix& predictions) const {
     // Create an output filestream object
     ofstream myOutput(output_path);
 
+    predictions = convert_binary_matrix(predictions);
+
     for (int i = 0; i < predictions.getCols(); i++)
         myOutput << to_string((int)(predictions(i))) << "\n";
 
@@ -133,4 +135,13 @@ Matrix Data_processing::read_vectors(const string& file_name) const {
     }
 
     return matrix;
+}
+
+Matrix Data_processing::convert_binary_matrix(Matrix& predictions) const {
+    Matrix res(1, predictions.getCols());
+    for (unsigned i = 0; i < predictions.getRows(); i++)
+        for (unsigned j = 0; j < predictions.getCols(); j++)
+            if (predictions(i,j) == 1)
+                res(j) = i;
+    return res;
 }
