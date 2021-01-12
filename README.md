@@ -1,4 +1,9 @@
+505002
+
+Guillem Pla Bertran
+
 # PV021 project | deep learning from scratch
+
 **This file may not be up-to-date; read forum, emails, etc.**
 
 ### Consider using this folder structure (data, src, etc.)
