@@ -5,6 +5,9 @@
 - [x] Activation functions
   - [x] Sigmoid
   - [x] Relu
+  - [ ] Softmax
+    - [x] Softmax
+    - [ ] Softmax prime
 - [ ] Loss functions
   - [x] Mean square
   - [ ] Cross entropy
@@ -16,14 +19,12 @@
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
   - [x] Activation and Loss parallel functions
-    - [ ] Sigmoid prime
   - [x] Print
   - [x] Broadcast sum
   - [ ] Random initialization
     - [x] Uniform random initialization
     - [ ] Glorot (Normal distribution with $mean=0$ and $variance=\frac{2}{numInputs+numNeurons}$)
     - [ ] Other initialization models
-  - [x] Softmax
   - [x] OpenMP implementation
 - [x] Layer
   - [x] Initialize parameters
@@ -38,13 +39,13 @@
     - [x] Update parameters
     - [x] Predict
   - [ ] Epoch
-  - [ ] Bach
+  - [ ] Batch
   - [ ] Early stop
 - [x] Main
   - [x] Read data
   - [x] Train model
   - [x] Predict
   - [x] Write predictions
-- [ ] RUN
-  - [ ] Add modules
+- [x] RUN
+  - [x] Add modules
   - [x] Makefile
