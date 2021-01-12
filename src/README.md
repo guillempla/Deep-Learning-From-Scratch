@@ -7,12 +7,11 @@
   - [x] Relu
 - [ ] Loss functions
   - [x] Mean square
-    - [ ] Convert Y to unidimensional label vector
   - [ ] Cross entropy
 - [ ] Data processing
   - [x] Read labels
   - [x] Read vectors
-  - [ ] Write predictions (I must join the vectors in one)
+  - [x] Write predictions
 - [ ] Matrix
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
@@ -35,7 +34,7 @@
   - [x] Feed Forward
   - [x] Back Forward
   - [x] Train
-    - [ ] Calculate error
+    - [x] Calculate error
     - [x] Update parameters
     - [ ] Predict
   - [ ] Epoch
@@ -44,7 +43,8 @@
 - [ ] Main
   - [x] Read data
   - [x] Train model
-  - [ ] Write predictions
+  - [ ] Predict
+  - [x] Write predictions
 - [ ] RUN
   - [ ] Add modules
   - [x] Makefile
