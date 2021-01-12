@@ -39,6 +39,5 @@ double Activation::sigmoid_prime(const double z) {
 double Activation::relu_prime(const double z) {
     if (z > 0)
         return 1;
-    else if (z < 0)
-        return 0;
+    return 0;
 }
