@@ -239,6 +239,13 @@ double Matrix::sum() const {
             sum += m_matrix[0][i];
         return sum;
     }
+    else if (m_colSize == 1) {
+        double sum = 0.0;
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++)
+            sum += m_matrix[i][0];
+        return sum;
+    }
     else
         throw invalid_argument("ERROR SUM: Matrix m must be unidimensional");
 }
