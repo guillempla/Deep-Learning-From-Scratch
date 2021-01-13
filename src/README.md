@@ -44,7 +44,7 @@
   - [x] Train
     - [x] Calculate error
     - [x] Update parameters
-    - [x] Predict
+    - [ ] Predict
   
   - [ ] Batch
   - [ ] Early stop
