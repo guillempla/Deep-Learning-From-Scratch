@@ -122,7 +122,7 @@ Matrix Layer::back_propagate(Matrix& A_prev) {
     //     dZ = dA.mulElementWise(g_prime);
     // }
     else
-        throw invalid_argument("ERROR Predict: Wrong layer type!");
+        throw invalid_argument("ERROR back_propagate: Wrong layer type!");
     // cout << "    Layer::Calculated dZ" << endl;
     double m = A_prev.getCols();
     Matrix A_prevT = A_prev.transpose();
