@@ -9,11 +9,11 @@
     - [x] Softmax
     - [ ] Softmax prime
 
-- [ ] Loss functions
+- [x] Loss functions
   - [x] Mean square
   - [x] Mean square prime
   - [x] Cross entropy
-  - [ ] Cross entropy prime
+  - [x] Cross entropy prime
 
 - [x] Data processing
   - [x] Read labels

@@ -23,13 +23,8 @@ double Loss::cross_entropy(Matrix& y_true, Matrix& y_pred) {
     Matrix loss =  y_true.mulElementWise(y_pred_log);
     return - (loss.sum(1)).sum();
 }
-//
-// Matrix Loss::cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
-//     // Matrix dAL(y_pred.size());
-//     // for (int k = 0; k < y_pred.size(); k++) {
-//     //     double d1 = y_true[k]/y_pred[k];
-//     //     double d2 = (1-y_true[k])/(1-y_pred[k]);
-//     //     dAL[k] = - (d1-d2);
-//     // }
-//     // return dAL;
-// }
+
+Matrix Loss::cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
+    Matrix y_pred_inverse = y_pred.inverse();
+    return y_true.mulElementWise(y_pred_inverse);
+}
