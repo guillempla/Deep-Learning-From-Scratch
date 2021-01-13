@@ -282,7 +282,7 @@ Matrix Matrix::logMatrix() const {
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m_rowSize; i++)
         for (unsigned j = 0; j < m_colSize; j++)
-            res(i,j) = log(m_matrix[i][j]);
+            res(i,j) = log10(m_matrix[i][j]);
     return res;
 }
 
