@@ -295,6 +295,21 @@ Matrix Matrix::pow2Matrix() const {
     return res;
 }
 
+Matrix Matrix::clip(double min, double max) const {
+    Matrix res(m_rowSize, m_colSize);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
+            if (m_matrix[i][j] < min)
+                res(i,j) = min;
+            else if (m_matrix[i][j] > max)
+                res(i,j) = max;
+            else
+                res(i,j) = m_matrix[i][j];
+        }
+    }
+    return res;
+}
 
 //___________ACTIVATION__________
 Matrix Matrix::sigmoid() {
