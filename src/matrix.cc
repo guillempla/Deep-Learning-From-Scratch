@@ -1,5 +1,4 @@
 #include "matrix.hh"
-#include <stdexcept>
 
 using namespace std;
 

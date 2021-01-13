@@ -1,13 +1,13 @@
 #include "model.hh"
 
 //___________CONSTRUCTORS__________
-Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, double learning_rate, unsigned num_iter) {
+Model::Model(const Matrix& X, const Matrix& Y, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, unsigned num_iter) {
     // cout << "Model::Initializing model" << endl;
     this->X = X;
     this->Y = Y;
     this->learning_rate = learning_rate;
     this->num_iter = num_iter;
-    this->initialize_layers(layers_dims, X.getCols());
+    this->initialize_layers(layers_dims, layers_type, X.getCols());
 }
 
 
@@ -17,10 +17,10 @@ Matrix Model::train() {
     for (unsigned i = 0; i < num_iter; i++) {
         feed_forward();
         costs(i) = compute_cost();
-        // if (i % 10 == 0) {
-        //     cout << "Iteration: " << i << endl;
-        //     cout << "Cost: " << costs(i) << endl;
-        // }
+        if (i % 10 == 0) {
+            cout << "Iteration: " << i << endl;
+            cout << "Cost: " << costs(i) << endl;
+        }
         back_propagate();
         update_parameters();
     }
@@ -77,19 +77,15 @@ double Model::compute_cost() {
 //___________GETTERS__________
 
 //___________PRIVATE__________
-void Model::initialize_layers(const vector<unsigned> layers_dims, unsigned num_examples) {
-    // cout << "Model::Initializing layers" << endl;
+void Model::initialize_layers(const vector<unsigned> layers_dims, const vector<string>& layers_type, unsigned num_examples) {
+    cout << "Model::Initializing layers" << endl;
     this->layers.reserve(layers_dims.size()-1);
-    string type = "hidden";
     for (int i = 1; i < layers_dims.size(); i++) {
-        // cout << "    Model::Iteration: " << i << endl;
-        if (i == layers_dims.size()-1)
-            type = "output";
-        // cout << "    Model::Type: " << type << endl;
-        Layer l = Layer(type, num_examples, layers_dims[i], layers_dims[i-1]);
-        // cout << "    Model::Finished init Layer" << endl;
+        cout << "    Model::Iteration: " << i << endl;
+        Layer l = Layer(layers_type[i-1], num_examples, layers_dims[i], layers_dims[i-1]);
+        cout << "    Model::Finished init Layer" << endl;
         this->layers.push_back(l);
-        // cout << "    Model::Finished init Layer(" << i-1 << ")" << endl;
+        cout << "    Model::Finished init Layer(" << i-1 << ")" << endl;
     }
 }
 

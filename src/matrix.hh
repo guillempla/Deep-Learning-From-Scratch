@@ -6,6 +6,7 @@
 #include <omp.h>
 #include <math.h>
 #include <stdlib.h> // Random numbers
+#include <stdexcept>
 #include "activation.hh"
 
 using namespace std;

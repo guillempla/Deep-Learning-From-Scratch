@@ -5,13 +5,14 @@
 #include <vector>
 #include <math.h>
 #include <string>
+#include <stdexcept>
 #include "matrix.hh"
 
 using namespace std;
 
 class Layer {
     private:
-        string type;                // hidden: hidden layer; output: output layer
+        string type;                // activation function type [relu, sigmoid, softmax]
         unsigned layer_size;        // number of neurons of the layer
         unsigned prev_size;         // number of neurons of the previous layer
         unsigned num_examples;      // number of examples of the input set
