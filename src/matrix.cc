@@ -342,7 +342,7 @@ Matrix Matrix::relu() {
 
 Matrix Matrix::softmax() {
     Matrix numerator = this->expMatrix();
-    Matrix sum = numerator.sum(1);
+    Matrix sum = numerator.sum(0);
     return numerator/sum;
 }
 
