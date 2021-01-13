@@ -8,7 +8,8 @@ Loss::Loss() {}
 
 //___________GETTERS__________
 double Loss::mean_square(Matrix& y_true, Matrix& y_pred) {
-    Matrix aux = (((y_true-y_pred).pow2Matrix()).sum(1))/(y_pred.getCols());
+    auto loss = (y_true-y_pred).pow2Matrix();
+    Matrix aux = ((loss).sum(1))/(y_pred.getCols());
     return aux.sum()/aux.getRows();
 }
 
