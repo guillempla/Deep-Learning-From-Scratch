@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#define EPSILON 1e-14
+
 class Loss {
     private:
 
@@ -25,7 +27,7 @@ class Loss {
         y_pred: vector of values given by the model
         */
         static double mean_square(Matrix& y_true, Matrix& y_pred);
-        // static double cross_entropy(Matrix& y_true, Matrix& y_pred);
+        static double cross_entropy(Matrix& y_true, Matrix& y_pred);
 
         /*
         y_true: vector of desired values

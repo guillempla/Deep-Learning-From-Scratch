@@ -11,7 +11,9 @@
 
 - [ ] Loss functions
   - [x] Mean square
-  - [ ] Cross entropy
+  - [x] Mean square prime
+  - [x] Cross entropy
+  - [ ] Cross entropy prime
 
 - [x] Data processing
   - [x] Read labels
