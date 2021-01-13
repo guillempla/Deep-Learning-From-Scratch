@@ -311,6 +311,16 @@ Matrix Matrix::clip(double min, double max) const {
     return res;
 }
 
+
+Matrix Matrix::inverse() const {
+    Matrix res(m_rowSize, m_colSize);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            res(i,j) = 1.0/m_matrix[i][j];
+    return res;
+}
+
 //___________ACTIVATION__________
 Matrix Matrix::sigmoid() {
     Matrix activation(m_rowSize, m_colSize, 0.0);

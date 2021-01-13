@@ -73,6 +73,9 @@ class Matrix {
         // Given a Matrix returns a Matrix clipped by min and max
         Matrix clip(double min, double max) const;
 
+        // Given a Matrix returna the inverse of each element of the Matrix
+        Matrix inverse() const;
+
         //___________ACTIVATION__________
         Matrix sigmoid();
         Matrix relu();
