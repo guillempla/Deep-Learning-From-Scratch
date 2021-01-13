@@ -1,6 +1,6 @@
 CC				:= g++
 EXECS 			:= network data_processing activation loss matrix layer model
-CFLAGS 			:= -ffp-contract=fast -funsafe-math-optimizations -march=native -msse2 -mfpmath=sse -ftree-vectorize -std=c++17
+CFLAGS 			:= -fopenmp -ffp-contract=fast -funsafe-math-optimizations -march=native -msse2 -mfpmath=sse -ftree-vectorize -std=c++17
 OPTIMIZATION	:= -Ofast
 
 

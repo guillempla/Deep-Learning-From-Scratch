@@ -4,7 +4,7 @@
 echo "Adding some modules"
 
 # module add the_module_you_need_but_dont_deserve
-add gcc
+module add gcc-10.2
 
 echo "#################"
 echo "    COMPILING    "
