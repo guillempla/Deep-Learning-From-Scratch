@@ -277,6 +277,15 @@ Matrix Matrix::expMatrix() const {
     return res;
 }
 
+Matrix Matrix::logMatrix() const {
+    Matrix res(m_rowSize, m_colSize);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++)
+        for (unsigned j = 0; j < m_colSize; j++)
+            res(i,j) = log(m_matrix[i][j]);
+    return res;
+}
+
 Matrix Matrix::pow2Matrix() const {
     Matrix res(m_rowSize, m_colSize);
     #pragma omp parallel for num_threads(16)

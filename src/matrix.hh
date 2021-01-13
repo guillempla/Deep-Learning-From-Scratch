@@ -64,6 +64,9 @@ class Matrix {
         // Given one unidimensional Matrix applies exp() to all elements
         Matrix expMatrix() const;
 
+        // Given one unidimensional Matrix applies log() to all elements
+        Matrix logMatrix() const;
+
         // Given a Matrix returns a Matrix with all its elements multiplied by itself
         Matrix pow2Matrix() const;
 
