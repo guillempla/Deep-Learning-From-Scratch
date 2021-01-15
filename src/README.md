@@ -5,9 +5,7 @@
 - [x] Activation functions
   - [x] Sigmoid
   - [x] Relu
-  - [ ] Softmax
-    - [x] Softmax
-    - [ ] Softmax prime
+  - [x] Softmax
 
 - [x] Loss functions
   - [x] Mean square
@@ -28,8 +26,7 @@
   - [x] Broadcast sum
   - [ ] Random initialization
     - [x] Uniform random initialization
-    - [ ] Glorot (Normal distribution with $mean=0$ and $variance=\frac{2}{numInputs+numNeurons}$)
-    - [ ] Other initialization models
+    - [ ] Glorot (Normal distribution with $mean=0$ and $variance=\frac{2}{numExamples+numNeurons}$)
   - [x] OpenMP implementation
   
 - [x] Layer
@@ -44,7 +41,7 @@
   - [x] Train
     - [x] Calculate error
     - [x] Update parameters
-    - [ ] Predict
+    - [x] Predict
   
   - [ ] Batch
   - [ ] Early stop
@@ -54,6 +51,7 @@
   - [x] Train model
   - [x] Predict
   - [x] Write predictions
+  - [ ] Change seed by time
   
 - [x] RUN
   - [x] Add modules
