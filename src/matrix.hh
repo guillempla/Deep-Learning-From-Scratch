@@ -17,6 +17,8 @@ class Matrix {
         unsigned m_colSize;
         vector<vector<double> > m_matrix;
 
+        double normal_random(unsigned n, unsigned m);
+
     public:
         //___________CONSTRUCTORS__________
         Matrix();
@@ -73,8 +75,14 @@ class Matrix {
         // Given a Matrix returns a Matrix clipped by min and max
         Matrix clip(double min, double max) const;
 
-        // Given a Matrix returna the inverse of each element of the Matrix
+        // Given a Matrix returns the inverse of each element of the Matrix
         Matrix inverse() const;
+
+        // Given a Matrix returns its maximum value
+        Matrix max() const;
+
+        // REMOVE TEST
+        bool checkSoftmax() const;
 
         //___________ACTIVATION__________
         Matrix sigmoid();
@@ -83,6 +91,7 @@ class Matrix {
 
         // Matrix sigmoid_prime();
         Matrix relu_prime();
+        Matrix softmax_prime();
 
         //___________PRINT__________
         // Prints the matrix beautifully

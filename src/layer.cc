@@ -72,8 +72,8 @@ Matrix Layer::predict(Matrix& A_prev) {
         return Zaux.sigmoid();
     else if (type == "relu")
         return Zaux.relu();
-    // else if (type == "softmax")
-    //     return Zaux.softmax();
+    else if (type == "softmax")
+        return Zaux.softmax();
     else
     throw invalid_argument("ERROR Predict: Wrong layer type!");
 }
@@ -90,8 +90,8 @@ Matrix* Layer::feed_forward(Matrix& A_prev) {
         A = Z.sigmoid();
     else if (type == "relu")
         A = Z.relu();
-    // else if (type == "softmax")
-    //     A = Z.softmax();
+    else if (type == "softmax")
+        A = Z.softmax();
     // cout << "    Layer::A dimensions(" << A.getRows() << "," << A.getCols() << ")" << endl;
     else
         throw invalid_argument("ERROR Predict: Wrong layer type!");
@@ -114,13 +114,13 @@ Matrix Layer::back_propagate(Matrix& A_prev) {
         // cout << "    Layer::dA dimensions(" << dA.getRows() << "," << dA.getCols() << ")" << endl;
         dZ = dA.mulElementWise(g_prime);
     }
-    // else if (type == "softmax") {
-    //     // cout << "    Layer::Type Softmax" << endl;
-    //     Matrix g_prime = A.softmax_prime();
-    //     // cout << "    Layer::g_prime dimensions(" << g_prime.getRows() << "," << g_prime.getCols() << ")" << endl;
-    //     // cout << "    Layer::dA dimensions(" << dA.getRows() << "," << dA.getCols() << ")" << endl;
-    //     dZ = dA.mulElementWise(g_prime);
-    // }
+    else if (type == "softmax") {
+        // cout << "    Layer::Type Softmax" << endl;
+        Matrix g_prime = A.softmax_prime();
+        // cout << "    Layer::g_prime dimensions(" << g_prime.getRows() << "," << g_prime.getCols() << ")" << endl;
+        // cout << "    Layer::dA dimensions(" << dA.getRows() << "," << dA.getCols() << ")" << endl;
+        dZ = dA.mulElementWise(g_prime);
+    }
     else
         throw invalid_argument("ERROR back_propagate: Wrong layer type!");
     // cout << "    Layer::Calculated dZ" << endl;
