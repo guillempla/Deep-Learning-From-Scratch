@@ -139,9 +139,16 @@ Matrix Data_processing::read_vectors(const string& file_name) const {
 
 Matrix Data_processing::convert_binary_matrix(Matrix& predictions) const {
     Matrix res(1, predictions.getCols());
-    for (unsigned i = 0; i < predictions.getRows(); i++)
-        for (unsigned j = 0; j < predictions.getCols(); j++)
-            if (predictions(i,j) == 1)
-                res(j) = i;
+    for (unsigned i = 0; i < predictions.getCols(); i++) {
+        double max = predictions(0,i);
+        unsigned max_j = 0;
+        for (unsigned j = 0; j < predictions.getRows(); j++) {
+            if (predictions(j,i) > max) {
+                max = predictions(j,i);
+                max_j = j;
+            }
+        }
+        res(i) = max_j;
+    }
     return res;
 }

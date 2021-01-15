@@ -30,7 +30,6 @@ class Data_processing {
         Matrix read_labels(const string& file_name) const;
         Matrix read_vectors(const string& file_name) const;
 
-        Matrix convert_binary_matrix(Matrix& predictions) const;
 
     public:
         //___________CONSTRUCTORS__________
@@ -48,6 +47,7 @@ class Data_processing {
         Matrix read_test_vectors() const;
         Matrix read_train_vectors() const;
 
+        Matrix convert_binary_matrix(Matrix& predictions) const;
         void write_predictions(Matrix& predictions) const;
 
 };
