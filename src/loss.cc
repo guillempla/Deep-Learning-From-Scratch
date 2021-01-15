@@ -25,6 +25,5 @@ double Loss::cross_entropy(Matrix& y_true, Matrix& y_pred) {
 }
 
 Matrix Loss::cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
-    Matrix y_pred_inverse = y_pred.inverse();
-    return y_true.mulElementWise(y_pred_inverse);
+    return y_pred - y_true;
 }

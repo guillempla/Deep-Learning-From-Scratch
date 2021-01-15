@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define EPSILON 1e-14
+#define EPSILON 1e-7
 
 class Loss {
     private:
