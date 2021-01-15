@@ -16,4 +16,4 @@ echo "#################"
 echo "     RUNNING     "
 echo "#################"
 
-nice -n +19 ./network
+time nice -n +19 ./network
