@@ -81,9 +81,25 @@ unsigned Data_processing::count_cols(const string& file_name) const {
     return number_of_cols+1;
 }
 
+unsigned Data_processing::count_labels(const string& file_name) const {
+    unsigned number_of_labels = 0;
+    string line;
+    ifstream myfile(file_name);
+    if (!myfile.is_open()) throw runtime_error("Could not open file");
+
+    while (getline(myfile, line)) {
+        if (stoi(line) > number_of_labels)
+            number_of_labels = stoi(line);
+    }
+
+    myfile.close();
+    return number_of_labels + 1;
+}
+
 Matrix Data_processing::read_labels(const string& file_name) const {
     unsigned num_cols = this->count_lines(file_name);
-    Matrix labels_vector(NUM_LABELS, num_cols);
+    unsigned num_labels = this->count_labels(file_name);
+    Matrix labels_vector(num_labels, num_cols);
 
     // Create an input filestream
     ifstream myFile(file_name);
@@ -96,7 +112,7 @@ Matrix Data_processing::read_labels(const string& file_name) const {
     unsigned j = 0;
     // Read data, line by line
     while (getline(myFile, value)) {
-        labels_vector(stoi(value),j) = 1;
+        labels_vector(stoi(value),j) = 1.0;
         j++;
     }
 

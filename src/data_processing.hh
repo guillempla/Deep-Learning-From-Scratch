@@ -12,8 +12,6 @@
 
 #include "matrix.hh"
 
-#define NUM_LABELS 10
-
 using namespace std;
 
 class Data_processing {
@@ -26,6 +24,7 @@ class Data_processing {
 
         unsigned count_lines(const string& file_name) const;
         unsigned count_cols(const string& file_name) const;
+        unsigned count_labels(const string& file_name) const;
 
         Matrix read_labels(const string& file_name) const;
         Matrix read_vectors(const string& file_name) const;
