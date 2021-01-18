@@ -45,19 +45,12 @@ void Model::feed_forward() {
 
 void Model::back_propagate() {
     // cout << "Model::back_propagate" << endl;
-    Matrix* A = layers[layers.size()-1].get_activation();
-    Matrix dA(A->getRows(), A->getCols());
-    if (loss == "mean_square")
-        dA = Loss::mean_square_prime(Y, *A);
-    else if (loss == "cross_entropy")
-        dA = Loss::cross_entropy_prime(Y, *A);
+    Matrix dA = derivate_cost();
     // cout << "Model::dA calculated" << endl;
     for (int i = layers.size()-1; i >= 0; i--) {
         auto& layer = this->layers[i];
         layer.set_activation_gradient(dA);
-        // cout << "Model::set_activation_gradient" << endl;
         Matrix* A_prev = get_previous_activation(i);
-        // cout << "Model::get_previous_activation" << endl;
         dA = layer.back_propagate(*A_prev);
     }
 }
@@ -100,4 +93,16 @@ Matrix* Model::get_previous_activation(int i) {
     if (i == 0)
         return &X;
     return layers[i-1].get_activation();
+}
+
+Matrix Model::derivate_cost() {
+    Matrix* A = layers[layers.size()-1].get_activation();
+    Matrix dA(A->getRows(), A->getCols());
+    if (loss == "mean_square")
+        dA = Loss::mean_square_prime(Y, *A);
+    else if (loss == "cross_entropy")
+        dA = Loss::cross_entropy_prime(Y, *A);
+    else
+        throw invalid_argument("ERROR derivate_cost: Wrong error function!");
+    return dA;
 }

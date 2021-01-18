@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
+#include <stdexcept>
 #include "matrix.hh"
 #include "layer.hh"
 #include "loss.hh"
@@ -22,6 +23,7 @@ class Model {
 
         void initialize_layers(const vector<unsigned> layer_dims, const vector<string>& layers_type, unsigned num_examples);
         Matrix* get_previous_activation(int i);
+        Matrix derivate_cost();        // Calculate dAL
 
     public:
         //___________CONSTRUCTORS__________
