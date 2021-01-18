@@ -101,16 +101,17 @@ Matrix* Layer::feed_forward(Matrix& A_prev) {
 Matrix Layer::back_propagate(Matrix& A_prev) {
     // cout << "    Layer::Initialized back_propagate" << endl;
     // cout << "    Layer::Layer_size: " << layer_size << " Prev_size: " << prev_size << endl;
-    activation_backward();
 
-    // cout << "    Layer::Calculated dZ" << endl;
+    activation_backward();
+    // cout << "    Layer::dZ dimensions(" << dZ.getRows() << "," << dZ.getCols() << ")" << endl;
+
     double m = A_prev.getCols();
     Matrix A_prevT = A_prev.transpose();
-    // cout << "    Layer::Transposed A_prev" << endl;
+    // cout << "    Layer::A_prevT dimensions(" << A_prevT.getRows() << "," << A_prevT.getCols() << ")" << endl;
     dW = (dZ*A_prevT)/m;
-    // cout << "    Layer::Calculated dW" << endl;
+    // cout << "    Layer::dW dimensions(" << dW.getRows() << "," << dW.getCols() << ")" << endl;
     db = (dZ.sum(1)/m).transpose();
-    // cout << "    Layer::Calculated db" << endl;
+    // cout << "    Layer::db dimensions(" << db.getRows() << "," << db.getCols() << ")" << endl;
     Matrix dA_prev = W.transpose()*dZ;
     // cout << "    Layer::dA_prev dimensions(" << dA_prev.getRows() << "," << dA_prev.getCols() << ")" << endl;
     return dA_prev;
@@ -118,8 +119,8 @@ Matrix Layer::back_propagate(Matrix& A_prev) {
 
 void Layer::update_parameters(double learning_rate) {
     // cout << "    Layer::update_parameters" << endl;
-    auto Waux = dW*learning_rate;
-    auto baux = db*learning_rate;
+    Matrix Waux = dW*learning_rate;
+    Matrix baux = db*learning_rate;
     W = W - Waux;
     b = b - baux;
     // cout << "    Layer::finished updating for layer" << endl;
