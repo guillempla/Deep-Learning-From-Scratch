@@ -163,14 +163,14 @@ void Layer::activation_backward() {
     }
     else if (type == "relu"){
         // cout << "    Layer::Type ReLu" << endl;
-        Matrix g_prime = A.relu_prime();
+        Matrix g_prime = Z.relu_prime();
         // cout << "    Layer::g_prime dimensions(" << g_prime.getRows() << "," << g_prime.getCols() << ")" << endl;
         // cout << "    Layer::dA dimensions(" << dA.getRows() << "," << dA.getCols() << ")" << endl;
         dZ = dA.mulElementWise(g_prime);
     }
     else if (type == "softmax") {
         // cout << "    Layer::Type Softmax" << endl;
-        Matrix g_prime = A.softmax_prime();
+        Matrix g_prime = Z.softmax_prime();
         // cout << "    Layer::g_prime dimensions(" << g_prime.getRows() << "," << g_prime.getCols() << ")" << endl;
         // cout << "    Layer::dA dimensions(" << dA.getRows() << "," << dA.getCols() << ")" << endl;
         dZ = dA.mulElementWise(g_prime);

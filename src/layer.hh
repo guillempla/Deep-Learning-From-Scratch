@@ -29,8 +29,7 @@ class Layer {
         Matrix dZ;                  // matrix of potential derivatives (layer_size,num_examples)
         Matrix dA;                  // matrix of activation derivatives (layer_size,num_examples)
 
-        // Calculate dZ
-        void activation_backward();
+        void activation_backward(); // Calculate dZ
 
     public:
         //___________CONSTRUCTORS__________
