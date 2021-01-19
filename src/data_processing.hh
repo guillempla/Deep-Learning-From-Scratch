@@ -9,7 +9,6 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept> // std::runtime_erro
-
 #include "matrix.hh"
 
 using namespace std;
@@ -46,7 +45,7 @@ class Data_processing {
         Matrix read_test_vectors() const;
         Matrix read_train_vectors() const;
 
-        Matrix convert_binary_matrix(Matrix& predictions) const;
+        static Matrix convert_binary_matrix(Matrix& predictions);
         void write_predictions(Matrix& predictions) const;
 
 };

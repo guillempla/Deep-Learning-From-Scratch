@@ -153,7 +153,7 @@ Matrix Data_processing::read_vectors(const string& file_name) const {
     return matrix;
 }
 
-Matrix Data_processing::convert_binary_matrix(Matrix& predictions) const {
+Matrix Data_processing::convert_binary_matrix(Matrix& predictions) {
     Matrix res(1, predictions.getCols());
     for (unsigned i = 0; i < predictions.getCols(); i++) {
         double max = predictions(0,i);
