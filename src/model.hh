@@ -9,6 +9,7 @@
 #include "matrix.hh"
 #include "layer.hh"
 #include "loss.hh"
+#include "data_processing.hh"
 
 using namespace std;
 
@@ -40,6 +41,7 @@ class Model {
         void back_propagate();
         void update_parameters();
         double compute_cost();
+        double compute_accuracy();
 
 
 

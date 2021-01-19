@@ -21,6 +21,7 @@ Matrix Model::train() {
         if (i % 10 == 0) {
             cout << "Iteration: " << i << endl;
             cout << "Cost: " << costs(i) << endl;
+            cout << "Accuracy: " << compute_accuracy() << endl;
         }
         back_propagate();
         update_parameters();
@@ -72,6 +73,20 @@ double Model::compute_cost() {
         return Loss::binary_cross_entropy(Y, *AL);
     else
         return -1.0;
+}
+
+double Model::compute_accuracy() {
+    Matrix* AL = layers[layers.size()-1].get_activation();
+    Matrix y_hat = Data_processing::convert_binary_matrix(*AL);
+    Matrix y = Data_processing::convert_binary_matrix(Y);
+
+    double hits = 0.0;
+    #pragma omp parallel for reduction (+:hits) num_threads(16)
+    for (unsigned i = 0; i < y.getCols(); i++) {
+        if (y_hat(i) == y(i))
+            hits++;
+    }
+    return hits/((double)y.getCols());
 }
 
 
