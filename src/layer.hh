@@ -32,7 +32,8 @@ class Layer {
         //___________CONSTRUCTORS__________
         Layer(string type, unsigned num_examples, unsigned layer_size, unsigned prev_size);
 
-    void set_activation_gradient(Matrix& dA);
+        //___________SETTERS__________
+        void set_activation_gradient(Matrix& dA);
 
         // A_prev: activations of previous layer
         Matrix predict(Matrix& A_prev);
