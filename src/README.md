@@ -10,7 +10,7 @@
 - [x] Loss functions
   - [x] Mean square
   - [x] Mean square prime
-  - [x] Cross entropy
+  - [ ] Cross entropy $$-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L]  (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right)) \tag{7}$$
   - [x] Cross entropy prime
 
 - [x] Data processing
@@ -39,7 +39,9 @@
   - [x] Feed Forward
   - [x] Back Forward
   - [x] Train
-    - [x] Calculate error
+    - [ ] Get info
+      - [x] Calculate error
+      - [ ] Calculate accuracy
     - [x] Update parameters
     - [x] Predict
   
