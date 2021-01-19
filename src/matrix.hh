@@ -4,8 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <omp.h>
-#include <math.h>
-#include <stdlib.h> // Random numbers
+#include <cmath>
+#include <cstdlib> // Random numbers
 #include <stdexcept>
 #include "activation.hh"
 
@@ -13,11 +13,11 @@ using namespace std;
 
 class Matrix {
     private:
-        unsigned m_rowSize;
-        unsigned m_colSize;
+        unsigned m_rowSize{};
+        unsigned m_colSize{};
         vector<vector<double> > m_matrix;
 
-        double normal_random(unsigned n, unsigned m);
+        static double normal_random(unsigned n, unsigned m);
 
     public:
         //___________CONSTRUCTORS__________

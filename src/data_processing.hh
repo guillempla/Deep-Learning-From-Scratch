@@ -3,12 +3,12 @@
 
 #include <iostream>
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <fstream>
 #include <sstream>
-#include <stdexcept> // std::runtime_erro
+#include <stdexcept> // std::runtime_error
 #include "matrix.hh"
 
 using namespace std;
@@ -21,12 +21,12 @@ class Data_processing {
         string train_vectors_path;
         string output_path;
 
-        unsigned count_lines(const string& file_name) const;
-        unsigned count_cols(const string& file_name) const;
-        unsigned count_labels(const string& file_name) const;
+        static unsigned count_lines(const string& file_name) ;
+        static unsigned count_cols(const string& file_name) ;
+        static unsigned count_labels(const string& file_name) ;
 
-        Matrix read_labels(const string& file_name) const;
-        Matrix read_vectors(const string& file_name) const;
+        static Matrix read_labels(const string& file_name) ;
+        static Matrix read_vectors(const string& file_name) ;
 
 
     public:

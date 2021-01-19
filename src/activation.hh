@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <math.h>
+#include <cmath>
 
 using namespace std;
 
@@ -26,12 +26,12 @@ class Activation {
         double get_steepness() const;
 
         // Activation functions
-        static double sigmoid(const double z);
-        static double relu(const double z);
+        static double sigmoid(double z);
+        static double relu(double z);
 
         // Derivatives of activation functions
-        static double sigmoid_prime(const double z);
-        static double relu_prime(const double z);
+        static double sigmoid_prime(double z);
+        static double relu_prime(double z);
 
 };
 

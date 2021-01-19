@@ -1,11 +1,10 @@
+#include <utility>
+
 #include "layer.hh"
 
 //___________CONSTRUCTORS__________
 Layer::Layer(string type, unsigned num_examples, unsigned layer_size, unsigned prev_size) {
-    this->type = type;
-    this->num_examples = num_examples;
-    this->layer_size = layer_size;
-    this->prev_size = prev_size;
+    this->type = move(type);
 
     unsigned seed = 1;
 
@@ -29,31 +28,6 @@ Layer::Layer(string type, unsigned num_examples, unsigned layer_size, unsigned p
     this->dA = Matrix(layer_size, num_examples);
 
     // cout << "        Layer::Finished dZ,dA" << endl;
-}
-
-//___________SETTERS__________
-void Layer::set_type(string type) {
-    this->type = type;
-}
-
-void Layer::set_layer_size(unsigned layer_size) {
-    this->layer_size = layer_size;
-}
-
-void Layer::set_prev_size(unsigned prev_size) {
-    this->prev_size = prev_size;
-}
-
-void Layer::set_bias(Matrix& b) {
-    this->b = b;
-}
-
-void Layer::set_weights(Matrix& W) {
-    this->W = W;
-}
-
-void Layer::set_weights_gradient(Matrix& dW) {
-    this->dW = dW;
 }
 
 void Layer::set_activation_gradient(Matrix& dA) {
@@ -127,30 +101,8 @@ void Layer::update_parameters(double learning_rate) {
 }
 
 
-
-//___________GETTERS__________
-string Layer::get_type() const {
-    return this->type;
-}
-
-Matrix Layer::get_bias() const {
-    return this->b;
-}
-
-Matrix Layer::get_weights() const {
-    return this->W;
-}
-
-Matrix Layer::get_weights_gradient() const {
-    return this->dW;
-}
-
 Matrix* Layer::get_activation() {
     return &(this->A);
-}
-
-Matrix* Layer::get_activation_gradient() {
-    return &(this->dA);
 }
 
 //___________PRIVATE__________

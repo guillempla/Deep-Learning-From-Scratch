@@ -1,7 +1,7 @@
 #include "loss.hh"
 
 //___________CONSTRUCTORS__________
-Loss::Loss() {}
+Loss::Loss() = default;
 
 //___________SETTERS__________
 

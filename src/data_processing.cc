@@ -23,19 +23,19 @@ Data_processing::Data_processing(const string& test_labels_path, const string& t
 
 //___________GETTERS__________
 Matrix Data_processing::read_test_labels() const {
-    return this->read_labels(this->test_labels_path);
+    return read_labels(this->test_labels_path);
 }
 
 Matrix Data_processing::read_train_labels() const {
-    return this->read_labels(this->train_labels_path);
+    return read_labels(this->train_labels_path);
 }
 
 Matrix Data_processing::read_test_vectors() const {
-    return this->read_vectors(this->test_vectors_path);
+    return read_vectors(this->test_vectors_path);
 }
 
 Matrix Data_processing::read_train_vectors() const {
-    return this->read_vectors(this->train_vectors_path);
+    return read_vectors(this->train_vectors_path);
 }
 
 void Data_processing::write_predictions(Matrix& predictions) const {
@@ -53,7 +53,7 @@ void Data_processing::write_predictions(Matrix& predictions) const {
 
 
 //___________PRIVATE__________
-unsigned Data_processing::count_lines(const string& file_name) const {
+unsigned Data_processing::count_lines(const string& file_name) {
     unsigned number_of_lines = 0;
     string line;
     ifstream myfile(file_name);
@@ -66,7 +66,7 @@ unsigned Data_processing::count_lines(const string& file_name) const {
     return number_of_lines;
 }
 
-unsigned Data_processing::count_cols(const string& file_name) const {
+unsigned Data_processing::count_cols(const string& file_name) {
     string line;
     ifstream myfile(file_name);
     if (!myfile.is_open()) throw runtime_error("Could not open file");
@@ -81,7 +81,7 @@ unsigned Data_processing::count_cols(const string& file_name) const {
     return number_of_cols+1;
 }
 
-unsigned Data_processing::count_labels(const string& file_name) const {
+unsigned Data_processing::count_labels(const string& file_name) {
     unsigned number_of_labels = 0;
     string line;
     ifstream myfile(file_name);
@@ -96,9 +96,9 @@ unsigned Data_processing::count_labels(const string& file_name) const {
     return number_of_labels + 1;
 }
 
-Matrix Data_processing::read_labels(const string& file_name) const {
-    unsigned num_cols = this->count_lines(file_name);
-    unsigned num_labels = this->count_labels(file_name);
+Matrix Data_processing::read_labels(const string& file_name) {
+    unsigned num_cols = count_lines(file_name);
+    unsigned num_labels = count_labels(file_name);
     Matrix labels_vector(num_labels, num_cols);
 
     // Create an input filestream
@@ -122,9 +122,9 @@ Matrix Data_processing::read_labels(const string& file_name) const {
     return labels_vector;
 }
 
-Matrix Data_processing::read_vectors(const string& file_name) const {
-    unsigned num_rows = this->count_cols(file_name);
-    unsigned num_cols = this->count_lines(file_name);
+Matrix Data_processing::read_vectors(const string& file_name) {
+    unsigned num_rows = count_cols(file_name);
+    unsigned num_cols = count_lines(file_name);
 
     Matrix matrix(num_rows, num_cols);
 

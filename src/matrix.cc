@@ -3,7 +3,7 @@
 using namespace std;
 
 //___________CONSTRUCTORS__________
-Matrix::Matrix() {}
+Matrix::Matrix() = default;
 
 Matrix::Matrix(unsigned m, unsigned n) {
     m_rowSize = m;
@@ -24,10 +24,7 @@ Matrix::Matrix(unsigned m, unsigned n, bool randn, unsigned seed) {
     for (unsigned i = 0; i < m; i++) {
         m_matrix[i].resize(n, 0);
         for (unsigned j = 0; j < n; j++) {
-            if (!randn)
-                m_matrix[i][j] = (double)(rand()%100)/100;
-            else
-                m_matrix[i][j] = normal_random(m, n);
+            m_matrix[i][j] = !randn ? (double) (rand() % 100) / 100 : normal_random(n, m);
         }
     }
 }
@@ -102,11 +99,10 @@ Matrix Matrix::operator-(Matrix& B){
 Matrix Matrix::operator*(Matrix& B){
     Matrix multip(m_rowSize, B.getCols(),0.0);
     if (m_colSize == B.getRows()) {
-        double temp = 0.0;
         #pragma omp parallel for num_threads(16)
         for (unsigned i = 0; i < m_rowSize; i++) {
             for (unsigned j = 0; j < B.getCols(); j++) {
-                temp = 0.0;
+                double temp = 0.0;
                 for (unsigned k = 0; k < m_colSize; k++) {
                     temp += m_matrix[i][k] * B(k,j);
                 }
@@ -434,7 +430,7 @@ void Matrix::printMatrix() const {
 }
 
 double Matrix::normal_random(unsigned n, unsigned m) {
-    double sigma = 2/(n+m);
+    double sigma = 2.0/(n+m);
     double Mi = 0.0;
     double v1 = ( (double)(rand()) + 1. )/( (double)(RAND_MAX) + 1. );
     double v2 = ( (double)(rand()) + 1. )/( (double)(RAND_MAX) + 1. );
