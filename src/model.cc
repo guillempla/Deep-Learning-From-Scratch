@@ -68,6 +68,8 @@ double Model::compute_cost() {
         return Loss::mean_square(Y, *AL);
     else if (loss == "cross_entropy")
         return Loss::cross_entropy(Y, *AL);
+    else if (loss == "binary_cross_entropy")
+        return Loss::binary_cross_entropy(Y, *AL);
     else
         return -1.0;
 }
@@ -102,6 +104,8 @@ Matrix Model::derivate_cost() {
         dA = Loss::mean_square_prime(Y, *A);
     else if (loss == "cross_entropy")
         dA = Loss::cross_entropy_prime(Y, *A);
+    else if (loss == "binary_cross_entropy")
+        dA = Loss::binary_cross_entropy_prime(Y, *A);
     else
         throw invalid_argument("ERROR derivate_cost: Wrong error function!");
     return dA;
