@@ -1,38 +1,22 @@
 #include <iostream>
 #include <vector>
 #include <string>
-// #include "activation_functions.hh"
 #include "model.hh"
-// #include "loss.hh"
 #include "data_processing.hh"
 #include "matrix.hh"
 
 void test() {
-    // Matrix m1(3,3,0.5);
-    Matrix m2(2,2);
-    Matrix m3(2,2,1.0);
-    m2(0,1) = 1.0;
-    m3(1,1) = 0.0;
-    auto loss = (m2-m3).pow2Matrix();
-    m2.printMatrix();
-    m3.printMatrix();
-    loss.printMatrix();
-    Matrix aux = ((loss).sum(1))/(m2.getCols());
-    aux.printMatrix();
-    auto res = aux.sum()/aux.getRows();
-    cout << res << endl;
-    // m3(0,0) = -1;
-    // m3(1,0) = 1;
-    // m3(2,0) = 3;
-    // m3(3) = 5;
-    // Matrix m5(5,7, 0.5);
-    // m4(1) = 1.5;
-    // m4(2) = 20.5;
-    // m4(3) = 40.5;
-    // m4(4) = 50.5;
-    // m2.printMatrix();
-    // m3.printMatrix();
-    // m6.printMatrix();
+    Matrix m1(256,736);
+    for (unsigned i = 0; i < m1.getRows(); i++) {
+        for (unsigned j = 0; j < m1.getCols(); j++) {
+            m1(i,j) = i+j;
+        }
+    }
+    cout << "m1 "; m1.printMatrix();
+    Matrix m2(736,60000,0.5);
+    cout << "m2 "; m2.printMatrix();
+    auto m3 = m1*m2;
+    cout << "m3 "; m3.printMatrix();
 }
 
 void real_main() {
@@ -46,8 +30,8 @@ void real_main() {
     cout << "Finished reading data" << endl;
 
     vector<unsigned> layers_dims{ x_train.getRows(), 256, 64, 10 };
-    vector<string> layers_type{ "relu", "relu", "softmax" };
-    Model m(x_train, y_train, "cross_entropy", layers_dims, layers_type, 0.001, 20);
+    vector<string> layers_type{ "relu", "relu", "sigmoid" };
+    Model m(x_train, y_train, "binary_cross_entropy", layers_dims, layers_type, 0.001, 20);
     Matrix costs = m.train();
     cout << "Finished training" << endl;
 

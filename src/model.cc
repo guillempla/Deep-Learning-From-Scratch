@@ -18,7 +18,7 @@ Matrix Model::train() {
     for (unsigned i = 0; i < num_iter; i++) {
         feed_forward();
         costs(i) = compute_cost();
-        if (i % 10 == 0) {
+        if (i % 1 == 0) {
             cout << "Iteration: " << i << endl;
             cout << "Cost: " << costs(i) << endl;
             cout << "Accuracy: " << compute_accuracy() << endl;
