@@ -46,6 +46,6 @@ double Loss::binary_cross_entropy(Matrix& y_true, Matrix& y_pred) {
 
 Matrix Loss::binary_cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
     Matrix y_pred_comp = y_pred*-1.0 + 1.0;
-    Matrix denom = (y_pred * y_pred_comp);
+    Matrix denom = (y_pred.mulElementWise(y_pred_comp));
     return (y_true - y_pred) / denom;
 }
