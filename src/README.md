@@ -20,15 +20,15 @@
   - [x] Read vectors
   - [x] Write predictions
   
-- [ ] Matrix
+- [x] Matrix
   - [x] Scalar operators (+,- ,*,/)
   - [x] Matrices operators (+,- ,*,/)
   - [x] Activation and Loss parallel functions
   - [x] Print
   - [x] Broadcast sum
-  - [ ] Random initialization
+  - [x] Random initialization
     - [x] Uniform random initialization
-    - [ ] Glorot (Normal distribution with $mean=0$ and $variance=\frac{2}{numExamples+numNeurons}$)
+    - [x] Glorot (Normal distribution with $mean=0$ and $variance=\frac{2}{m+n}$)
   - [x] OpenMP implementation
   
 - [x] Layer
@@ -41,16 +41,16 @@
   - [x] Feed Forward
   - [x] Back Forward
   - [x] Train
-    - [ ] Get info
+    - [x] Get info
       - [x] Calculate error
-      - [ ] Calculate accuracy
+      - [x] Calculate accuracy
     - [x] Update parameters
     - [x] Predict
   
   - [ ] Batch
   - [ ] Early stop
   
-- [x] Main
+- [ ] Main
   - [x] Read data
   - [x] Train model
   - [x] Predict

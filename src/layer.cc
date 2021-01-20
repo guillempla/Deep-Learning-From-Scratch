@@ -6,11 +6,10 @@
 Layer::Layer(string type, unsigned num_examples, unsigned layer_size, unsigned prev_size) {
     this->type = move(type);
 
-    unsigned seed = 1;
+    // unsigned seed = 1;
 
     this->b = Matrix(1, layer_size, 0.0);
-    this->W = Matrix(layer_size, prev_size, false, seed);
-    this->W = W-0.5;
+    this->W = Matrix(layer_size, prev_size, true);
 
     // cout << "        Layer::Finished b,W" << endl;
 

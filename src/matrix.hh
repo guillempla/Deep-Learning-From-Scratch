@@ -5,7 +5,7 @@
 #include <vector>
 #include <omp.h>
 #include <cmath>
-#include <cstdlib> // Random numbers
+#include <random> // Random numbers
 #include <stdexcept>
 #include "activation.hh"
 
@@ -13,17 +13,17 @@ using namespace std;
 
 class Matrix {
     private:
-        unsigned m_rowSize{};
+
+    unsigned m_rowSize{};
         unsigned m_colSize{};
         vector<vector<double> > m_matrix;
-
-        static double normal_random(unsigned n, unsigned m);
 
     public:
         //___________CONSTRUCTORS__________
         Matrix();
         Matrix(unsigned m, unsigned n);
-        Matrix(unsigned m, unsigned n, bool randn, unsigned seed);
+        Matrix(unsigned m, unsigned n, bool glorot, unsigned seed);
+        Matrix(unsigned int m, unsigned int n, bool glorot);
         Matrix(unsigned m, unsigned n, double initial);
 
         //___________OPERATIONS__________

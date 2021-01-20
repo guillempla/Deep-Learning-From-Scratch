@@ -14,19 +14,40 @@ Matrix::Matrix(unsigned m, unsigned n) {
         m_matrix[i].resize(n, 0.0);
 }
 
-Matrix::Matrix(unsigned m, unsigned n, bool randn, unsigned seed) {
+Matrix::Matrix(unsigned m, unsigned n, bool glorot, unsigned seed) {
     m_rowSize = m;
     m_colSize = n;
     this->m_matrix.resize(m);
 
-    srand(seed);
+    mt19937 mt(seed);
+    uniform_real_distribution<double> uniform_d(-0.5, 0.5);
+    normal_distribution<double> glorot_d(0.0, 2.0/(m+n));
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m; i++) {
-        m_matrix[i].resize(n, 0);
+        m_matrix[i].resize(n, 0.0);
         for (unsigned j = 0; j < n; j++) {
-            m_matrix[i][j] = !randn ? (double) (rand() % 100) / 100 : normal_random(n, m);
+            m_matrix[i][j] = glorot ? glorot_d(mt) : uniform_d(mt);
         }
     }
+
+}
+Matrix::Matrix(unsigned m, unsigned n, bool glorot) {
+    m_rowSize = m;
+    m_colSize = n;
+    this->m_matrix.resize(m);
+
+    random_device rd;
+    mt19937 mt(rd);
+    uniform_real_distribution<double> uniform_d(-0.5, 0.5);
+    normal_distribution<double> glorot_d(0.0, 2.0/(m+n));
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m; i++) {
+        m_matrix[i].resize(n, 0.0);
+        for (unsigned j = 0; j < n; j++) {
+            m_matrix[i][j] = glorot ? glorot_d(mt) : uniform_d(mt);
+        }
+    }
+
 }
 
 Matrix::Matrix(unsigned m, unsigned n, double initial) {
@@ -380,15 +401,4 @@ void Matrix::printMatrix() const {
             cout << "[" << m_matrix[i][j] << "] ";
         cout << endl;
     }
-}
-
-double Matrix::normal_random(unsigned n, unsigned m) {
-    double sigma = 2.0/(n+m);
-    double Mi = 0.0;
-    double v1 = ( (double)(rand()) + 1. )/( (double)(RAND_MAX) + 1. );
-    double v2 = ( (double)(rand()) + 1. )/( (double)(RAND_MAX) + 1. );
-    double res = cos(2*3.14*v2)*sqrt(-2.*log(v1));
-    cout << res << endl;
-
-    return res*sigma+Mi;
 }
