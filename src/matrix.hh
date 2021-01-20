@@ -54,9 +54,6 @@ class Matrix {
         // Given two Matrices returns an elementwise multiplication of both
         Matrix mulElementWise(Matrix& m) const;
 
-        // Given two unidimensional Matrices returns dot product
-        double dot(Matrix& m) const;
-
         // Given one unidimensional Matrix returns the sum of its elements
         double sum() const;
 
@@ -75,21 +72,15 @@ class Matrix {
         // Given a Matrix returns a Matrix clipped by min and max
         Matrix clip(double min, double max) const;
 
-        // Given a Matrix returns the inverse of each element of the Matrix
-        Matrix inverse() const;
-
         // Given a Matrix returns its maximum value
         Matrix max() const;
-
-        // REMOVE TEST
-        bool checkSoftmax() const;
 
         //___________ACTIVATION__________
         Matrix sigmoid();
         Matrix relu();
         Matrix softmax();
 
-        // Matrix sigmoid_prime();
+        Matrix sigmoid_prime();
         Matrix relu_prime();
         Matrix softmax_prime();
 
