@@ -47,7 +47,7 @@ void Model::feed_forward() {
 void Model::back_propagate() {
     // cout << "Model::back_propagate" << endl;
     Matrix dA = derivate_cost();
-    for (unsigned i = layers.size()-1; i >= 0; i--) {
+    for (int i = (int)layers.size()-1; i >= 0; i--) {
         auto& layer = this->layers[i];
         layer.set_activation_gradient(dA);
         Matrix* A_prev = get_previous_activation(i);
@@ -70,7 +70,7 @@ double Model::compute_cost() {
     else if (loss == "binary_cross_entropy")
         return Loss::binary_cross_entropy(Y, *AL);
     else
-        return -1.0;
+        throw invalid_argument("ERROR compute_cost: Wrong error function!");
 }
 
 double Model::compute_accuracy() {
@@ -105,14 +105,14 @@ Matrix* Model::get_previous_activation(unsigned i) {
 }
 
 Matrix Model::derivate_cost() {
-    Matrix* A = layers[layers.size()-1].get_activation();
-    Matrix dA(A->getRows(), A->getCols());
+    Matrix* AL = layers[layers.size() - 1].get_activation();
+    Matrix dA(AL->getRows(), AL->getCols());
     if (loss == "mean_square")
-        dA = Loss::mean_square_prime(Y, *A);
+        dA = Loss::mean_square_prime(Y, *AL);
     else if (loss == "cross_entropy")
-        dA = Loss::cross_entropy_prime(Y, *A);
+        dA = Loss::cross_entropy_prime(Y, *AL);
     else if (loss == "binary_cross_entropy")
-        dA = Loss::binary_cross_entropy_prime(Y, *A);
+        dA = Loss::binary_cross_entropy_prime(Y, *AL);
     else
         throw invalid_argument("ERROR derivate_cost: Wrong error function!");
     return dA;
