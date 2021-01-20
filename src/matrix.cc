@@ -37,7 +37,7 @@ Matrix::Matrix(unsigned m, unsigned n, bool glorot) {
     this->m_matrix.resize(m);
 
     random_device rd;
-    mt19937 mt(rd);
+    mt19937 mt(rd());
     uniform_real_distribution<double> uniform_d(-0.5, 0.5);
     normal_distribution<double> glorot_d(0.0, 2.0/(m+n));
     #pragma omp parallel for num_threads(16)
