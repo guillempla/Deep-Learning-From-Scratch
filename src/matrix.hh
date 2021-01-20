@@ -23,7 +23,7 @@ class Matrix {
         Matrix();
         Matrix(unsigned m, unsigned n);
         Matrix(unsigned m, unsigned n, bool glorot, unsigned seed);
-        Matrix(unsigned int m, unsigned int n, bool glorot);
+        Matrix(unsigned m, unsigned n, bool glorot);
         Matrix(unsigned m, unsigned n, double initial);
 
         //___________OPERATIONS__________
