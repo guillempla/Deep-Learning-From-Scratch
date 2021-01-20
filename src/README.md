@@ -10,9 +10,11 @@
 - [x] Loss functions
   - [x] Mean square
   - [x] Mean square prime
-  - [ ] Cross entropy $$-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L]  (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right)) \tag{7}$$
+  - [x] Cross entropy 
   - [x] Cross entropy prime
-
+  - [ ] Binary Cross entropy  $$-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L]  (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right)) \tag{1}$$
+  - [ ] Binary Cross entropy prime 
+  
 - [x] Data processing
   - [x] Read labels
   - [x] Read vectors
