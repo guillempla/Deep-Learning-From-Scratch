@@ -33,29 +33,29 @@
   
 - [x] Layer
   - [x] Initialize parameters
-  - [x] Feed Forward
-  - [x] Back Forward
   
 - [ ] Model
   - [x] Initialize parameters
-  - [x] Feed Forward
-  - [x] Back Forward
   - [x] Train
+    - [x] Feed Forward
+    - [x] Back Forward
     - [x] Get info
       - [x] Calculate error
       - [x] Calculate accuracy
     - [x] Update parameters
-    - [x] Predict
-  
-  - [ ] Batch
+  - [x] Predict
+  - [ ] Mini-Batch
+    - [ ] Random shuffle data
+    - [ ] Create $\frac{num\_examples}{bach\_size}$ batches
+- [ ] Fine-Tune
+  - [ ] Update Hyperparameters
   - [ ] Early stop
-  
-- [ ] Main
+- [x] Main
   - [x] Read data
   - [x] Train model
   - [x] Predict
   - [x] Write predictions
-  - [ ] Change seed by time
+  - [x] Change seed each time
   
 - [x] RUN
   - [x] Add modules
