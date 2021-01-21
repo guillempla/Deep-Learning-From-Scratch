@@ -29,9 +29,9 @@ void real_main() {
     Matrix x_train = d.read_train_vectors();
     cout << "Finished reading data" << endl;
 
-    vector<unsigned> layers_dims{ x_train.getRows(), 10, 10 };
-    vector<string> layers_type{ "relu", "sigmoid" };
-    Model m(x_train, y_train, "binary_cross_entropy", layers_dims, layers_type, 1, 10);
+    vector<unsigned> layers_dims{ x_train.getRows(), 256, 64, 10 };
+    vector<string> layers_type{ "relu", "relu", "sigmoid" };
+    Model m(x_train, y_train, "binary_cross_entropy", layers_dims, layers_type, 0.001, 20, 0.1);
     cout << "Finished initalizing" << endl;
 
     Matrix costs = m.train();
