@@ -1,21 +1,22 @@
 #include "model.hh"
 
 //___________CONSTRUCTORS__________
-Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, unsigned num_iter) {
+Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, unsigned epochs, unsigned C) {
     // cout << "Model::Initializing model" << endl;
     this->X = X;
     this->Y = Y;
     this->learning_rate = learning_rate;
-    this->num_iter = num_iter;
+    this->epochs = epochs;
     this->loss = loss;
+    this->C = C;
     this->initialize_layers(layers_dims, layers_type, X.getCols());
 }
 
 
 //___________SETTERS__________
 Matrix Model::train() {
-    Matrix costs(1, num_iter);
-    for (unsigned i = 0; i < num_iter; i++) {
+    Matrix costs(1, epochs);
+    for (unsigned i = 0; i < epochs; i++) {
         feed_forward();
         costs(i) = compute_cost();
         if (i % 1 == 0) {

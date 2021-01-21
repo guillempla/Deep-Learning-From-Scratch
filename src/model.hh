@@ -20,7 +20,8 @@ class Model {
         string loss;
         vector<Layer> layers;
         double learning_rate;
-        unsigned num_iter;
+        double C;
+        unsigned epochs;
 
         void initialize_layers(const vector<unsigned>& layer_dims, const vector<string>& layers_type, unsigned num_examples);
         Matrix* get_previous_activation(unsigned i);
@@ -31,7 +32,7 @@ class Model {
         /*
         layer_dims: position i contains size of layer i
         */
-        Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, unsigned num_iter);
+        Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, unsigned epochs, unsigned C);
 
         //___________SETTERS__________
         Matrix train();
