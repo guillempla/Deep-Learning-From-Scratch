@@ -62,7 +62,6 @@ Matrix::Matrix(unsigned m, unsigned n, double initial) {
 
 
 //___________OPERATIONS__________
-// Addition of Two Matrices
 Matrix Matrix::operator+(Matrix& B){
     Matrix sum(m_rowSize, m_colSize, 0.0);
 
@@ -85,7 +84,6 @@ Matrix Matrix::operator+(Matrix& B){
     return sum;
 }
 
-// Subtraction of Two Matrices
 Matrix Matrix::operator-(Matrix& B){
     Matrix diff(m_rowSize, m_colSize, 0.0);
 
@@ -116,7 +114,6 @@ Matrix Matrix::operator-(Matrix& B){
     return diff;
 }
 
-// Multiplication of Two Matrices
 Matrix Matrix::operator*(Matrix& B){
     Matrix multip(m_rowSize, B.getCols(),0.0);
     if (m_colSize == B.getRows()) {
@@ -137,7 +134,6 @@ Matrix Matrix::operator*(Matrix& B){
     }
 }
 
-// Division of two matrices
 Matrix Matrix::operator/(Matrix& B){
     Matrix result(m_rowSize,m_colSize,0.0);
     if (m_rowSize == B.getRows() && m_colSize == B.getCols()) {
@@ -157,7 +153,6 @@ Matrix Matrix::operator/(Matrix& B){
     return result;
 }
 
-// Scalar Addition
 Matrix Matrix::operator+(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
@@ -167,7 +162,6 @@ Matrix Matrix::operator+(double scalar){
     return result;
 }
 
-// Scalar Subraction
 Matrix Matrix::operator-(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
@@ -177,7 +171,6 @@ Matrix Matrix::operator-(double scalar){
     return result;
 }
 
-// Scalar Multiplication
 Matrix Matrix::operator*(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
@@ -187,7 +180,6 @@ Matrix Matrix::operator*(double scalar){
     return result;
 }
 
-// Scalar Division
 Matrix Matrix::operator/(double scalar){
     Matrix result(m_rowSize,m_colSize,0.0);
     #pragma omp parallel for num_threads(16)
@@ -197,12 +189,10 @@ Matrix Matrix::operator/(double scalar){
     return result;
 }
 
-// Returns value of given location when asked in the form A(x,y)
 double& Matrix::operator()(const unsigned &rowNo, const unsigned & colNo) {
     return this->m_matrix[rowNo][colNo];
 }
 
-// Returns value of given location when asked in the form A(x)
 double& Matrix::operator()(const unsigned & colNo) {
     if (m_rowSize == 1 && m_colSize > colNo)
         return m_matrix[0][colNo];
@@ -222,7 +212,6 @@ unsigned Matrix::getCols() const {
     return this->m_colSize;
 }
 
-// Take any given matrices transpose and returns another matrix
 Matrix Matrix::transpose() const {
     Matrix Transpose(m_colSize, m_rowSize, 0.0);
     #pragma omp parallel for num_threads(16)
@@ -321,7 +310,6 @@ Matrix Matrix::clip(double min, double max) const {
     return res;
 }
 
-
 Matrix Matrix::max() const {
     Matrix res(1, m_colSize);
     for (unsigned i = 0; i < m_colSize; i++) {
@@ -333,6 +321,23 @@ Matrix Matrix::max() const {
         res(i) = max;
     }
     return res;
+}
+
+Matrix Matrix::copy() const {
+    Matrix copy(m_colSize, m_colSize);
+    #pragma omp parallel for num_threads(16)
+    for (unsigned i = 0; i < m_rowSize; i++) {
+        for (unsigned j = 0; j < m_colSize; j++) {
+           copy(i,j) = m_matrix[i][j];
+        }
+    }
+    return copy;
+}
+
+void Matrix::shuffleMatrix(int seed) {
+    *this = this->transpose();
+    shuffle(m_matrix.begin(), m_matrix.end(), default_random_engine(seed));
+    *this = this->transpose();
 }
 
 //___________ACTIVATION__________
@@ -393,7 +398,6 @@ Matrix Matrix::softmax_prime() {
 
 
 //___________PRINT__________
-// Prints the matrix beautifully
 void Matrix::printMatrix() const {
     cout << "Matrix: " << endl;
     for (unsigned i = 0; i < m_rowSize; i++) {

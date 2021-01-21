@@ -7,6 +7,7 @@
 #include <cmath>
 #include <random> // Random numbers
 #include <stdexcept>
+#include <bits/stdc++.h> // Shuffle data
 #include "activation.hh"
 
 using namespace std;
@@ -14,7 +15,7 @@ using namespace std;
 class Matrix {
     private:
 
-    unsigned m_rowSize{};
+        unsigned m_rowSize{};
         unsigned m_colSize{};
         vector<vector<double> > m_matrix;
 
@@ -74,6 +75,12 @@ class Matrix {
 
         // Given a Matrix returns its maximum value
         Matrix max() const;
+
+        // Given a Matrix returns a shallow copy
+        Matrix copy() const;
+
+        // Given a Matrix shuffles its columns randomly
+        void shuffleMatrix(int seed);
 
         //___________ACTIVATION__________
         Matrix sigmoid();
