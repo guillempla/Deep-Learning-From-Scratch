@@ -1,5 +1,3 @@
-# Source code
-
 ## TODO:
 
 - [x] Activation functions
@@ -46,9 +44,13 @@
   - [x] Predict
   - [ ] Mini-Batch
     - [ ] Random shuffle data
-    - [ ] Create $\frac{num\_examples}{bach\_size}$ batches
+    - [x] Create $\frac{num\_examples}{bach\_size}$ batches
+  - [ ] L2 Regularization
+    - [x] Add regularization parameter
+    - [ ] Change costs
+    - [ ] Change costs derivatives
 - [ ] Fine-Tune
-  - [ ] Update Hyperparameters
+  - [ ] Update Hyper-parameters
   - [ ] Early stop
 - [x] Main
   - [x] Read data
