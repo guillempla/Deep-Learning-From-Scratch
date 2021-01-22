@@ -77,8 +77,8 @@ void Layer::update_parameters(double learning_rate) {
     // cout << "    Layer::update_parameters" << endl;
     Matrix Waux = dW*learning_rate;
     Matrix baux = db*learning_rate;
-    W = W - Waux;
-    b = b - baux;
+    W = W + Waux;
+    b = b + baux;
 }
 
 
