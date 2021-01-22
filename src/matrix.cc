@@ -8,7 +8,7 @@ Matrix::Matrix() = default;
 Matrix::Matrix(unsigned m, unsigned n) {
     m_rowSize = m;
     m_colSize = n;
-    this->m_matrix.resize(m);
+    m_matrix.resize(m);
     #pragma omp parallel for num_threads(16)
     for (unsigned i = 0; i < m; i++)
         m_matrix[i].resize(n, 0.0);
@@ -31,6 +31,7 @@ Matrix::Matrix(unsigned m, unsigned n, bool glorot, unsigned seed) {
     }
 
 }
+
 Matrix::Matrix(unsigned m, unsigned n, bool glorot) {
     m_rowSize = m;
     m_colSize = n;
@@ -332,6 +333,27 @@ Matrix Matrix::copy() const {
         }
     }
     return copy;
+}
+
+void Matrix::copyFragment(Matrix& m, int axis, int size) {
+    if (axis == 0) {
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++) {
+            for (unsigned j = 0; j < m_colSize; j++) {
+                m_matrix[i][j] = m(i+size,j);
+            }
+        }
+    }
+    else if (axis == 1) {
+        #pragma omp parallel for num_threads(16)
+        for (unsigned i = 0; i < m_rowSize; i++) {
+            for (unsigned j = 0; j < m_colSize; j++) {
+                m_matrix[i][j] = m(i,j+size);
+            }
+        }
+    }
+    else
+        throw invalid_argument("ERROR copy_fragment: Wrong axis value!");
 }
 
 void Matrix::shuffleMatrix(int seed) {

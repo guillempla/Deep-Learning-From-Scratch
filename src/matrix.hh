@@ -79,6 +79,9 @@ class Matrix {
         // Given a Matrix returns a shallow copy
         Matrix copy() const;
 
+        // Given a Matrix returns a fragment of that Matrix starting at 'start' and finishing at 'finish'-1
+        void copyFragment(Matrix& m, int axis, int size);
+
         // Given a Matrix shuffles its columns randomly
         void shuffleMatrix(int seed);
 
