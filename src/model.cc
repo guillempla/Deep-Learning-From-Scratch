@@ -1,31 +1,41 @@
 #include "model.hh"
 
 //___________CONSTRUCTORS__________
-Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, unsigned epochs, unsigned C) {
+Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, int epochs, int batch_size, double C) {
     // cout << "Model::Initializing model" << endl;
     this->X = X;
     this->Y = Y;
+
     this->learning_rate = learning_rate;
     this->epochs = epochs;
+    this->batch_size = batch_size;
     this->loss = loss;
     this->C = C;
-    this->initialize_layers(layers_dims, layers_type, X.getCols());
+
+    this->num_batches = ceil(X.getCols()/batch_size);
+
+    this->initialize_layers(layers_dims, layers_type, num_batches);
 }
 
 
 //___________SETTERS__________
 Matrix Model::train() {
     Matrix costs(1, epochs);
-    for (unsigned i = 0; i < epochs; i++) {
-        feed_forward();
-        costs(i) = compute_cost();
-        if (i % 1 == 0) {
-            cout << "Iteration: " << i << endl;
-            cout << "Cost: " << costs(i) << endl;
-            cout << "Accuracy: " << compute_accuracy() << endl;
+    for (int i = 0; i < epochs; i++) {
+        for (int j = 0; j < num_batches; j++) {
+            Matrix batch_x = get_batch_x(j);
+            Matrix batch_y = get_batch_y(j);
+
+            feed_forward(batch_x);
+            costs(i) = compute_cost(batch_y);
+            if (i % 5 == 0 && j % 100 == 0) {
+                cout << "Epoch: " << i << " Batch: " << j << endl;
+                cout << "Cost: " << costs(i) << endl;
+                cout << "Accuracy: " << compute_accuracy(batch_y) << endl;
+            }
+            back_propagate(batch_x, batch_y);
+            update_parameters();
         }
-        back_propagate();
-        update_parameters();
     }
     return costs;
 }
@@ -38,20 +48,20 @@ Matrix Model::predict(Matrix& input) {
     return A_prev;
 }
 
-void Model::feed_forward() {
+void Model::feed_forward(Matrix& input) {
     // cout << "Model::feed_forward" << endl;
-    Matrix* A_prev = &X;
+    Matrix* A_prev = &input;
     for (auto& layer: this->layers)
         A_prev = layer.feed_forward(*A_prev);
 }
 
-void Model::back_propagate() {
+void Model::back_propagate(Matrix& input, Matrix& output) {
     // cout << "Model::back_propagate" << endl;
-    Matrix dA = derivate_cost();
+    Matrix dA = derivate_cost(output);
     for (int i = (int)layers.size()-1; i >= 0; i--) {
         auto& layer = this->layers[i];
         layer.set_activation_gradient(dA);
-        Matrix* A_prev = get_previous_activation(i);
+        Matrix* A_prev = get_previous_activation(input, i);
         dA = layer.back_propagate(*A_prev);
     }
 }
@@ -62,22 +72,22 @@ void Model::update_parameters() {
         layer.update_parameters(learning_rate);
 }
 
-double Model::compute_cost() {
+double Model::compute_cost(Matrix& output) {
     Matrix* AL = layers[layers.size()-1].get_activation();
     if (loss == "mean_square")
-        return Loss::mean_square(Y, *AL);
+        return Loss::mean_square(output, *AL);
     else if (loss == "cross_entropy")
-        return Loss::cross_entropy(Y, *AL);
+        return Loss::cross_entropy(output, *AL);
     else if (loss == "binary_cross_entropy")
-        return Loss::binary_cross_entropy(Y, *AL);
+        return Loss::binary_cross_entropy(output, *AL);
     else
         throw invalid_argument("ERROR compute_cost: Wrong error function!");
 }
 
-double Model::compute_accuracy() {
+double Model::compute_accuracy(Matrix& output) {
     Matrix* AL = layers[layers.size()-1].get_activation();
     Matrix y_hat = Data_processing::convert_binary_matrix(*AL);
-    Matrix y = Data_processing::convert_binary_matrix(Y);
+    Matrix y = Data_processing::convert_binary_matrix(output);
 
     double hits = 0.0;
     #pragma omp parallel for reduction (+:hits) num_threads(16)
@@ -101,19 +111,50 @@ void Model::initialize_layers(const vector<unsigned>& layers_dims, const vector<
     }
 }
 
-Matrix* Model::get_previous_activation(unsigned i) {
-    return i == 0 ? &X : layers[i - 1].get_activation();
+Matrix Model::get_batch_x(int i) {
+    int start = i*batch_size;
+    int finish = min(start+batch_size, (int)X.getCols());
+    Matrix batch_x(X.getRows(), finish-start);
+    batch_x.copyFragment(X, 1, start);
+    return batch_x;
+}
+Matrix Model::get_batch_y(int i) {
+    int start = i*batch_size;
+    int finish = min(start+batch_size, (int)Y.getCols());
+    Matrix batch_y(Y.getRows(), finish-start);
+    batch_y.copyFragment(Y, 1, start);
+    return batch_y;
 }
 
-Matrix Model::derivate_cost() {
+// TODO Remove memory leak (shuffle)
+Matrix Model::shuffle_inputs(int seed) {
+    cout << "    Model::shuffle_inputs" << endl;
+    Matrix x_shuffle = X.copy();
+    x_shuffle.shuffleMatrix(seed);
+    return x_shuffle;
+}
+
+// TODO Remove memory leak (shuffle)
+Matrix Model::shuffle_outputs(int seed) {
+    cout << "    Model::shuffle_outputs" << endl;
+    Matrix y_shuffle = Y.copy();
+    y_shuffle.shuffleMatrix(seed);
+    return y_shuffle;
+}
+
+Matrix* Model::get_previous_activation(Matrix& input, unsigned i) {
+    return i == 0 ? &input : layers[i - 1].get_activation();
+}
+
+Matrix Model::derivate_cost(Matrix& output) {
     Matrix* AL = layers[layers.size() - 1].get_activation();
     Matrix dA(AL->getRows(), AL->getCols());
     if (loss == "mean_square")
-        dA = Loss::mean_square_prime(Y, *AL);
+        dA = Loss::mean_square_prime(output, *AL);
     else if (loss == "cross_entropy")
-        dA = Loss::cross_entropy_prime(Y, *AL);
+        dA = Loss::cross_entropy_prime(output, *AL);
     else if (loss == "binary_cross_entropy")
-        dA = Loss::binary_cross_entropy_prime(Y, *AL);
+        dA = Loss::binary_cross_entropy_prime(output, *AL);
     else
         throw invalid_argument("ERROR derivate_cost: Wrong error function!");
     return dA;
