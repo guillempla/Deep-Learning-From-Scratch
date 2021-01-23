@@ -60,14 +60,15 @@ Matrix* Layer::feed_forward(Matrix& A_prev) {
     return &A;
 }
 
-Matrix Layer::back_propagate(Matrix& A_prev) {
+Matrix Layer::back_propagate(Matrix& A_prev, double lambd) {
     // cout << "    Layer::Initialized back_propagate" << endl;
 
     activation_backward();
 
     double m = A_prev.getCols();
     Matrix A_prevT = A_prev.transpose();
-    dW = (dZ*A_prevT)/m;
+    Matrix W_l2 = W*(lambd/m);
+    dW = (dZ*A_prevT)/m + W_l2;
     db = (dZ.sum(1)/m).transpose();
     Matrix dA_prev = W.transpose()*dZ;
     return dA_prev;
@@ -81,9 +82,12 @@ void Layer::update_parameters(double learning_rate) {
     b = b + baux;
 }
 
+Matrix *Layer::get_weights() {
+    return &W;
+}
 
 Matrix* Layer::get_activation() {
-    return &(this->A);
+    return &A;
 }
 
 //___________PRIVATE__________

@@ -1,7 +1,7 @@
 #include "model.hh"
 
 //___________CONSTRUCTORS__________
-Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, int epochs, int batch_size, double C) {
+Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, int epochs, int batch_size, double lamdb) {
     // cout << "Model::Initializing model" << endl;
     this->X = X;
     this->Y = Y;
@@ -10,7 +10,7 @@ Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<
     this->epochs = epochs;
     this->batch_size = batch_size;
     this->loss = loss;
-    this->C = C;
+    this->lambd = lambd;
 
     this->num_batches = ceil(X.getCols()/batch_size);
 
@@ -19,25 +19,26 @@ Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<
 
 
 //___________SETTERS__________
-Matrix Model::train() {
-    Matrix costs(1, epochs);
+void Model::train() {
+    // first batch used for testing accuracy
+    Matrix x_dev = get_batch_x(0);
+    Matrix y_dev = get_batch_y(0);
+
     for (int i = 0; i < epochs; i++) {
-        for (int j = 0; j < num_batches; j++) {
+        for (int j = 1; j < num_batches; j++) {
             Matrix batch_x = get_batch_x(j);
             Matrix batch_y = get_batch_y(j);
 
             feed_forward(batch_x);
-            costs(i) = compute_cost(batch_y);
-            if (i % 5 == 0 && j % 200 == 0) {
+            if (i % 1 == 0 && j % 200 == 0) {
                 cout << "Epoch: " << i << " Batch: " << j << endl;
-                cout << "Cost: " << costs(i) << endl;
-                cout << "Accuracy: " << compute_accuracy(batch_y) << endl;
+                cout << "Cost: " << compute_cost(batch_y) << endl;
+                cout << "Accuracy: " << compute_accuracy(x_dev, y_dev) << endl;
             }
             back_propagate(batch_x, batch_y);
             update_parameters();
         }
     }
-    return costs;
 }
 
 Matrix Model::predict(Matrix& input) {
@@ -62,7 +63,7 @@ void Model::back_propagate(Matrix& input, Matrix& output) {
         auto& layer = this->layers[i];
         layer.set_activation_gradient(dA);
         Matrix* A_prev = get_previous_activation(input, i);
-        dA = layer.back_propagate(*A_prev);
+        dA = layer.back_propagate(*A_prev, lambd);
     }
 }
 
@@ -79,14 +80,16 @@ double Model::compute_cost(Matrix& output) {
     else if (loss == "cross_entropy")
         return Loss::cross_entropy(output, *AL);
     else if (loss == "binary_cross_entropy")
-        return Loss::binary_cross_entropy(output, *AL);
+        return Loss::binary_cross_entropy(output, *AL) + (lambd/(2*output.getCols()))*l2_regularization();
     else
         throw invalid_argument("ERROR compute_cost: Wrong error function!");
 }
 
-double Model::compute_accuracy(Matrix& output) {
+double Model::compute_accuracy(Matrix& input, Matrix& output) {
+    Matrix predictions = predict(input);
+
     Matrix* AL = layers[layers.size()-1].get_activation();
-    Matrix y_hat = Data_processing::convert_binary_matrix(*AL);
+    Matrix y_hat = Data_processing::convert_binary_matrix(predictions);
     Matrix y = Data_processing::convert_binary_matrix(output);
 
     double hits = 0.0;
@@ -159,3 +162,17 @@ Matrix Model::derivate_cost(Matrix& output) {
         throw invalid_argument("ERROR derivate_cost: Wrong error function!");
     return dA;
 }
+
+double Model::l2_regularization() const {
+    double sum = 0.0;
+    for (auto layer: layers) {
+        Matrix* W = layer.get_weights();
+        sum += frobenius_norm(*W);
+    }
+    return sum;
+}
+
+double Model::frobenius_norm(Matrix& W) {
+    return W.square().sum(1).sum();
+}
+
