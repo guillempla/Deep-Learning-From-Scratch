@@ -28,7 +28,7 @@ Matrix Model::train() {
 
             feed_forward(batch_x);
             costs(i) = compute_cost(batch_y);
-            if (i % 5 == 0 && j % 100 == 0) {
+            if (i % 5 == 0 && j % 200 == 0) {
                 cout << "Epoch: " << i << " Batch: " << j << endl;
                 cout << "Cost: " << costs(i) << endl;
                 cout << "Accuracy: " << compute_accuracy(batch_y) << endl;
