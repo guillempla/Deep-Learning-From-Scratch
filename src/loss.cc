@@ -8,7 +8,7 @@ Loss::Loss() = default;
 
 //___________GETTERS__________
 double Loss::mean_square(Matrix& y_true, Matrix& y_pred) {
-    Matrix loss = (y_true-y_pred).pow2Matrix();
+    Matrix loss = (y_true - y_pred).square();
     Matrix aux = (loss.sum(1))/y_pred.getCols();
     return aux.sum()/aux.getRows();
 }
@@ -50,3 +50,5 @@ Matrix Loss::binary_cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
     Matrix denom_clip = denom.clip(EPSILON, 1-EPSILON);
     return (y_true - y_pred) / denom_clip;
 }
+
+

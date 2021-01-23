@@ -13,6 +13,7 @@ using namespace std;
 class Loss {
     private:
 
+
     public:
         //___________CONSTRUCTORS__________
         Loss();
@@ -34,7 +35,6 @@ class Loss {
 
         static double binary_cross_entropy(Matrix& y_true, Matrix& y_pred);
         static Matrix binary_cross_entropy_prime(Matrix& y_true, Matrix& y_pred);
-
 };
 
 #endif

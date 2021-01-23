@@ -68,7 +68,7 @@ class Matrix {
         Matrix logMatrix() const;
 
         // Given a Matrix returns a Matrix with all its elements multiplied by itself
-        Matrix pow2Matrix() const;
+        Matrix square() const;
 
         // Given a Matrix returns a Matrix clipped by min and max
         Matrix clip(double min, double max) const;
