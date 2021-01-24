@@ -21,7 +21,7 @@ double Loss::cross_entropy(Matrix& y_true, Matrix& y_pred) {
     Matrix y_pred_clip = y_pred.clip(EPSILON, 1-EPSILON);
     Matrix y_pred_log = y_pred_clip.logMatrix();
     Matrix loss = y_true.mulElementWise(y_pred_log);
-    return - (loss.sum(0)).sum()/y_true.getCols();
+    return - (loss.sum(0)).sum()/(y_true.getCols()*y_true.getRows());
 }
 
 Matrix Loss::cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
@@ -50,5 +50,3 @@ Matrix Loss::binary_cross_entropy_prime(Matrix& y_true, Matrix& y_pred) {
     Matrix denom_clip = denom.clip(EPSILON, 1-EPSILON);
     return (y_true - y_pred) / denom_clip;
 }
-
-
