@@ -6,27 +6,17 @@
 Layer::Layer(string type, unsigned num_examples, unsigned layer_size, unsigned prev_size) {
     this->type = move(type);
 
-    // unsigned seed = 1;
-
     this->b = Matrix(1, layer_size, 0.0);
     this->W = Matrix(layer_size, prev_size, true);
-
-    // cout << "        Layer::Finished b,W" << endl;
 
     this->db = Matrix(1, layer_size, 0.0);
     this->dW = Matrix(layer_size, prev_size, 0.0);
 
-    // cout << "        Layer::Finished db,dW" << endl;
-
     this->Z = Matrix(layer_size, num_examples);
     this->A = Matrix(layer_size, num_examples);
 
-    // cout << "        Layer::Finished Z,A" << endl;
-
     this->dZ = Matrix(layer_size, num_examples);
     this->dA = Matrix(layer_size, num_examples);
-
-    // cout << "        Layer::Finished dZ,dA" << endl;
 }
 
 void Layer::set_activation_gradient(Matrix& dA) {
@@ -34,7 +24,6 @@ void Layer::set_activation_gradient(Matrix& dA) {
 }
 
 Matrix Layer::predict(Matrix& A_prev) {
-    // cout << "    Layer::predict" << endl;
     Matrix Zaux = W*A_prev + b;
     if (type == "sigmoid")
         return Zaux.sigmoid();
@@ -47,7 +36,6 @@ Matrix Layer::predict(Matrix& A_prev) {
 }
 
 Matrix* Layer::feed_forward(Matrix& A_prev) {
-    // cout << "    Layer::feed_forward" << endl;
     Z = W*A_prev + b;
     if (type == "sigmoid")
         A = Z.sigmoid();
@@ -61,8 +49,6 @@ Matrix* Layer::feed_forward(Matrix& A_prev) {
 }
 
 Matrix Layer::back_propagate(Matrix& A_prev, double lambd) {
-    // cout << "    Layer::Initialized back_propagate" << endl;
-
     activation_backward();
 
     double m = A_prev.getCols();
@@ -75,7 +61,6 @@ Matrix Layer::back_propagate(Matrix& A_prev, double lambd) {
 }
 
 void Layer::update_parameters(double learning_rate) {
-    // cout << "    Layer::update_parameters" << endl;
     Matrix Waux = dW*learning_rate;
     Matrix baux = db*learning_rate;
     W = W + Waux;
@@ -93,19 +78,16 @@ Matrix* Layer::get_activation() {
 //___________PRIVATE__________
 void Layer::activation_backward() {
     if (type == "sigmoid") {
-        // cout << "    Layer::Type Sigmoid" << endl;
         Matrix g_prime = A.sigmoid_prime();
         dZ = dA.mulElementWise(g_prime);
     }
     else if (type == "relu"){
-        // cout << "    Layer::Type ReLu" << endl;
         Matrix g_prime = Z.relu_prime();
         dZ = dA.mulElementWise(g_prime);
     }
     else if (type == "softmax") {
-        // cout << "    Layer::Type Softmax" << endl;
-        Matrix g_prime = Z.softmax_prime();
-        dZ = dA.mulElementWise(g_prime);
+        // This is not mathematically correct but its simplier
+        dZ = dA;
     }
     else
         throw invalid_argument("ERROR back_propagate: Wrong layer type!");
