@@ -27,7 +27,7 @@
   - [x] OpenMP implementation
 - [x] Layer
   - [x] Initialize parameters
-- [ ] Model
+- [x] Model
   - [x] Initialize parameters
   - [x] Train
     - [x] Feed Forward
@@ -37,13 +37,15 @@
       - [x] Calculate accuracy
     - [x] Update parameters
   - [x] Predict
-  - [ ] Mini-Batch
-    - [ ] Random shuffle data
+  - [x] Mini-Batch
+    - [x] Random shuffle data
     - [x] Create $\frac{num\_examples}{bach\_size}$ batches
-  - [x] L2 Regularization
-    - [x] Add regularization parameter
-    - [x] Change costs
-    - [x] Change costs derivatives
+  - [ ] Regularization
+    - [ ] Dropout
+    - [x] L2
+      - [x] Add regularization parameter
+      - [x] Change costs
+      - [x] Change costs derivatives
 - [ ] Fine-Tune
   - [ ] Update Hyper-parameters
 - [x] Early stop
