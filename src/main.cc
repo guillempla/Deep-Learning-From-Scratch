@@ -5,26 +5,7 @@
 #include "data_processing.hh"
 #include "matrix.hh"
 
-void test() {
-    //Matrix m1(256,736);
-    //for (unsigned i = 0; i < m1.getRows(); i++) {
-    //    for (unsigned j = 0; j < m1.getCols(); j++) {
-    //        m1(i,j) = i+j;
-    //    }
-    //}
-    random_device rd;
-    int seed = rd();
-    Matrix m2(3,4,true);
-    Matrix m3(1,4, true);
-    cout << "m2 "; m2.printMatrix();
-    m2.shuffleMatrix(seed);
-    cout << "m2 shuffled "; m2.printMatrix();
-    cout << "m3 "; m3.printMatrix();
-    m3.shuffleMatrix(seed);
-    cout << "m3 shuffled "; m3.printMatrix();
-}
-
-void real_main() {
+int main() {
     cout << "Started ./network" << endl;
 
     Data_processing d;
@@ -47,9 +28,4 @@ void real_main() {
 
     d.write_predictions(predictions);
     cout << "Finished writing predictions" << endl;
-}
-
-int main() {
-    //test();
-    real_main();
 }
