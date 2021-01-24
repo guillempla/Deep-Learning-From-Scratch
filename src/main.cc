@@ -36,7 +36,7 @@ void real_main() {
 
     vector<unsigned> layers_dims{ x_train.getRows(), 256, 64, 10 };
     vector<string> layers_type{ "relu", "relu", "sigmoid" };
-    Model m(x_train, y_train, "binary_cross_entropy", layers_dims, layers_type, 0.001, 60, 64, 0.7);
+    Model m(x_train, y_train, "binary_cross_entropy", layers_dims, layers_type, 0.001, 35, 32, 0.7);
     cout << "Finished initalizing" << endl;
 
     m.train();
