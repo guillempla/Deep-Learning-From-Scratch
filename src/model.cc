@@ -1,10 +1,15 @@
 #include "model.hh"
 
 //___________CONSTRUCTORS__________
-Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, int epochs, int batch_size, double lamdb) {
+Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, int epochs, int batch_size, double lambd) {
     // cout << "Model::Initializing model" << endl;
     this->X = X;
     this->Y = Y;
+
+    random_device rd;
+    int seed = rd();
+    this->X.shuffleMatrix(seed);
+    this->Y.shuffleMatrix(seed);
 
     this->learning_rate = learning_rate;
     this->epochs = epochs;
@@ -21,23 +26,24 @@ Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<
 //___________SETTERS__________
 void Model::train() {
     // first batch used for testing accuracy
-    Matrix x_dev = get_batch_x(0);
-    Matrix y_dev = get_batch_y(0);
+    Matrix x_dev = get_batch_x(0, 3*batch_size);
+    Matrix y_dev = get_batch_y(0, 3*batch_size);
 
     for (int i = 0; i < epochs; i++) {
-        for (int j = 1; j < num_batches; j++) {
-            Matrix batch_x = get_batch_x(j);
-            Matrix batch_y = get_batch_y(j);
+        for (int j = 3; j < num_batches; j++) {
+            Matrix batch_x = get_batch_x(j, batch_size);
+            Matrix batch_y = get_batch_y(j, batch_size);
 
             feed_forward(batch_x);
-            if (i % 1 == 0 && j % 200 == 0) {
-                cout << "Epoch: " << i << " Batch: " << j << endl;
-                cout << "Cost: " << compute_cost(batch_y) << endl;
-                cout << "Accuracy: " << compute_accuracy(x_dev, y_dev) << endl;
-            }
+            //if (i % 1 == 0 && j % 200 == 0) {
+            //    cout << "Epoch: " << i << " Batch: " << j << endl;
+            //    cout << "Cost: " << compute_cost(batch_y) << endl;
+            //}
             back_propagate(batch_x, batch_y);
             update_parameters();
         }
+        cout << "Epoch: " << i << " ";
+        cout << "Accuracy: " << compute_accuracy(x_dev, y_dev) << endl;
     }
 }
 
@@ -88,7 +94,6 @@ double Model::compute_cost(Matrix& output) {
 double Model::compute_accuracy(Matrix& input, Matrix& output) {
     Matrix predictions = predict(input);
 
-    Matrix* AL = layers[layers.size()-1].get_activation();
     Matrix y_hat = Data_processing::convert_binary_matrix(predictions);
     Matrix y = Data_processing::convert_binary_matrix(output);
 
@@ -114,35 +119,19 @@ void Model::initialize_layers(const vector<unsigned>& layers_dims, const vector<
     }
 }
 
-Matrix Model::get_batch_x(int i) {
-    int start = i*batch_size;
-    int finish = min(start+batch_size, (int)X.getCols());
+Matrix Model::get_batch_x(int i, int size) {
+    int start = i*size;
+    int finish = min(start+size, (int)X.getCols());
     Matrix batch_x(X.getRows(), finish-start);
     batch_x.copyFragment(X, 1, start);
     return batch_x;
 }
-Matrix Model::get_batch_y(int i) {
-    int start = i*batch_size;
-    int finish = min(start+batch_size, (int)Y.getCols());
+Matrix Model::get_batch_y(int i, int size) {
+    int start = i*size;
+    int finish = min(start+size, (int)Y.getCols());
     Matrix batch_y(Y.getRows(), finish-start);
     batch_y.copyFragment(Y, 1, start);
     return batch_y;
-}
-
-// TODO Remove memory leak (shuffle)
-Matrix Model::shuffle_inputs(int seed) {
-    cout << "    Model::shuffle_inputs" << endl;
-    Matrix x_shuffle = X.copy();
-    x_shuffle.shuffleMatrix(seed);
-    return x_shuffle;
-}
-
-// TODO Remove memory leak (shuffle)
-Matrix Model::shuffle_outputs(int seed) {
-    cout << "    Model::shuffle_outputs" << endl;
-    Matrix y_shuffle = Y.copy();
-    y_shuffle.shuffleMatrix(seed);
-    return y_shuffle;
 }
 
 Matrix* Model::get_previous_activation(Matrix& input, unsigned i) {

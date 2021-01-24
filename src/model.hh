@@ -27,11 +27,8 @@ class Model {
 
         void initialize_layers(const vector<unsigned>& layer_dims, const vector<string>& layers_type, unsigned num_examples);
 
-        Matrix get_batch_x(int i);
-        Matrix get_batch_y(int i);
-
-        Matrix shuffle_inputs(int seed);
-        Matrix shuffle_outputs(int seed);
+        Matrix get_batch_x(int i, int size);
+        Matrix get_batch_y(int i, int size);
 
         Matrix* get_previous_activation(Matrix& input, unsigned i);
 
