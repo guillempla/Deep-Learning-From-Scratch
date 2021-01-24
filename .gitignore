@@ -38,3 +38,8 @@
 # Main exe
 main
 network
+
+# Idea files
+.idea
+cmake-build-debug
+CMakeLists.txt
