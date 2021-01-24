@@ -1,8 +1,0 @@
-<StrictConfusionMatrix>
-  <totalPopulation>10000</totalPopulation>
-  <overallAccuracy>0.8011</overallAccuracy>
-  <averageAccuracy>0.8</averageAccuracy>
-  <meanClassificationAccuracy>0.8005500000000001</meanClassificationAccuracy>
-  <randomAgreementProbability>0.10034201</randomAgreementProbability>
-  <kappa>0.7789159856180459</kappa>
-</StrictConfusionMatrix>
