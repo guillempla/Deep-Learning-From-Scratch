@@ -2,7 +2,6 @@
 
 //___________CONSTRUCTORS__________
 Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<unsigned>& layers_dims, const vector<string>& layers_type, double learning_rate, int epochs, int batch_size, double lambd) {
-    // cout << "Model::Initializing model" << endl;
     this->X = X;
     this->Y = Y;
 
@@ -25,7 +24,7 @@ Model::Model(const Matrix& X, const Matrix& Y, const string& loss, const vector<
 
 //___________SETTERS__________
 void Model::train() {
-    // first batch used for testing accuracy
+    // first three batches used for testing accuracy
     Matrix x_dev = get_batch_x(0, 3*batch_size);
     Matrix y_dev = get_batch_y(0, 3*batch_size);
 
@@ -48,7 +47,6 @@ void Model::train() {
 }
 
 Matrix Model::predict(Matrix& input) {
-    // cout << "Model::predict" << endl;
     Matrix A_prev = input;
     for (auto& layer: this->layers)
         A_prev = layer.predict(A_prev);
@@ -56,14 +54,12 @@ Matrix Model::predict(Matrix& input) {
 }
 
 void Model::feed_forward(Matrix& input) {
-    // cout << "Model::feed_forward" << endl;
     Matrix* A_prev = &input;
     for (auto& layer: this->layers)
         A_prev = layer.feed_forward(*A_prev);
 }
 
 void Model::back_propagate(Matrix& input, Matrix& output) {
-    // cout << "Model::back_propagate" << endl;
     Matrix dA = derivate_cost(output);
     for (int i = (int)layers.size()-1; i >= 0; i--) {
         auto& layer = this->layers[i];
@@ -74,7 +70,6 @@ void Model::back_propagate(Matrix& input, Matrix& output) {
 }
 
 void Model::update_parameters() {
-    // cout << "Model::update_parameters" << endl;
     for (auto& layer: layers)
         layer.update_parameters(learning_rate);
 }
